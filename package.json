@@ -1,0 +1,13 @@
+{
+    "name": "@vitriolum/common",
+    "version": "1.0.0",
+    "description": "Common classes for vitriolum",
+    "main": "",
+    "author": "Renat Gubaev",
+    "license": "ISC",
+    "dependencies": {
+        "@ts-core/common": "~3.0.46",
+        "@ts-core/oauth": "~3.1.6"
+    },
+    "devDependencies": {}
+}

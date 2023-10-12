@@ -1,9 +1,11 @@
 
-import { TransformUtil, TransportHttp, ITransportHttpSettings, DateUtil, TraceUtil, ILogger } from '@ts-core/common';
+import { TransformUtil, TransportHttp, ITransportHttpSettings, DateUtil, TraceUtil, ILogger, LoggerLevel } from '@ts-core/common';
 import { IInitDto, IInitDtoResponse, ILoginDto, ILoginDtoResponse } from './login';
-import { IUserGetDtoResponse, IUserEditDto, IUserEditDtoResponse } from './user';
+import { IUserGetDtoResponse, IUserEditDto, IUserEditDtoResponse, UserUID } from './user';
 import { User } from '../user';
 import * as _ from 'lodash';
+import { LocaleProject } from './locale';
+import { IOAuthPopUpDto } from '@ts-core/oauth';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
     // --------------------------------------------------------------------------
@@ -23,8 +25,15 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     //
     // --------------------------------------------------------------------------
 
-    constructor(logger: ILogger, url?: string) {
-        super(logger, { method: 'get', baseURL: url, isHandleError: true, isHandleLoading: true, headers: {} });
+    constructor(logger: ILogger, url?: string, level?: LoggerLevel) {
+        super(logger, { method: 'get', isHandleError: true, isHandleLoading: true, headers: {} });
+
+        if (!_.isNil(url)) {
+            this.url = url;
+        }
+        if (!_.isNil(level)) {
+            this.level = level;
+        }
     }
 
     // --------------------------------------------------------------------------
@@ -53,14 +62,28 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     //
     // --------------------------------------------------------------------------
 
-    public async userGet(id: number): Promise<IUserGetDtoResponse> {
-        let item = await this.call<User>(`${USER_URL}/${id}`);
+    public async userGet(uid: UserUID): Promise<IUserGetDtoResponse> {
+        let item = await this.call<IUserGetDtoResponse>(`${USER_URL}/${uid}`);
         return TransformUtil.toClass(User, item);
     }
 
     public async userEdit(data: IUserEditDto): Promise<IUserEditDtoResponse> {
         let item = await this.call<IUserEditDtoResponse, IUserEditDto>(`${USER_URL}/${data.uid}`, { method: 'put', data: TraceUtil.addIfNeed(data) });
         return TransformUtil.toClass(User, item);
+    }
+
+    // --------------------------------------------------------------------------
+    //
+    //  Other Methods
+    //
+    // --------------------------------------------------------------------------
+
+    public async oauth(state: string): Promise<IOAuthPopUpDto> {
+        return this.call<IOAuthPopUpDto>(`${OAUTH_URL}/${state}`, { data: TraceUtil.addIfNeed({}) });
+    }
+
+    public async locale(project: LocaleProject, locale: string, version?: string): Promise<any> {
+        return this.call<any>(`${LOCALE_URL}/${project}/${locale}`, { data: { version } });
     }
 
     //--------------------------------------------------------------------------
@@ -74,12 +97,17 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
             this.headers.Authorization = `Bearer ${value}`;
         }
     }
+
+    public get oauthRedirectUrl(): string {
+        return `${this.url}${OAUTH_URL}`;
+    }
 }
 
 const PREFIX = 'api/';
 
 export const USER_URL = PREFIX + 'user';
 export const OAUTH_URL = PREFIX + 'oauth';
+export const LOCALE_URL = PREFIX + 'locale';
 
 export const INIT_URL = PREFIX + 'init';
 export const LOGIN_URL = PREFIX + 'login';

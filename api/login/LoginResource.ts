@@ -4,4 +4,5 @@ export enum LoginResource {
     YANDEX = 'YANDEX',
     GOOGLE = 'GOOGLE',
     ETHEREUM = 'ETHEREUM',
+    VK_INTERNAL = 'VK_INTERNAL',
 }

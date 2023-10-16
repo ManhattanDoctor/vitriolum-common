@@ -1,0 +1,30 @@
+export interface ITaskData {
+    request_id: number;
+    session_id: string;
+    vram_usage_level: string;
+    use_face_correction: boolean;
+    use_upscale: boolean;
+    upscale_amount: number;
+    latent_upscaler_steps: number;
+    use_stable_diffusion_model: string;
+    use_vae_model: string;
+    use_hypernetwork_model: boolean;
+    use_lora_model: boolean;
+    use_controlnet_model: boolean;
+    use_embeddings_model: boolean;
+    filters: Array<string>;
+    filter_params: any;
+    control_filter_to_apply: null;
+    show_only_filtered_image: boolean;
+    block_nsfw: boolean;
+    stream_image_progress: boolean;
+    stream_image_progress_interval: string;
+    clip_skip: boolean;
+    codeformer_upscale_faces: boolean;
+    codeformer_fidelity: number;
+    output_format: string;
+    output_quality: number;
+    output_lossless: boolean;
+    save_to_disk_path: string;
+    metadata_output_format: string;
+}

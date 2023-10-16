@@ -5,6 +5,7 @@ import { File } from '../file';
 import * as _ from 'lodash';
 
 export class Person {
+    uid: string;
     age?: number;
     name: string;
     role?: string;

@@ -1,7 +1,11 @@
 export interface IPingDtoResponse {
-    status: string;
     tasks: Record<string, string>;
+    status: PingStatus;
     devices: IDevices;
+}
+
+enum PingStatus {
+    ONLINE = 'Online'
 }
 
 export interface IDevices {

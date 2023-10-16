@@ -1,7 +1,9 @@
 
 import { TransportHttp, ITransportHttpSettings, ILogger, LoggerLevel } from '@ts-core/common';
-import * as _ from 'lodash';
 import { IPingDtoResponse } from './IPingDto';
+import { IStreamDto } from './IStreamDto';
+import { IRenderDto, IRenderDtoResponse } from './IRenderDto';
+import * as _ from 'lodash';
 
 export class EasyClient extends TransportHttp<ITransportHttpSettings> {
 
@@ -28,8 +30,16 @@ export class EasyClient extends TransportHttp<ITransportHttpSettings> {
     //
     // --------------------------------------------------------------------------
 
-    public async ping(data: string): Promise<IPingDtoResponse> {
-        return this.call<IPingDtoResponse>(PING_URL, {});
+    public async ping(): Promise<IPingDtoResponse> {
+        return this.call<IPingDtoResponse>(PING_URL);
+    }
+
+    public async render(data: IRenderDto): Promise<IRenderDtoResponse> {
+        return this.call<IRenderDtoResponse, IRenderDto>(RENDER_URL, { method: 'post', data });
+    }
+
+    public async stream(id: string): Promise<IStreamDto> {
+        return this.call<IStreamDto>(`${STREAM_URL}/${id}`);
     }
 
     // --------------------------------------------------------------------------
@@ -44,5 +54,5 @@ const PREFIX = '/';
 
 export const PING_URL = PREFIX + 'ping';
 export const RENDER_URL = PREFIX + 'render';
-export const IMAGE_STREAM_URL = PREFIX + 'image/stream';
+export const STREAM_URL = PREFIX + 'image/stream';
 

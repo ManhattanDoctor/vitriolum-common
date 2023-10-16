@@ -6,6 +6,8 @@ import { User } from '../user';
 import * as _ from 'lodash';
 import { LocaleProject } from './locale';
 import { IOAuthPopUpDto } from '@ts-core/oauth';
+import { IPersonAddDto, IPersonAddDtoResponse } from './person';
+import { Person } from '../lib/person';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
     // --------------------------------------------------------------------------
@@ -74,6 +76,17 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
 
     // --------------------------------------------------------------------------
     //
+    //  Person Methods
+    //
+    // --------------------------------------------------------------------------
+
+    public async personAdd(data: IPersonAddDto): Promise<IPersonAddDtoResponse> {
+        let item = await this.call<IPersonAddDtoResponse, IPersonAddDto>(PERSON_URL, { method: 'post', data: TraceUtil.addIfNeed(data) });
+        return TransformUtil.toClass(Person, item);
+    }
+
+    // --------------------------------------------------------------------------
+    //
     //  Other Methods
     //
     // --------------------------------------------------------------------------
@@ -108,6 +121,7 @@ const PREFIX = 'api/';
 export const USER_URL = PREFIX + 'user';
 export const OAUTH_URL = PREFIX + 'oauth';
 export const LOCALE_URL = PREFIX + 'locale';
+export const PERSON_URL = PREFIX + 'person';
 
 export const INIT_URL = PREFIX + 'init';
 export const LOGIN_URL = PREFIX + 'login';

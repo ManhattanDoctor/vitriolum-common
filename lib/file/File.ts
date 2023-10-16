@@ -2,10 +2,21 @@ import { Type } from 'class-transformer';
 import { FileBlob } from './FileBlob';
 
 export class File {
-    url: string;
+    id: number;
+    uid: string;
+    type: string;
+    name: string;
+    path: string;
+    size: number;
     mime: string;
-    blob?: FileBlob;
+    hash: string;
     extension: string;
+
+    linkId: number;
+    linkType: string;
+
+    @Type(() => FileBlob)
+    blob?: FileBlob;
 
     @Type(() => Date)
     createdDate: Date;

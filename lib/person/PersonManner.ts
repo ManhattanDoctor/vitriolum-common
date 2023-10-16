@@ -1,10 +1,7 @@
 import * as _ from 'lodash';
-import { Type } from 'class-transformer';
 
 export class PersonManner {
+    type: string;
     name: string;
-    description: string;
-
-    @Type(() => Date)
-    createdDate: Date;
+    description?: string;
 }

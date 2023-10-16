@@ -5,11 +5,11 @@ import { Person, PersonManner, PersonPrivacy } from '../../lib/person';
 export interface IPersonAddDto extends ITraceable {
     name: string;
     role: string;
-    manner: PersonManner;
+    manner: Partial<PersonManner>;
     privacy: PersonPrivacy;
 
     voiceId?: number;
-    
+
     age?: number;
     locale?: string;
     avatar?: string;

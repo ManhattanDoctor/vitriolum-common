@@ -1,5 +1,5 @@
 import { EasyClient } from "./EasyClient";
-import { AiTask, IAiTaskProgress } from "../AITask";
+import { AiTask, IAiTaskProgress } from "../AiTask";
 
 export class EasyTask extends AiTask<any> {
     // --------------------------------------------------------------------------

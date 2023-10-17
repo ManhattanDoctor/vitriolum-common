@@ -6,7 +6,7 @@ import { User } from '../user';
 import * as _ from 'lodash';
 import { LocaleProject } from './locale';
 import { IOAuthPopUpDto } from '@ts-core/oauth';
-import { IPersonAddDto, IPersonAddDtoResponse } from './person';
+import { IPersonAddDto, IPersonGetDto, IPersonGetDtoResponse } from './person';
 import { Person } from '../lib/person';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
@@ -80,8 +80,13 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     //
     // --------------------------------------------------------------------------
 
-    public async personAdd(data: IPersonAddDto): Promise<IPersonAddDtoResponse> {
-        let item = await this.call<IPersonAddDtoResponse, IPersonAddDto>(PERSON_URL, { method: 'post', data: TraceUtil.addIfNeed(data) });
+    public async personAdd(data: IPersonAddDto): Promise<IPersonGetDtoResponse> {
+        let item = await this.call<IPersonGetDtoResponse, IPersonAddDto>(PERSON_URL, { method: 'post', data: TraceUtil.addIfNeed(data) });
+        return TransformUtil.toClass(Person, item);
+    }
+
+    public async personGet(data: IPersonGetDto): Promise<IPersonGetDtoResponse> {
+        let item = await this.call<IPersonGetDtoResponse, IPersonGetDto>(PERSON_URL, { data: TraceUtil.addIfNeed(data) });
         return TransformUtil.toClass(Person, item);
     }
 

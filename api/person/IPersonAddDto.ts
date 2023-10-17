@@ -19,4 +19,3 @@ export interface IPersonAddDto extends ITraceable {
     longitude?: number;
     description?: string;
 }
-export declare type IPersonAddDtoResponse = Person;

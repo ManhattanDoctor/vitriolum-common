@@ -85,8 +85,8 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return TransformUtil.toClass(Person, item);
     }
 
-    public async personGet(data: IPersonGetDto): Promise<IPersonGetDtoResponse> {
-        let item = await this.call<IPersonGetDtoResponse, IPersonGetDto>(PERSON_URL, { data: TraceUtil.addIfNeed(data) });
+    public async personGet(uid: string, data?: IPersonGetDto): Promise<IPersonGetDtoResponse> {
+        let item = await this.call<IPersonGetDtoResponse, IPersonGetDto>(`${PERSON_URL}/${uid}`, { data: TraceUtil.addIfNeed(data) });
         return TransformUtil.toClass(Person, item);
     }
 

@@ -13,7 +13,7 @@ export interface IPersonAddDto extends ITraceable {
     age?: number;
     locale?: string;
     avatar?: string;
-    isMale?: boolean;
+    species?: string;
     location?: string;
     latitude?: number;
     longitude?: number;

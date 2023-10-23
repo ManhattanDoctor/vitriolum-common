@@ -9,8 +9,8 @@ export class Person {
     age?: number;
     name: string;
     role?: string;
-    isMale?: boolean;
     locale?: string;
+    species?: string;
     privacy: PersonPrivacy;
     location?: string;
     latitude?: number;

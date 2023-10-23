@@ -5,8 +5,8 @@ import { Person, PersonManner, PersonPrivacy } from '../../lib/person';
 export interface IPersonAddDto extends ITraceable {
     name: string;
     role: string;
-    manner: Partial<PersonManner>;
     privacy: PersonPrivacy;
+    manners: Array<Partial<PersonManner>>;
 
     voiceId?: number;
 
@@ -18,4 +18,5 @@ export interface IPersonAddDto extends ITraceable {
     latitude?: number;
     longitude?: number;
     description?: string;
+    descriptionShort?: string;
 }

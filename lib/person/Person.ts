@@ -8,15 +8,15 @@ export class Person {
     uid: string;
     age?: number;
     name: string;
-    role?: PersonLocale;
-    locale?: string;
+    role?: string;
+    locale?: PersonLocale;
     species?: string;
     privacy: PersonPrivacy;
     location?: string;
     latitude?: number;
     longitude?: number;
     description?: string;
-    
+
     @Type(() => File)
     video?: File;
     @Type(() => File)
@@ -49,17 +49,23 @@ export enum PersonPrivacy {
     PRIVATE = 'PRIVATE',
 }
 
-export const NAME_MIN_LENGTH = 3;
-export const NAME_MAX_LENGTH = 64;
+export const PERSON_NAME_MIN_LENGTH = 3;
+export const PERSON_NAME_MAX_LENGTH = 64;
 
 export const PERSON_ROLE_MIN_LENGTH = 1;
 export const PERSON_ROLE_MAX_LENGTH = 128;
 
+export const PERSON_LOCALE_MIN_LENGTH = 2;
+export const PERSON_LOCALE_MAX_LENGTH = 4;
+
 export const PERSON_SPECIES_MIN_LENGTH = 1;
 export const PERSON_SPECIES_MAX_LENGTH = 128;
 
-export const DESCRIPTION_MIN_LENGTH = 4;
-export const DESCRIPTION_MAX_LENGTH = 256;
+export const PERSON_LOCATION_MIN_LENGTH = 1;
+export const PERSON_LOCATION_MAX_LENGTH = 256;
 
-export const DESCRIPTION_SHORT_MIN_LENGTH = 4;
-export const DESCRIPTION_SHORT_MAX_LENGTH = 32;
+export const PERSON_DESCRIPTION_MIN_LENGTH = 4;
+export const PERSON_DESCRIPTION_MAX_LENGTH = 256;
+
+export const PERSON_DESCRIPTION_SHORT_MIN_LENGTH = 4;
+export const PERSON_DESCRIPTION_SHORT_MAX_LENGTH = 32;

@@ -10,5 +10,6 @@ export const PERSON_LOCALE_PREFIXES = [
     'User.json',
 
     'Main.json',
-    'About.json'
+    'About.json',
+    'Person.json',
 ];

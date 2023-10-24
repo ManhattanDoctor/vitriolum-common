@@ -1,12 +1,12 @@
 
 import { ITraceable } from '@ts-core/common';
-import { Person, PersonManner, PersonPrivacy } from '../../lib/person';
+import { PersonManner, PersonPrivacy } from '../../lib/person';
 
 export interface IPersonAddDto extends ITraceable {
     name: string;
     role: string;
     privacy: PersonPrivacy;
-    manners: Array<Partial<PersonManner>>;
+    manners: Array<PersonManner>;
 
     voiceId?: number;
 

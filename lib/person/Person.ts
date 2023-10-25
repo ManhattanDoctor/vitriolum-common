@@ -16,6 +16,7 @@ export class Person {
     latitude?: number;
     longitude?: number;
     description?: string;
+    descriptionShort: string;
 
     @Type(() => File)
     video?: File;

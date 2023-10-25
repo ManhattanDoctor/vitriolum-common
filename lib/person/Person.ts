@@ -6,8 +6,10 @@ import * as _ from 'lodash';
 
 export class Person {
     uid: string;
-    age?: number;
     name: string;
+    userId: number;
+
+    age?: number;
     role?: string;
     locale?: PersonLocale;
     species?: string;

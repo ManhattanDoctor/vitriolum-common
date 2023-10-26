@@ -90,6 +90,10 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return TransformUtil.toClass(Person, item);
     }
 
+    public async personRemove(uid: string): Promise<void> {
+        return this.call<void, void>(`${PERSON_URL}/${uid}`, { method: 'delete' });
+    }
+
     public async personList(data: IPersonListDto): Promise<IPersonListDtoResponse> {
         let item = await this.call<IPersonListDtoResponse, IPersonListDto>(PERSON_URL, { data: TraceUtil.addIfNeed(data) });
         item.items = TransformUtil.toClassMany(Person, item.items);

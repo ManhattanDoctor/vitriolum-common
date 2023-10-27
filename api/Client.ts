@@ -8,6 +8,8 @@ import { LocaleProject } from './locale';
 import { IOAuthPopUpDto } from '@ts-core/oauth';
 import { IPersonAddDto, IPersonGetDto, IPersonGetDtoResponse, IPersonListDto, IPersonListDtoResponse } from './person';
 import { Person } from '../lib/person';
+import { IPersonTaskDto } from './person';
+import { IPersonTaskDtoResponse } from './person';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
     // --------------------------------------------------------------------------
@@ -100,6 +102,11 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return item;
     }
 
+    public async personTask(data: IPersonTaskDto): Promise<IPersonTaskDtoResponse> {
+        let item = await this.call<IPersonTaskDtoResponse, IPersonTaskDto>(PERSON_TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' });
+        return item;
+    }
+
     // --------------------------------------------------------------------------
     //
     //  Other Methods
@@ -137,6 +144,7 @@ export const USER_URL = PREFIX + 'user';
 export const OAUTH_URL = PREFIX + 'oauth';
 export const LOCALE_URL = PREFIX + 'locale';
 export const PERSON_URL = PREFIX + 'person';
+export const PERSON_TASK_URL = PREFIX + 'personTask';
 
 export const INIT_URL = PREFIX + 'init';
 export const LOGIN_URL = PREFIX + 'login';

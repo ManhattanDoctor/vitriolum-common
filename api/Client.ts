@@ -107,6 +107,10 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return item;
     }
 
+    public async personTaskAbort(session: string): Promise<void> {
+        return this.call<void, void>(`${PERSON_TASK_URL}/${session}`, { method: 'delete' });
+    }
+
     // --------------------------------------------------------------------------
     //
     //  Other Methods

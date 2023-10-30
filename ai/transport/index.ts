@@ -1,2 +1,2 @@
-export * from './IAiTaskEventDto';
+export * from './AiTaskEventDto';
 export * from './AiTaskProgressedEvent';

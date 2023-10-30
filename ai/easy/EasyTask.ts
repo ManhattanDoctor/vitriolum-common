@@ -1,7 +1,7 @@
 import { EasyClient } from "./EasyClient";
 import { AiTask, IAiTaskProgress } from "../AiTask";
 
-export class EasyTask extends AiTask<any> {
+export abstract class EasyTask extends AiTask<any, any> {
     // --------------------------------------------------------------------------
     //
     //  Properties

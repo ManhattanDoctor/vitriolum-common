@@ -3,10 +3,11 @@ import { ITraceable } from '@ts-core/common';
 import { IPersonDto } from './IPersonDto';
 import { AiModel } from '../../ai';
 
-export interface IPersonTaskDto extends ITraceable {
-    task: PersonTask;
+export interface IPersonTaskDto<T = PersonTask> extends ITraceable {
+    task: T;
     model: AiModel;
     person: IPersonDto;
+    session?: string;
 }
 
 export type PersonTask = IPersonTextTaskDto | IPersonImageTaskDto;

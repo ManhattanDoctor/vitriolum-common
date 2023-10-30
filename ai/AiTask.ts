@@ -2,7 +2,7 @@ import { DateUtil, ExtendedError, Loadable, LoadableStatus, ObservableData } fro
 import { Observable, filter, map } from "rxjs";
 import * as _ from 'lodash';
 
-export abstract class AiTask<T> extends Loadable<AiTaskEvent, AiTaskEventDto>  {
+export abstract class AiTask<U, V> extends Loadable<AiTaskEvent, AiTaskEventDto>  {
     // --------------------------------------------------------------------------
     //
     //  Properties
@@ -11,7 +11,7 @@ export abstract class AiTask<T> extends Loadable<AiTaskEvent, AiTaskEventDto>  {
 
     protected _timer: any;
     protected _error: ExtendedError;
-    protected _result: T;
+    protected _result: V;
     protected _progress: IAiTaskProgress;
     protected progressCheckDelay: number = DateUtil.MILLISECONDS_SECOND;
 
@@ -49,6 +49,10 @@ export abstract class AiTask<T> extends Loadable<AiTaskEvent, AiTaskEventDto>  {
     //
     // --------------------------------------------------------------------------
 
+    public abstract run(params: U): Promise<V>;
+
+    public abstract abort(): Promise<void>;
+
     public destroy(): void {
         if (this.isDestroyed) {
             return;
@@ -56,6 +60,7 @@ export abstract class AiTask<T> extends Loadable<AiTaskEvent, AiTaskEventDto>  {
         super.destroy();
         this.timer = null;
         this._error = null;
+        this._result = null;
         this._progress = null;
     }
 
@@ -84,10 +89,16 @@ export abstract class AiTask<T> extends Loadable<AiTaskEvent, AiTaskEventDto>  {
     //
     // --------------------------------------------------------------------------
 
+    public get error(): ExtendedError {
+        return this._error;
+    }
+    public get result(): V {
+        return this._result;
+    }
+
     public get progress(): IAiTaskProgress {
         return this._progress;
     }
-
     public get progressed(): Observable<IAiTaskProgress> {
         return this.events.pipe(
             filter(item => item.type === AiTaskEvent.PROGRESSED),
@@ -100,9 +111,9 @@ export enum AiTaskEvent {
     PROGRESSED = 'PROGRESSED'
 }
 export interface IAiTaskProgress<T = string> {
-    data: T;
-    total: number;
-    percent: number;
-    current: number;
+    data?: T;
+    total?: number;
+    percent?: number;
+    current?: number;
 }
 export type AiTaskEventDto = IAiTaskProgress;

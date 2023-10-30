@@ -17,6 +17,8 @@ export enum ErrorCode {
     PERSON_NOT_FOUND = 'PERSON_NOT_FOUND',
     PERSON_FORBIDDEN = 'PERSON_FORBIDDEN',
     PERSON_MANNER_NOT_FOUND = 'PERSON_MANNER_NOT_FOUND',
+
+    AI_MODEL_NOT_FOUND = 'AI_MODEL_NOT_FOUND',
 }
 
 export interface IInvalidDto<T = any> {

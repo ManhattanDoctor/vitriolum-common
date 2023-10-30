@@ -1,4 +1,5 @@
 import { TransportEvent } from "@ts-core/common";
+import { IAiTaskEventDto } from "./AiTaskEventDto";
 
 export class AiTaskProgressedEvent extends TransportEvent<IAiTaskProgressDto>{
     // --------------------------------------------------------------------------
@@ -20,9 +21,9 @@ export class AiTaskProgressedEvent extends TransportEvent<IAiTaskProgressDto>{
     }
 }
 
-export interface IAiTaskProgressDto<T = string> {
+export interface IAiTaskProgressDto<T = string> extends IAiTaskEventDto {
     data?: T;
-    total: number;
-    percent: number;
-    current: number;
+    total?: number;
+    percent?: number;
+    current?: number;
 }

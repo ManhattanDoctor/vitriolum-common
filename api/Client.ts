@@ -103,7 +103,7 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     }
 
     public async personTask(data: IPersonTaskDto): Promise<IPersonTaskDtoResponse> {
-        let item = await this.call<IPersonTaskDtoResponse, IPersonTaskDto>(PERSON_TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' });
+        let item = await this.call<IPersonTaskDtoResponse, IPersonTaskDto>(PERSON_TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post', timeout: 5 * DateUtil.MILLISECONDS_MINUTE });
         return item;
     }
 

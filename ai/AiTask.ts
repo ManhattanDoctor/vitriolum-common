@@ -108,6 +108,8 @@ export abstract class AiTask<U, V> extends Loadable<AiTaskEvent, AiTaskEventDto>
 }
 
 export enum AiTaskEvent {
+    STARTED = 'STARTED',
+    FINISHED = 'FINISHED',
     PROGRESSED = 'PROGRESSED'
 }
 export interface IAiTaskProgress<T = string> {

@@ -10,6 +10,7 @@ import { IPersonAddDto, IPersonGetDto, IPersonGetDtoResponse, IPersonListDto, IP
 import { Person } from '../lib/person';
 import { IPersonTaskDto } from './person';
 import { IPersonTaskDtoResponse } from './person';
+import { Task } from './task';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
     // --------------------------------------------------------------------------
@@ -102,15 +103,20 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return item;
     }
 
-    public async personTask(data: IPersonTaskDto): Promise<IPersonTaskDtoResponse> {
-        let item = await this.call<IPersonTaskDtoResponse, IPersonTaskDto>(PERSON_TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post', timeout: 5 * DateUtil.MILLISECONDS_MINUTE });
-        return item;
+    public async personTask<T extends Task = Task>(data: IPersonTaskDto<T>): Promise<IPersonTaskDtoResponse> {
+        return this.call<IPersonTaskDtoResponse, IPersonTaskDto<T>>(PERSON_TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout: 5 * DateUtil.MILLISECONDS_MINUTE });
     }
 
-    public async personTaskAbort(session: string): Promise<void> {
-        return this.call<void, void>(`${PERSON_TASK_URL}/${session}`, { method: 'delete' });
-    }
+    // --------------------------------------------------------------------------
+    //
+    //  Task Methods
+    //
+    // --------------------------------------------------------------------------
 
+    public async taskAbort(session: string): Promise<void> {
+        return this.call<void, void>(`${TASK_URL}/${session}`, { method: 'delete' });
+    }
+    
     // --------------------------------------------------------------------------
     //
     //  Other Methods
@@ -144,6 +150,7 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
 
 const PREFIX = 'api/';
 
+export const TASK_URL = PREFIX + 'task';
 export const USER_URL = PREFIX + 'user';
 export const OAUTH_URL = PREFIX + 'oauth';
 export const LOCALE_URL = PREFIX + 'locale';

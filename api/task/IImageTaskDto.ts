@@ -1,4 +1,4 @@
 export interface IImageTaskDto {
-    positivePrompt: string;
+    prompt: string;
     negativePrompt?: string;
 }

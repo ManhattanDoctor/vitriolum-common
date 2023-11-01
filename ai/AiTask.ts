@@ -1,4 +1,4 @@
-import { DateUtil, ExtendedError, Loadable, LoadableStatus, ObservableData } from "@ts-core/common";
+import { DateUtil, Loadable, LoadableStatus, ObservableData } from "@ts-core/common";
 import { Observable, filter, map } from "rxjs";
 import * as _ from 'lodash';
 
@@ -10,10 +10,21 @@ export abstract class AiTask<U, V> extends Loadable<AiTaskEvent, AiTaskEventDto>
     // --------------------------------------------------------------------------
 
     protected _timer: any;
-    protected _error: ExtendedError;
-    protected _result: V;
     protected _progress: IAiTaskProgress;
-    protected progressCheckDelay: number = DateUtil.MILLISECONDS_SECOND;
+    protected progressDelay: number;
+
+    // --------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    // --------------------------------------------------------------------------
+
+    constructor(progressDelay?: number) {
+        super();
+        if (_.isNil(progressDelay)) {
+            this.progressDelay = DateUtil.MILLISECONDS_SECOND;
+        }
+    }
 
     // --------------------------------------------------------------------------
     //
@@ -38,7 +49,7 @@ export abstract class AiTask<U, V> extends Loadable<AiTaskEvent, AiTaskEventDto>
 
     protected commitStatusChangedProperties(oldStatus: LoadableStatus, newStatus: LoadableStatus): void {
         super.commitStatusChangedProperties(oldStatus, newStatus);
-        this.timer = newStatus === LoadableStatus.LOADING ? setInterval(this.progressCheckHandler, this.progressCheckDelay) : null;
+        this.timer = newStatus === LoadableStatus.LOADING ? setInterval(this.progressCheckHandler, this.progressDelay) : null;
     }
 
     protected progressCheckHandler = (): Promise<void> => this.progressCheck();
@@ -59,8 +70,6 @@ export abstract class AiTask<U, V> extends Loadable<AiTaskEvent, AiTaskEventDto>
         }
         super.destroy();
         this.timer = null;
-        this._error = null;
-        this._result = null;
         this._progress = null;
     }
 
@@ -89,13 +98,6 @@ export abstract class AiTask<U, V> extends Loadable<AiTaskEvent, AiTaskEventDto>
     //
     // --------------------------------------------------------------------------
 
-    public get error(): ExtendedError {
-        return this._error;
-    }
-    public get result(): V {
-        return this._result;
-    }
-
     public get progress(): IAiTaskProgress {
         return this._progress;
     }
@@ -108,8 +110,6 @@ export abstract class AiTask<U, V> extends Loadable<AiTaskEvent, AiTaskEventDto>
 }
 
 export enum AiTaskEvent {
-    STARTED = 'STARTED',
-    FINISHED = 'FINISHED',
     PROGRESSED = 'PROGRESSED'
 }
 export interface IAiTaskProgress<T = string> {

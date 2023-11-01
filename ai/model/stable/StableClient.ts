@@ -1,11 +1,11 @@
 
-import { TransportHttp, ITransportHttpSettings, ILogger, LoggerLevel } from '@ts-core/common';
+import { TransportHttp, ITransportHttpSettings, ObjectUtil, ILogger, LoggerLevel } from '@ts-core/common';
 import { IPingDtoResponse } from './IPingDto';
-import { IStreamDto } from './IStreamDto';
+import { StreamDtoResponse } from './IStreamDto';
 import { IRenderDto, IRenderDtoResponse } from './IRenderDto';
 import * as _ from 'lodash';
 
-export class EasyClient extends TransportHttp<ITransportHttpSettings> {
+export class StableClient extends TransportHttp<ITransportHttpSettings> {
 
     // --------------------------------------------------------------------------
     //
@@ -38,21 +38,40 @@ export class EasyClient extends TransportHttp<ITransportHttpSettings> {
         return this.call<IRenderDtoResponse, IRenderDto>(RENDER_URL, { method: 'post', data });
     }
 
-    public async stream(id: string): Promise<IStreamDto> {
-        return this.call<IStreamDto>(`${STREAM_URL}/${id}`);
+    public async stop(id: number): Promise<any> {
+        return this.call(STOP_URL, { data: { task: id } });
     }
 
-    // --------------------------------------------------------------------------
-    //
-    //  User Methods
-    //
-    // --------------------------------------------------------------------------
+    public async stream(id: number): Promise<StreamDtoResponse> {
+        let item = null;
+        try {
+            item = await this.call(`${STREAM_URL}/${id}`);
+        }
+        catch (error) {
+            if (error.code !== 425) {
+                throw error;
+            }
+        }
+        if (_.isEmpty(item)) {
+            return null;
+        }
+        if (!_.isString(item)) {
+            return item;
+        }
+        item = `{${_.last(item.split('}{'))}`;
+        return ObjectUtil.isJSON(item) ? JSON.parse(item) : null;
+    }
 
+    public getImageUrl(id: number, index: number): string {
+        return `${this.url}${IMAGE_URL}/${id}/${index}`;
+    }
 }
 
 const PREFIX = '/';
 
 export const PING_URL = PREFIX + 'ping';
 export const RENDER_URL = PREFIX + 'render';
+export const IMAGE_URL = PREFIX + 'image/tmp';
+export const STOP_URL = PREFIX + 'image/stop';
 export const STREAM_URL = PREFIX + 'image/stream';
 

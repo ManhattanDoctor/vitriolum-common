@@ -1,4 +1,5 @@
-export interface IRenderData {
+
+export interface IRenderRequest {
     prompt: string;
     seed: number;
     used_random_seed: boolean;
@@ -30,5 +31,23 @@ export interface IRenderData {
     use_lora_model: string;
     lora_alpha: number;
     tiling: string;
-    session_id: number;
+    session_id: string;
+}
+export interface IRenderResponse {
+    data: string;
+    seed: string;
+    path_abs: string;
+}
+
+export interface IRenderDto extends Partial<IRenderRequest> { }
+
+export interface IRenderDtoResponse {
+    task: number;
+    queue: number;
+    stream: string;
+    status: RenderStatus;
+}
+
+export enum RenderStatus {
+    ONLINE = 'Online'
 }

@@ -9,8 +9,8 @@ import { IOAuthPopUpDto } from '@ts-core/oauth';
 import { IPersonAddDto, IPersonGetDto, IPersonGetDtoResponse, IPersonListDto, IPersonListDtoResponse } from './person';
 import { Person } from '../lib/person';
 import { IPersonTaskDto } from './person';
-import { IPersonTaskDtoResponse } from './person';
 import { Task } from './task';
+import { ITaskDtoResponse } from './task';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
     // --------------------------------------------------------------------------
@@ -103,8 +103,8 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return item;
     }
 
-    public async personTask<T extends Task = Task>(data: IPersonTaskDto<T>): Promise<IPersonTaskDtoResponse> {
-        return this.call<IPersonTaskDtoResponse, IPersonTaskDto<T>>(PERSON_TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout: 5 * DateUtil.MILLISECONDS_MINUTE });
+    public async personTask(data: IPersonTaskDto): Promise<ITaskDtoResponse> {
+        return this.call<ITaskDtoResponse, IPersonTaskDto>(PERSON_TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout: 5 * DateUtil.MILLISECONDS_MINUTE });
     }
 
     // --------------------------------------------------------------------------

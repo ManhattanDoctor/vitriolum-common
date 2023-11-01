@@ -1,8 +1,7 @@
-import { ITaskDto, Task } from '../task';
+import { ITextTaskDto } from '../task';
+import { ITaskDto } from '../task';
 import { IPersonDto } from './IPersonDto';
 
-export interface IPersonTaskDto<T extends Task> extends ITaskDto<T> {
+export interface IPersonTaskDto extends ITaskDto<ITextTaskDto> {
     person: IPersonDto;
 }
-
-export declare type IPersonTaskDtoResponse = string;

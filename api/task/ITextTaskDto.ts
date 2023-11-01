@@ -1,7 +1,7 @@
-export interface ITextTaskDto {
+export interface ITextTaskDto  { 
     task: string;
+    role?: string;
     manner?: string;
-    species?: string;
     context?: string;
     example?: string;
 }

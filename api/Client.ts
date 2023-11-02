@@ -117,12 +117,12 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return this.call<ITaskDtoResponse, ITaskDto>(TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout });
     }
 
-    public async taskAbort(session: string): Promise<void> {
-        return this.call<void, void>(`${TASK_URL}/${session}`, { method: 'delete' });
+    public async taskAbort(session: string, isHandleError: boolean = false): Promise<void> {
+        return this.call<void, void>(`${TASK_URL}/${session}`, { method: 'delete', isHandleError });
     }
 
-    public async taskProgress(session: string): Promise<IAiTaskProgress<ITaskProgress>> {
-        return this.call<IAiTaskProgress<ITaskProgress>>(`${TASK_URL}/${session}`, { method: 'get' });
+    public async taskProgress(session: string, isHandleError: boolean = false): Promise<IAiTaskProgress<ITaskProgress>> {
+        return this.call<IAiTaskProgress<ITaskProgress>>(`${TASK_URL}/${session}`, { method: 'get', isHandleError });
     }
 
     // --------------------------------------------------------------------------

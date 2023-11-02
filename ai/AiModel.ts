@@ -1,12 +1,11 @@
 export enum AiTextModel {
-    GPT_4 = 'gpt-4',
-    GPT_4_32K = 'gpt-4-32k',
-    GPT_35_TURBO = 'gpt-3.5-turbo'
+    CHAT_GTP_4 = 'CHAT_GTP_4',
+    CHAT_GTP_4_32 = 'CHAT_GTP_4_32',
+    CHAT_GTP_35_TURBO = 'CHAT_GTP_35_TURBO'
 }
 export enum AiImageModel {
     STABLE_DIFFUSION = 'STABLE_DIFFUSION',
 }
-
 export interface IAiModelTextOptions {
     temperature?: number;
 }

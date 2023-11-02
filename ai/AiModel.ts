@@ -1,7 +1,8 @@
 export enum AiTextModel {
     CHAT_GTP_4 = 'CHAT_GTP_4',
-    CHAT_GTP_4_32 = 'CHAT_GTP_4_32',
-    CHAT_GTP_35_TURBO = 'CHAT_GTP_35_TURBO'
+    CHAT_GTP_4_32K = 'CHAT_GTP_4_32K',
+    CHAT_GTP_35 = 'CHAT_GTP_35',
+    CHAT_GTP_35_16K = 'CHAT_GTP_35_16K',
 }
 export enum AiImageModel {
     STABLE_DIFFUSION = 'STABLE_DIFFUSION',

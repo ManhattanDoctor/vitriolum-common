@@ -1,7 +1,7 @@
 import { TransportEvent } from "@ts-core/common";
 import { IAiTaskEventDto } from "./AiTaskEventDto";
 
-export class AiTaskProgressedEvent extends TransportEvent<IAiTaskProgressDto>{
+export class AiTaskProgressedEvent<T> extends TransportEvent<IAiTaskProgressDto<T>>{
     // --------------------------------------------------------------------------
     //
     //  Public Static Properties
@@ -16,12 +16,12 @@ export class AiTaskProgressedEvent extends TransportEvent<IAiTaskProgressDto>{
     //
     // --------------------------------------------------------------------------
 
-    constructor(data: IAiTaskProgressDto) {
+    constructor(data: IAiTaskProgressDto<T>) {
         super(AiTaskProgressedEvent.NAME, data);
     }
 }
 
-export interface IAiTaskProgressDto<T = string> extends IAiTaskEventDto {
+export interface IAiTaskProgressDto<T> extends IAiTaskEventDto {
     data?: T;
     total?: number;
     percent?: number;

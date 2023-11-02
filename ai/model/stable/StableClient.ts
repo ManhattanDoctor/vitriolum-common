@@ -1,11 +1,27 @@
 
-import { TransportHttp, ITransportHttpSettings, ObjectUtil, ILogger, LoggerLevel } from '@ts-core/common';
+import { TransportHttp, ITransportHttpSettings, ObjectUtil, ILogger, LoggerLevel, RandomUtil } from '@ts-core/common';
 import { IPingDtoResponse } from './IPingDto';
 import { StreamDtoResponse } from './IStreamDto';
 import { IRenderDto, IRenderDtoResponse } from './IRenderDto';
 import * as _ from 'lodash';
+import { IStreamProgress } from './IStreamDto';
+import { IStreamResult } from './IStreamDto';
 
 export class StableClient extends TransportHttp<ITransportHttpSettings> {
+
+    // --------------------------------------------------------------------------
+    //
+    //  Static Methods
+    //
+    // --------------------------------------------------------------------------
+
+    public static isStreamResult(item: any): item is IStreamResult {
+        return ObjectUtil.hasOwnProperties(item, ['status']);
+    }
+
+    public static isStreamProgress(item: any): item is IStreamProgress {
+        return ObjectUtil.hasOwnProperties(item, ['step', 'total_steps'])
+    }
 
     // --------------------------------------------------------------------------
     //
@@ -26,7 +42,39 @@ export class StableClient extends TransportHttp<ITransportHttpSettings> {
 
     // --------------------------------------------------------------------------
     //
-    //  Auth Methods
+    //  Private Methods
+    //
+    // --------------------------------------------------------------------------
+
+    private parseStream(item: any): StreamDtoResponse {
+        if (_.isEmpty(item)) {
+            return null;
+        }
+        if (!_.isString(item)) {
+            return item;
+        }
+        let items = new Array();
+        let jsons = item.split('}{');
+        for (let i = 0; i < jsons.length; i++) {
+            let item = jsons[i] as any;
+            item = i === 0 ? `${item}}` : `{${item}`;
+            if (!ObjectUtil.isJSON(item)) {
+                continue;
+            }
+            item = JSON.parse(item);
+            items.push(item);
+            if (StableClient.isStreamProgress(item) && !_.isEmpty(item.output)) {
+                item.output = item.output.map(item => {
+                    return { path: `${this.url}${item.path}?r=${RandomUtil.randomNumber(0, 1000000)}` }
+                })
+            }
+        }
+        return _.last(items);
+    }
+
+    // --------------------------------------------------------------------------
+    //
+    //  Public Methods
     //
     // --------------------------------------------------------------------------
 
@@ -52,14 +100,7 @@ export class StableClient extends TransportHttp<ITransportHttpSettings> {
                 throw error;
             }
         }
-        if (_.isEmpty(item)) {
-            return null;
-        }
-        if (!_.isString(item)) {
-            return item;
-        }
-        item = `{${_.last(item.split('}{'))}`;
-        return ObjectUtil.isJSON(item) ? JSON.parse(item) : null;
+        return this.parseStream(item);
     }
 
     public getImageUrl(id: number, index: number): string {

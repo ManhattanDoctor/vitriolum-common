@@ -1,14 +1,15 @@
-import { IRenderRequest, IRenderResponse } from "./IRenderDto";
+import { IRenderOutput, IRenderRequest } from "./IRenderDto";
 
 export interface IStreamProgress {
     step: number,
     step_time: number,
-    total_steps: number
+    total_steps: number,
+    output?: Array<{ path: string }>;
 }
 export interface IStreamResult {
     status: StreamResultStatus,
     detail?: string,
-    output: Array<IRenderResponse>;
+    output: Array<IRenderOutput>;
     render_request: IRenderRequest;
 }
 

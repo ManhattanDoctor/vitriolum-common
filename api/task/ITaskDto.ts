@@ -1,15 +1,13 @@
 import { ITraceable } from "@ts-core/common";
-import { IImageTaskDto } from "./IImageTaskDto";
-import { ITextTaskDto } from "./ITextTaskDto";
-import { AiModel } from "../../ai";
+import { AiModel, AiModelOptions } from "../../ai";
+import { IAiImageTask, IAiImageTaskProgress, IAiImageTaskResponse, IAiTextTask, IAiTextTaskProgress, IAiTextTaskResponse } from "../../ai/task";
 
-export interface ITaskDto<T extends Task = Task> extends ITraceable {
+export interface ITaskDto<T extends ITaskTask = ITaskTask> extends ITraceable {
     task: T;
     model: AiModel;
-    session?: string;
+    options?: AiModelOptions;
 }
 
-
-export declare type ITaskDtoResponse = string | Array<string>
-
-export type Task = ITextTaskDto | IImageTaskDto;
+export type ITaskTask = IAiTextTask | IAiImageTask;
+export type ITaskProgress = IAiTextTaskProgress | IAiImageTaskProgress;
+export type ITaskDtoResponse = IAiTextTaskResponse | IAiImageTaskResponse;

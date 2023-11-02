@@ -31,9 +31,9 @@ export interface IRenderRequest {
     use_lora_model: string;
     lora_alpha: number;
     tiling: string;
-    session_id: string;
+    session_id: number;
 }
-export interface IRenderResponse {
+export interface IRenderOutput {
     data: string;
     seed: string;
     path_abs: string;

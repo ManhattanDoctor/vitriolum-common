@@ -9,8 +9,8 @@ import { IOAuthPopUpDto } from '@ts-core/oauth';
 import { IPersonAddDto, IPersonGetDto, IPersonGetDtoResponse, IPersonListDto, IPersonListDtoResponse } from './person';
 import { Person } from '../lib/person';
 import { IPersonTaskDto } from './person';
-import { Task } from './task';
-import { ITaskDtoResponse } from './task';
+import { ITaskDto, ITaskDtoResponse, ITaskProgress } from './task';
+import { IAiTaskProgress } from '../ai/task';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
     // --------------------------------------------------------------------------
@@ -103,8 +103,8 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return item;
     }
 
-    public async personTask(data: IPersonTaskDto): Promise<ITaskDtoResponse> {
-        return this.call<ITaskDtoResponse, IPersonTaskDto>(PERSON_TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout: 5 * DateUtil.MILLISECONDS_MINUTE });
+    public async personTask(data: IPersonTaskDto, timeout: number = 5 * DateUtil.MILLISECONDS_MINUTE): Promise<ITaskDtoResponse> {
+        return this.call<ITaskDtoResponse, IPersonTaskDto>(PERSON_TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout });
     }
 
     // --------------------------------------------------------------------------
@@ -113,10 +113,18 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     //
     // --------------------------------------------------------------------------
 
+    public async task(data: ITaskDto, timeout: number = 5 * DateUtil.MILLISECONDS_MINUTE): Promise<ITaskDtoResponse> {
+        return this.call<ITaskDtoResponse, ITaskDto>(TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout });
+    }
+
     public async taskAbort(session: string): Promise<void> {
         return this.call<void, void>(`${TASK_URL}/${session}`, { method: 'delete' });
     }
-    
+
+    public async taskProgress(session: string): Promise<IAiTaskProgress<ITaskProgress>> {
+        return this.call<IAiTaskProgress<ITaskProgress>>(`${TASK_URL}/${session}`, { method: 'get' });
+    }
+
     // --------------------------------------------------------------------------
     //
     //  Other Methods

@@ -12,8 +12,8 @@ export type IAiTextTaskProgress = string;
 
 export type IAiTextTaskResponse = string;
 
-export const AI_TEXT_TASK_PROMPT_MIN_LENGTH = 4;
-export const AI_TEXT_TASK_PROMPT_MAX_LENGTH = 8196;
+export const AI_TEXT_TASK_MIN_LENGTH = 4;
+export const AI_TEXT_TASK_MAX_LENGTH = 8196;
 
 export const AI_TEXT_TASK_ROLE_MIN_LENGTH = 4;
 export const AI_TEXT_TASK_ROLE_MAX_LENGTH = 512;

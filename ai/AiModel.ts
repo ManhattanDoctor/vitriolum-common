@@ -1,6 +1,4 @@
-import { AiImageModel, IAiModelImageOptions } from "./AiImageModel";
-import { AiTextModel, IAiModelTextOptions } from "./AiTextModel";
+import { AiImageModel } from "./AiImageModel";
+import { AiTextModel } from "./AiTextModel";
 
 export type AiModel = AiTextModel | AiImageModel;
-
-export type IAiModelOptions = IAiModelTextOptions | IAiModelImageOptions;

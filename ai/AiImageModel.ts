@@ -3,7 +3,7 @@ export enum AiImageModel {
 }
 
 export interface IAiModelImageOptions {
-    seed?: number;
+    seed: number;
     model: string;
     width: number;
     height: number;
@@ -12,6 +12,7 @@ export interface IAiModelImageOptions {
     guidanceScale: number;
     inferenceSteps: number;
     negativePrompt: string;
+    isUsedRandomSeed: boolean;
 }
 
 export const AI_MODEL_IMAGE_OPTIONS_MODEL_MIN_LENGTH = 4;

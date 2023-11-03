@@ -10,7 +10,7 @@ import { IPersonAddDto, IPersonGetDto, IPersonGetDtoResponse, IPersonListDto, IP
 import { Person } from '../lib/person';
 import { IPersonTaskDto } from './person';
 import { ITaskDto, ITaskDtoResponse, ITaskProgress } from './task';
-import { IAiTaskProgress } from '../ai/task';
+import { IAiTaskProgress, IAiTextTaskResponse } from '../ai/task';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
     // --------------------------------------------------------------------------
@@ -103,8 +103,8 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return item;
     }
 
-    public async personTask(data: IPersonTaskDto, timeout: number = 5 * DateUtil.MILLISECONDS_MINUTE): Promise<ITaskDtoResponse> {
-        return this.call<ITaskDtoResponse, IPersonTaskDto>(PERSON_TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout });
+    public async personTask(data: IPersonTaskDto, timeout: number = 5 * DateUtil.MILLISECONDS_MINUTE): Promise<IAiTextTaskResponse> {
+        return this.call<IAiTextTaskResponse, IPersonTaskDto>(PERSON_TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout });
     }
 
     // --------------------------------------------------------------------------
@@ -113,8 +113,8 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     //
     // --------------------------------------------------------------------------
 
-    public async task(data: ITaskDto, timeout: number = 5 * DateUtil.MILLISECONDS_MINUTE): Promise<ITaskDtoResponse> {
-        return this.call<ITaskDtoResponse, ITaskDto>(TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout });
+    public async task<V extends ITaskDtoResponse>(data: ITaskDto, timeout: number = 5 * DateUtil.MILLISECONDS_MINUTE): Promise<V> {
+        return this.call<V, ITaskDto>(TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout });
     }
 
     public async taskAbort(session: string, isHandleError: boolean = false): Promise<void> {

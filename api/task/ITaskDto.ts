@@ -1,11 +1,11 @@
 import { ITraceable } from "@ts-core/common";
-import { AiModel, AiModelOptions } from "../../ai";
+import { AiModel, IAiModelOptions } from "../../ai";
 import { IAiImageTask, IAiImageTaskProgress, IAiImageTaskResponse, IAiTextTask, IAiTextTaskProgress, IAiTextTaskResponse } from "../../ai/task";
 
-export interface ITaskDto<T extends ITaskTask = ITaskTask> extends ITraceable {
+export interface ITaskDto<T extends ITaskTask = ITaskTask, O extends IAiModelOptions = IAiModelOptions> extends ITraceable {
     task: T;
     model: AiModel;
-    options?: AiModelOptions;
+    options: O;
 }
 
 export type ITaskTask = IAiTextTask | IAiImageTask;

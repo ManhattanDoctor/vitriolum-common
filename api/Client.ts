@@ -11,6 +11,7 @@ import { Person } from '../lib/person';
 import { IPersonTaskDto } from './person';
 import { ITaskDto, ITaskDtoResponse, ITaskProgress } from './task';
 import { IAiTaskProgress, IAiTextTaskResponse } from '../ai/task';
+import { IAiModelGetDtoResponse, IAiModelGetDto } from './ai';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
     // --------------------------------------------------------------------------
@@ -127,6 +128,16 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
 
     // --------------------------------------------------------------------------
     //
+    //  Ai Model
+    //
+    // --------------------------------------------------------------------------
+
+    public async aiModelGet(data: IAiModelGetDto): Promise<IAiModelGetDtoResponse> {
+        return this.call<IAiModelGetDtoResponse, IAiModelGetDto>(`${AI_MODEL_URL}/${data.name}`, { data: TraceUtil.addIfNeed(data) });
+    }
+
+    // --------------------------------------------------------------------------
+    //
     //  Other Methods
     //
     // --------------------------------------------------------------------------
@@ -163,6 +174,7 @@ export const USER_URL = PREFIX + 'user';
 export const OAUTH_URL = PREFIX + 'oauth';
 export const LOCALE_URL = PREFIX + 'locale';
 export const PERSON_URL = PREFIX + 'person';
+export const AI_MODEL_URL = PREFIX + 'aimodel';
 export const PERSON_TASK_URL = PREFIX + 'personTask';
 
 export const INIT_URL = PREFIX + 'init';

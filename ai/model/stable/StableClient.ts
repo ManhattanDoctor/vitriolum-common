@@ -51,9 +51,10 @@ export class StableClient extends TransportHttp<ITransportHttpSettings> {
             return null;
         }
         if (!_.isString(item)) {
-            return item;
+            return this.parseStreamItemIfNeed(item);
         }
         let items = new Array();
+        let output = new Array();
         let jsons = item.split('}{');
         for (let i = 0; i < jsons.length; i++) {
             let item = jsons[i] as any;
@@ -61,15 +62,26 @@ export class StableClient extends TransportHttp<ITransportHttpSettings> {
             if (!ObjectUtil.isJSON(item)) {
                 continue;
             }
-            item = JSON.parse(item);
-            items.push(item);
-            if (StableClient.isStreamProgress(item) && !_.isEmpty(item.output)) {
-                item.output = item.output.map(item => {
-                    return { path: `${this.url}${item.path}?r=${RandomUtil.randomNumber(0, 1000000)}` }
-                })
+            item = this.parseStreamItemIfNeed(JSON.parse(item));
+            if (!_.isEmpty(item.output)) {
+                output = item.output;
             }
+            items.push(item);
         }
-        return _.last(items);
+        let last = _.last(items);
+        if (_.isEmpty(last.output)) {
+            last.output = output;
+        }
+        return last;
+    }
+
+    private parseStreamItemIfNeed(item: any): any {
+        if (StableClient.isStreamProgress(item) && !_.isEmpty(item.output)) {
+            item.output = item.output.map(item => {
+                return { path: `${this.url}${item.path}?r=${RandomUtil.randomNumber(0, 1000000)}` }
+            })
+        }
+        return item;
     }
 
     // --------------------------------------------------------------------------

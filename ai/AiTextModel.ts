@@ -1,13 +1,14 @@
 export enum AiTextModel {
-    CHAT_GTP_4 = 'CHAT_GTP_4',
-    CHAT_GTP_4_32K = 'CHAT_GTP_4_32K',
-    CHAT_GTP_35 = 'CHAT_GTP_35',
-    CHAT_GTP_35_16K = 'CHAT_GTP_35_16K',
+    OPEN_AI = 'OPEN_AI'
 }
 
 export interface IAiModelTextOptions {
+    model: string;
     temperature?: number;
 }
 
 export const AI_MODEL_TEXT_OPTIONS_TEMPERATURE_MIN = 0;
 export const AI_MODEL_TEXT_OPTIONS_TEMPERATURE_MAX = 2;
+
+export const AI_MODEL_TEXT_OPTIONS_MODEL_MIN_LENGTH = 4;
+export const AI_MODEL_TEXT_OPTIONS_MODEL_MAX_LENGTH = 128;

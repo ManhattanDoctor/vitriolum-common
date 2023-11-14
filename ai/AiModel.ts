@@ -1,13 +1,8 @@
-import { AiImageModel } from "./AiImageModel";
-import { AiTextModel } from "./AiTextModel";
+import { AiTextModel, AiModelTextDetails } from "./AiTextModel";
+import { AiImageModel, AiModelImageDetails } from "./AiImageModel";
+import { DateUtil } from "@ts-core/common";
 
 export type AiModel = AiTextModel | AiImageModel;
-export type AiModelDetails = IAiTextModelDetails | IAiImageModelDetails;
+export type AiModelDetails = AiModelTextDetails | AiModelImageDetails;
 
-export interface IAiTextModelDetails {
-    models: Array<string>;
-}
-
-export interface IAiImageModelDetails {
-    models: Array<string>;
-}
+export const AI_MODEL_TIMEOUT = 5 * DateUtil.MILLISECONDS_MINUTE;

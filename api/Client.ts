@@ -1,5 +1,5 @@
 
-import { TransformUtil, TransportHttp, ITransportHttpSettings, DateUtil, TraceUtil, ILogger, LoggerLevel } from '@ts-core/common';
+import { TransformUtil, TransportHttp, ITransportHttpSettings, DateUtil, TraceUtil, ILogger, LoggerLevel, TransportCryptoManager } from '@ts-core/common';
 import { IInitDto, IInitDtoResponse, ILoginDto, ILoginDtoResponse } from './login';
 import { IUserGetDtoResponse, IUserEditDto, IUserEditDtoResponse, UserUID } from './user';
 import { User } from '../user';
@@ -12,6 +12,7 @@ import { IPersonTaskDto } from './person';
 import { ITaskDto, ITaskDtoResponse, ITaskProgress } from './task';
 import { IAiTaskProgress, IAiTextTaskResponse } from '../ai/task';
 import { IAiModelGetDtoResponse, IAiModelGetDto } from './ai';
+import { AI_MODEL_TIMEOUT } from '../ai';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
     // --------------------------------------------------------------------------
@@ -104,8 +105,8 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return item;
     }
 
-    public async personTask(data: IPersonTaskDto, timeout: number = 5 * DateUtil.MILLISECONDS_MINUTE): Promise<IAiTextTaskResponse> {
-        return this.call<IAiTextTaskResponse, IPersonTaskDto>(PERSON_TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout });
+    public async personTask(data: IPersonTaskDto): Promise<IAiTextTaskResponse> {
+        return this.call<IAiTextTaskResponse, IPersonTaskDto>(PERSON_TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout: AI_MODEL_TIMEOUT });
     }
 
     // --------------------------------------------------------------------------
@@ -114,8 +115,8 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     //
     // --------------------------------------------------------------------------
 
-    public async task<V extends ITaskDtoResponse>(data: ITaskDto, timeout: number = 5 * DateUtil.MILLISECONDS_MINUTE): Promise<V> {
-        return this.call<V, ITaskDto>(TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout });
+    public async task<V extends ITaskDtoResponse>(data: ITaskDto): Promise<V> {
+        return this.call<V, ITaskDto>(TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout: AI_MODEL_TIMEOUT });
     }
 
     public async taskAbort(session: string, isHandleError: boolean = false): Promise<void> {

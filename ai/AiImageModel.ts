@@ -1,21 +1,12 @@
 import { RandomUtil } from "@ts-core/common";
+import { IStableImageOptions, IStableImageModelDetails } from "./model/stable";
 
 export enum AiImageModel {
-    STABLE_DIFFUSION = 'STABLE_DIFFUSION',
+    STABLE = 'STABLE',
 }
 
-export interface IAiModelImageOptions {
-    seed: number;
-    model: string;
-    width: number;
-    height: number;
-    quality: number;
-    outputs: number;
-    guidanceScale: number;
-    inferenceSteps: number;
-    negativePrompt: string;
-    isUsedRandomSeed: boolean;
-}
+export type AiModelImageOptions = IStableImageOptions;
+export type AiModelImageDetails = IStableImageModelDetails;
 
 export function getRandomSeed(): number {
     return RandomUtil.randomNumber(AI_MODEL_IMAGE_OPTIONS_SEED_MIN, AI_MODEL_IMAGE_OPTIONS_SEED_MAX)

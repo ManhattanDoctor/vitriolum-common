@@ -15,6 +15,10 @@ export interface IAiModelImageOptions {
     inferenceSteps: number;
     negativePrompt: string;
     isUsedRandomSeed: boolean;
+
+    initImage?: string;
+    controlImage?: string;
+    controlImageModel?: string;
 }
 
 export function getRandomSeed(): number {

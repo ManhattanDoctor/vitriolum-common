@@ -32,6 +32,9 @@ export interface IRenderRequest {
     lora_alpha: number;
     tiling: string;
     session_id: number;
+    control_image: string;
+    init_image: string;
+    use_controlnet_model: string;
 }
 export interface IRenderOutput {
     data: string;

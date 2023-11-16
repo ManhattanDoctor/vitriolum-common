@@ -1,5 +1,5 @@
 
-import { TransportHttp, ITransportHttpSettings, ObjectUtil, ILogger, LoggerLevel, RandomUtil } from '@ts-core/common';
+import { TransportHttp, ITransportHttpSettings, ObjectUtil, ILogger, LoggerLevel, RandomUtil, ExtendedError } from '@ts-core/common';
 import { IPingDtoResponse } from './IPingDto';
 import { StreamDtoResponse } from './IStreamDto';
 import { IRenderDto, IRenderDtoResponse } from './IRenderDto';
@@ -107,7 +107,7 @@ export class StableClient extends TransportHttp<ITransportHttpSettings> {
         try {
             item = await this.call(`${STREAM_URL}/${id}`);
         }
-        catch (error) {
+        catch (error: any) {
             if (error.code !== 425) {
                 throw error;
             }

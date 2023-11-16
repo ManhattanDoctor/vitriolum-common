@@ -9,10 +9,10 @@ import { IOAuthPopUpDto } from '@ts-core/oauth';
 import { IPersonAddDto, IPersonGetDto, IPersonGetDtoResponse, IPersonListDto, IPersonListDtoResponse } from './person';
 import { Person } from '../lib/person';
 import { IPersonTaskDto } from './person';
-import { ITaskDto, ITaskDtoResponse, ITaskProgress } from './task';
-import { IAiTaskProgress, IAiTextTaskResponse } from '../ai/task';
-import { IAiModelGetDtoResponse, IAiModelGetDto } from './ai';
+import { ITaskDto, ITaskDtoResponse, ITaskProgress, } from './task';
+import { IAiModelGetDtoResponse, IAiModelGetDto } from './ai'
 import { AI_MODEL_TIMEOUT } from '../ai';
+import { AiTextTaskResponse, IAiTaskProgress } from '../ai/task';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
     // --------------------------------------------------------------------------
@@ -105,8 +105,8 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return item;
     }
 
-    public async personTask(data: IPersonTaskDto): Promise<IAiTextTaskResponse> {
-        return this.call<IAiTextTaskResponse, IPersonTaskDto>(PERSON_TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout: AI_MODEL_TIMEOUT });
+    public async personTask(data: IPersonTaskDto): Promise<AiTextTaskResponse> {
+        return this.call<AiTextTaskResponse, IPersonTaskDto>(PERSON_TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout: AI_MODEL_TIMEOUT });
     }
 
     // --------------------------------------------------------------------------

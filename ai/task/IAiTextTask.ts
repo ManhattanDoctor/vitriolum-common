@@ -8,9 +8,9 @@ export interface IAiTextTask extends IAiTask {
     example?: string;
 }
 
-export type IAiTextTaskProgress = string;
+export type AiTextTaskProgress = string;
 
-export type IAiTextTaskResponse = string;
+export type AiTextTaskResponse = string;
 
 export const AI_TEXT_TASK_TASK_MIN_LENGTH = 4;
 export const AI_TEXT_TASK_TASK_MAX_LENGTH = 8196;

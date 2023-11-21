@@ -1,29 +1,16 @@
 import { IAiTask } from "./IAiTask";
 
 export interface IAiTextTask extends IAiTask {
-    task: string;
-    role?: string;
-    manner?: string;
-    context?: string;
-    example?: string;
+    message: string;
+    system?: string;
 }
 
 export type AiTextTaskProgress = string;
 
 export type AiTextTaskResponse = string;
 
-export const AI_TEXT_TASK_TASK_MIN_LENGTH = 4;
-export const AI_TEXT_TASK_TASK_MAX_LENGTH = 8196;
+export const AI_TEXT_TASK_MESSAGE_MIN_LENGTH = 1;
+export const AI_TEXT_TASK_MESSAGE_MAX_LENGTH = 131136;
 
-export const AI_TEXT_TASK_ROLE_MIN_LENGTH = 4;
-export const AI_TEXT_TASK_ROLE_MAX_LENGTH = 8196;
-
-export const AI_TEXT_TASK_MANNER_MIN_LENGTH = 4;
-export const AI_TEXT_TASK_MANNER_MAX_LENGTH = 8196;
-
-export const AI_TEXT_TASK_CONTEXT_MIN_LENGTH = 4;
-export const AI_TEXT_TASK_CONTEXT_MAX_LENGTH = 8196;
-
-export const AI_TEXT_TASK_EXAMPLE_MIN_LENGTH = 4;
-export const AI_TEXT_TASK_EXAMPLE_MAX_LENGTH = 8196;
-
+export const AI_TEXT_TASK_SYSTEM_MIN_LENGTH = 1;
+export const AI_TEXT_TASK_SYSTEM_MAX_LENGTH = 131136;

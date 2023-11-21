@@ -11,6 +11,10 @@ export interface IStableImageOptions {
     inferenceSteps: number;
     negativePrompt: string;
     isUsedRandomSeed: boolean;
+
+    initImage?: string;
+    controlImage?: string;
+    controlImageModel?: string;
 }
 
 export function getRandomSeed(): number {
@@ -43,4 +47,3 @@ export const STABLE_IMAGE_OPTIONS_GUIDANCE_SCALE_MAX = 50;
 
 export const STABLE_IMAGE_OPTIONS_NEGATIVE_PROMPT_MIN_LENGTH = 4;
 export const STABLE_IMAGE_OPTIONS_NEGATIVE_PROMPT_MAX_LENGTH = 1024;
-

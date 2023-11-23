@@ -5,8 +5,7 @@ import { IConversationMessageDto } from './IConversationMessageDto';
 
 export interface IConversationAddDto extends ITraceable {
     name: string;
-    role?: string;
-    context?: string;
+    system?: string;
     message?: IConversationMessageDto;
 }
 export type IConversationAddDtoResponse = Conversation;

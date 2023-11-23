@@ -3,7 +3,7 @@ import { ConversationMessage } from './ConversationMessage';
 import * as _ from 'lodash';
 
 export class Conversation {
-    id: number;
+    uid: string;
     name: string;
     system?: string;
 
@@ -14,5 +14,5 @@ export class Conversation {
     createdDate: Date;
 }
 
-export const CONVERSATION_NAME_MIN_LENGTH = 3;
+export const CONVERSATION_NAME_MIN_LENGTH = 2;
 export const CONVERSATION_NAME_MAX_LENGTH = 64;

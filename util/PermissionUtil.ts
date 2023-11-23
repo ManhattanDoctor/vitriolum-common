@@ -4,7 +4,6 @@ import { IUserEditDto } from '../api/user';
 import { Person, PersonPrivacy } from '../lib/person';
 
 export class PermissionUtil {
-
     //--------------------------------------------------------------------------
     //
     // 	User Methods
@@ -64,4 +63,6 @@ export class PermissionUtil {
     public static personIsCanRemove(item: Person, user: User): boolean {
         return PermissionUtil.personIsCanEdit(item, user);
     }
+
+
 }

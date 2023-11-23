@@ -122,13 +122,13 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return TransformUtil.toClass(Conversation, item);
     }
 
-    public async conversationGet(id: number): Promise<IConversationGetDtoResponse> {
-        let item = await this.call<IConversationGetDtoResponse>(`${CONVERSATION_URL}/${id}`);
+    public async conversationGet(uid: string): Promise<IConversationGetDtoResponse> {
+        let item = await this.call<IConversationGetDtoResponse>(`${CONVERSATION_URL}/${uid}`);
         return TransformUtil.toClass(Conversation, item);
     }
 
-    public async conversationRemove(id: number): Promise<void> {
-        return this.call<void, void>(`${CONVERSATION_URL}/${id}`, { method: 'delete' });
+    public async conversationRemove(uid: string): Promise<void> {
+        return this.call<void, void>(`${CONVERSATION_URL}/${uid}`, { method: 'delete' });
     }
 
     public async conversationList(data: IConversationListDto): Promise<IConversationListDtoResponse> {

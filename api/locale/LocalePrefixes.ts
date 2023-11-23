@@ -9,7 +9,10 @@ export const PERSON_LOCALE_PREFIXES = [
 
     'User.json',
 
+    'Ai.json',
+    'Main.json',
     'Main.json',
     'About.json',
     'Person.json',
+    'Conversation.json',
 ];

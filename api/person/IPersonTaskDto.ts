@@ -1,15 +1,18 @@
 
 import { ITaskDto } from '../task';
-import { IAiTextTask } from '../../ai/task';
+import { IAiTask, IAiTextTask } from '../../ai/task';
 import { IPersonDto } from './IPersonDto';
 import { AiModelTextOptions } from '../../ai';
 
-export interface IPersonTaskDto extends ITaskDto<IAiTextTask, AiModelTextOptions> {
+export interface IPersonTaskDto extends ITaskDto<IPersonTextTask, AiModelTextOptions> { }
+
+export interface IPersonTextTask extends IAiTask {
     person: IPersonDto;
     message: string;
     context?: string;
     example?: string;
 }
+
 
 export const PERSON_TASK_MESSAGE_MIN_LENGTH = 1;
 export const PERSON_TASK_MESSAGE_MAX_LENGTH = 131136;

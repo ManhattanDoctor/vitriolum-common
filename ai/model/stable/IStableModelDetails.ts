@@ -1,4 +1,5 @@
 export interface IStableImageModelDetails {
-    models: Array<string>;
+    vaes: Array<string>;
     loras: Array<string>;
+    models: Array<string>;
 }

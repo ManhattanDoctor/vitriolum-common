@@ -13,6 +13,8 @@ import { ITaskDto, ITaskDtoResponse, ITaskProgress, } from './task';
 import { IAiModelGetDtoResponse, IAiModelGetDto } from './ai'
 import { AI_MODEL_TIMEOUT } from '../ai';
 import { AiTextTaskResponse, IAiTaskProgress } from '../ai/task';
+import { IConversationAddDto, IConversationAddDtoResponse, IConversationGetDtoResponse, IConversationListDto, IConversationListDtoResponse } from './conversation';
+import { Conversation } from '../lib/conversation';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
     // --------------------------------------------------------------------------
@@ -111,6 +113,32 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
 
     // --------------------------------------------------------------------------
     //
+    //  Conversation Methods
+    //
+    // --------------------------------------------------------------------------
+
+    public async conversationAdd(data: IConversationAddDto): Promise<IConversationAddDtoResponse> {
+        let item = await this.call<IConversationAddDtoResponse, IConversationAddDto>(CONVERSATION_URL, { method: 'post', data: TraceUtil.addIfNeed(data) });
+        return TransformUtil.toClass(Conversation, item);
+    }
+
+    public async conversationGet(id: number): Promise<IConversationGetDtoResponse> {
+        let item = await this.call<IConversationGetDtoResponse>(`${CONVERSATION_URL}/${id}`);
+        return TransformUtil.toClass(Conversation, item);
+    }
+
+    public async conversationRemove(id: number): Promise<void> {
+        return this.call<void, void>(`${CONVERSATION_URL}/${id}`, { method: 'delete' });
+    }
+
+    public async conversationList(data: IConversationListDto): Promise<IConversationListDtoResponse> {
+        let item = await this.call<IConversationListDtoResponse, IConversationListDto>(CONVERSATION_URL, { data: TraceUtil.addIfNeed(data) });
+        item.items = TransformUtil.toClassMany(Conversation, item.items);
+        return item;
+    }
+
+    // --------------------------------------------------------------------------
+    //
     //  Task Methods
     //
     // --------------------------------------------------------------------------
@@ -177,6 +205,7 @@ export const LOCALE_URL = PREFIX + 'locale';
 export const PERSON_URL = PREFIX + 'person';
 export const AI_MODEL_URL = PREFIX + 'aimodel';
 export const PERSON_TASK_URL = PREFIX + 'personTask';
+export const CONVERSATION_URL = PREFIX + 'conversation';
 
 export const INIT_URL = PREFIX + 'init';
 export const LOGIN_URL = PREFIX + 'login';

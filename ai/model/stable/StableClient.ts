@@ -6,6 +6,7 @@ import { IRenderDto, IRenderDtoResponse } from './IRenderDto';
 import * as _ from 'lodash';
 import { IStreamProgress } from './IStreamDto';
 import { IStreamResult } from './IStreamDto';
+import { IStableImageModelDetails } from './IStableModelDetails';
 
 export class StableClient extends TransportHttp<ITransportHttpSettings> {
 
@@ -94,6 +95,15 @@ export class StableClient extends TransportHttp<ITransportHttpSettings> {
         return this.call<IPingDtoResponse>(PING_URL);
     }
 
+    public async models(): Promise<IStableImageModelDetails> {
+        let { options } = await this.call(MODELS_URL, { data: { scan_for_malicious: false } });
+        return {
+            vaes: options.vae,
+            loras: options.lora,
+            models: options['stable-diffusion'],
+        }
+    }
+
     public async render(data: IRenderDto): Promise<IRenderDtoResponse> {
         return this.call<IRenderDtoResponse, IRenderDto>(RENDER_URL, { method: 'post', data });
     }
@@ -123,6 +133,7 @@ export class StableClient extends TransportHttp<ITransportHttpSettings> {
 const PREFIX = '/';
 
 export const PING_URL = PREFIX + 'ping';
+export const MODELS_URL = PREFIX + 'get/models';
 export const RENDER_URL = PREFIX + 'render';
 export const IMAGE_URL = PREFIX + 'image/tmp';
 export const STOP_URL = PREFIX + 'image/stop';

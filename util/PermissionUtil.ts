@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 import { User, UserAccountType } from '../user';
 import { IUserEditDto } from '../api/user';
 import { Person, PersonPrivacy } from '../lib/person';
+import { Conversation } from '../lib/conversation';
 
 export class PermissionUtil {
     //--------------------------------------------------------------------------
@@ -33,7 +34,7 @@ export class PermissionUtil {
     //
     //--------------------------------------------------------------------------
 
-    public static personIsCanOpen(item: Person, user?: User): boolean {
+    public static personIsCanOpen(item: Person, user: User): boolean {
         if (item.privacy === PersonPrivacy.PUBLIC) {
             return true;
         }
@@ -64,5 +65,38 @@ export class PermissionUtil {
         return PermissionUtil.personIsCanEdit(item, user);
     }
 
+    //--------------------------------------------------------------------------
+    //
+    // 	Conversation Methods
+    //
+    //--------------------------------------------------------------------------
+
+    public static conversationIsCanOpen(item: Conversation, user: User): boolean {
+        return PermissionUtil.conversationIsCanEdit(item, user);
+    }
+
+    public static conversationIsCanMessage(item: Conversation, user: User): boolean {
+        if (!PermissionUtil.conversationIsCanOpen(item, user)) {
+            return false;
+        }
+        if (_.isNil(user)) {
+            return false;
+        }
+        return true;
+    }
+
+    public static conversationIsCanEdit(item: Conversation, user: User): boolean {
+        if (_.isNil(user)) {
+            return false;
+        }
+        if (PermissionUtil.userIsAdministrator(user)) {
+            return true;
+        }
+        return item.userId === user.id;
+    }
+
+    public static conversationIsCanRemove(item: Conversation, user: User): boolean {
+        return PermissionUtil.conversationIsCanEdit(item, user);
+    }
 
 }

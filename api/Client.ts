@@ -13,8 +13,8 @@ import { ITaskDto, ITaskDtoResponse, ITaskProgress, } from './task';
 import { IAiModelGetDtoResponse, IAiModelGetDto } from './ai'
 import { AI_MODEL_TIMEOUT } from '../ai';
 import { AiTextTaskResponse, IAiTaskProgress } from '../ai/task';
-import { IConversationAddDto, IConversationAddDtoResponse, IConversationGetDtoResponse, IConversationListDto, IConversationListDtoResponse } from './conversation';
-import { Conversation } from '../lib/conversation';
+import { IConversationAddDto, IConversationAddDtoResponse, IConversationGetDtoResponse, IConversationListDto, IConversationListDtoResponse, IConversationMessageDto, IConversationMessageDtoResponse, IConversationMessageListDto, IConversationMessageListDtoResponse } from './conversation';
+import { Conversation, ConversationMessage } from '../lib/conversation';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
     // --------------------------------------------------------------------------
@@ -122,8 +122,8 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return TransformUtil.toClass(Conversation, item);
     }
 
-    public async conversationGet(uid: string): Promise<IConversationGetDtoResponse> {
-        let item = await this.call<IConversationGetDtoResponse>(`${CONVERSATION_URL}/${uid}`);
+    public async conversationGet(id: number): Promise<IConversationGetDtoResponse> {
+        let item = await this.call<IConversationGetDtoResponse>(`${CONVERSATION_URL}/${id}`);
         return TransformUtil.toClass(Conversation, item);
     }
 
@@ -134,6 +134,16 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     public async conversationList(data: IConversationListDto): Promise<IConversationListDtoResponse> {
         let item = await this.call<IConversationListDtoResponse, IConversationListDto>(CONVERSATION_URL, { data: TraceUtil.addIfNeed(data) });
         item.items = TransformUtil.toClassMany(Conversation, item.items);
+        return item;
+    }
+
+    public async conversationMessage(data: IConversationMessageDto): Promise<IConversationMessageDtoResponse> {
+        let item = await this.call<IConversationMessageDtoResponse, IConversationMessageDto>(CONVERSATION_URL, { method: 'post', data: TraceUtil.addIfNeed(data) });
+        return TransformUtil.toClass(ConversationMessage, item);
+    }
+    public async conversationMessageList(data: IConversationMessageListDto): Promise<IConversationMessageListDtoResponse> {
+        let item = await this.call<IConversationMessageListDtoResponse, IConversationMessageListDto>(`${CONVERSATION_URL}/${data.conditions.conversationId}/message`, { data: TraceUtil.addIfNeed(data) });
+        item.items = TransformUtil.toClassMany(ConversationMessage, item.items);
         return item;
     }
 

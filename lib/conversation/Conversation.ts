@@ -3,8 +3,9 @@ import { ConversationMessage } from './ConversationMessage';
 import * as _ from 'lodash';
 
 export class Conversation {
-    uid: string;
+    id: number;
     name: string;
+    userId: number;
     system?: string;
 
     @Type(() => ConversationMessage)

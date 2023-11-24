@@ -19,6 +19,7 @@ export class ConversationMessage {
     id: number;
     role: ConversationMessageRole;
     contents: Array<ConversationMessageContent>;
+    conversationId: number;
 
     @Type(() => Date)
     createdDate: Date;
@@ -32,6 +33,6 @@ export class ConversationMessageContent {
     file?: File;
 }
 
-export const PERSON_MANNER_NAME_MIN_LENGTH = 4;
-export const PERSON_MANNER_NAME_MAX_LENGTH = 24;
+export const CONVERSATION_MESSAGE_CONTENT_MIN_LENGTH = 1;
+export const CONVERSATION_MESSAGE_CONTENT_MAX_LENGTH = 131136;
 

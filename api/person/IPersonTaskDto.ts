@@ -1,6 +1,6 @@
 
 import { ITaskDto } from '../task';
-import { IAiTask, IAiTextTask } from '../../ai/task';
+import { IAiTask } from '../../ai/task';
 import { IPersonDto } from './IPersonDto';
 import { AiModelTextOptions } from '../../ai';
 

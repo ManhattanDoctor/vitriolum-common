@@ -1,8 +1,9 @@
 import { ITraceable } from '@ts-core/common';
-import { ConversationMessage, ConversationMessageContent } from '../../lib/conversation';
+import { ConversationMessage } from '../../lib/conversation';
 
-export interface IConversationMessageDto extends ITraceable {
-    id: number;
-    contents: Array<ConversationMessageContent>;
+export interface IConversationMessageAddDto extends ITraceable {
+    value: string;
+    files?: Array<number>;
 }
-export type IConversationMessageDtoResponse = ConversationMessage;
+
+export type IConversationMessageAddDtoResponse = ConversationMessage;

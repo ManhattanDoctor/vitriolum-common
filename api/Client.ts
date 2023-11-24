@@ -13,7 +13,7 @@ import { ITaskDto, ITaskDtoResponse, ITaskProgress, } from './task';
 import { IAiModelGetDtoResponse, IAiModelGetDto } from './ai'
 import { AI_MODEL_TIMEOUT } from '../ai';
 import { AiTextTaskResponse, IAiTaskProgress } from '../ai/task';
-import { IConversationAddDto, IConversationAddDtoResponse, IConversationGetDtoResponse, IConversationListDto, IConversationListDtoResponse, IConversationMessageDto, IConversationMessageDtoResponse, IConversationMessageListDto, IConversationMessageListDtoResponse } from './conversation';
+import { IConversationAddDto, IConversationAddDtoResponse, IConversationGetDtoResponse, IConversationListDto, IConversationListDtoResponse, IConversationMessageAddDto, IConversationMessageAddDtoResponse, IConversationMessageListDto, IConversationMessageListDtoResponse } from './conversation';
 import { Conversation, ConversationMessage } from '../lib/conversation';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
@@ -137,8 +137,8 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return item;
     }
 
-    public async conversationMessage(data: IConversationMessageDto): Promise<IConversationMessageDtoResponse> {
-        let item = await this.call<IConversationMessageDtoResponse, IConversationMessageDto>(CONVERSATION_URL, { method: 'post', data: TraceUtil.addIfNeed(data) });
+    public async conversationMessageAdd(id: number, data: IConversationMessageAddDto): Promise<IConversationMessageAddDtoResponse> {
+        let item = await this.call<IConversationMessageAddDtoResponse, IConversationMessageAddDto>(`${CONVERSATION_URL}/${id}/message`, { method: 'post', data: TraceUtil.addIfNeed(data) });
         return TransformUtil.toClass(ConversationMessage, item);
     }
     public async conversationMessageList(data: IConversationMessageListDto): Promise<IConversationMessageListDtoResponse> {

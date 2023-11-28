@@ -131,8 +131,8 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return this.call<void, void>(`${CONVERSATION_URL}/${id}`, { method: 'delete' });
     }
 
-    public async conversationReload(id: number): Promise<void> {
-        return this.call<void, void>(`${CONVERSATION_URL}/${id}/reload`, { method: 'post' });
+    public async conversationCheck(id: number): Promise<void> {
+        return this.call<void, void>(`${CONVERSATION_URL}/${id}/check`, { method: 'post' });
     }
 
     public async conversationList(data: IConversationListDto): Promise<IConversationListDtoResponse> {

@@ -85,6 +85,16 @@ export class PermissionUtil {
         return true;
     }
 
+    public static conversationIsCanCheck(item: Conversation, user: User): boolean {
+        if (!PermissionUtil.conversationIsCanOpen(item, user)) {
+            return false;
+        }
+        if (_.isNil(user) || item.status !== ConversationStatus.ERROR) {
+            return false;
+        }
+        return true;
+    }
+
     public static conversationIsCanEdit(item: Conversation, user: User): boolean {
         if (_.isNil(user)) {
             return false;

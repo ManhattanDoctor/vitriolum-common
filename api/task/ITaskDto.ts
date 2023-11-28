@@ -1,6 +1,6 @@
 import { ITraceable } from "@ts-core/common";
 import { AiModel, AiModelOptions } from "../../ai";
-import { IAiImageTask, AiImageTaskProgress, AiImageTaskResponse, IAiTextTask, AiTextTaskProgress, AiTextTaskResponse, IAiTtsTask, AiTtsTaskProgress, AiTtsTaskResponse } from "../../ai/task";
+import { IAiImageTask, AiImageTaskProgress, AiImageTaskResponse, IAiTextTask, AiTextTaskProgress, AiTextTaskResponse, IAiTtsTask, AiTtsTaskProgress, AiTtsTaskResponse, IAiConversationTask, AiConversationTaskProgress, AiConversationTaskResponse } from "../../ai/task";
 
 export interface ITaskDto<T extends ITaskTask = ITaskTask, O extends ITaskOptions = ITaskOptions> extends ITraceable {
     task: T;
@@ -8,7 +8,7 @@ export interface ITaskDto<T extends ITaskTask = ITaskTask, O extends ITaskOption
     options: O;
 }
 
-export type ITaskTask = IAiTextTask | IAiImageTask | IAiTtsTask;
+export type ITaskTask = IAiTextTask | IAiImageTask | IAiTtsTask | IAiConversationTask;
 export type ITaskOptions = AiModelOptions;
-export type ITaskProgress = AiTextTaskProgress | AiImageTaskProgress | AiTtsTaskProgress;
-export type ITaskDtoResponse = AiTextTaskResponse | AiImageTaskResponse | AiTtsTaskResponse;
+export type ITaskProgress = AiTextTaskProgress | AiImageTaskProgress | AiTtsTaskProgress | AiConversationTaskProgress;
+export type ITaskDtoResponse = AiTextTaskResponse | AiImageTaskResponse | AiTtsTaskResponse | AiConversationTaskResponse;

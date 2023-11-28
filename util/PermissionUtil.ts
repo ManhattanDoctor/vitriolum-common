@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import { User, UserAccountType } from '../user';
 import { IUserEditDto } from '../api/user';
 import { Person, PersonPrivacy } from '../lib/person';
-import { Conversation } from '../lib/conversation';
+import { Conversation, ConversationStatus } from '../lib/conversation';
 
 export class PermissionUtil {
     //--------------------------------------------------------------------------
@@ -79,7 +79,7 @@ export class PermissionUtil {
         if (!PermissionUtil.conversationIsCanOpen(item, user)) {
             return false;
         }
-        if (_.isNil(user)) {
+        if (_.isNil(user) || item.status === ConversationStatus.LOADING) {
             return false;
         }
         return true;

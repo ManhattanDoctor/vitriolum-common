@@ -72,30 +72,6 @@ export class PermissionUtil {
     //--------------------------------------------------------------------------
 
     public static conversationIsCanOpen(item: Conversation, user: User): boolean {
-        return PermissionUtil.conversationIsCanEdit(item, user);
-    }
-
-    public static conversationIsCanMessage(item: Conversation, user: User): boolean {
-        if (!PermissionUtil.conversationIsCanOpen(item, user)) {
-            return false;
-        }
-        if (_.isNil(user) || item.status === ConversationStatus.LOADING) {
-            return false;
-        }
-        return true;
-    }
-
-    public static conversationIsCanCheck(item: Conversation, user: User): boolean {
-        if (!PermissionUtil.conversationIsCanOpen(item, user)) {
-            return false;
-        }
-        if (_.isNil(user) || item.status !== ConversationStatus.ERROR) {
-            return false;
-        }
-        return true;
-    }
-
-    public static conversationIsCanEdit(item: Conversation, user: User): boolean {
         if (_.isNil(user)) {
             return false;
         }
@@ -105,8 +81,28 @@ export class PermissionUtil {
         return item.userId === user.id;
     }
 
+    public static conversationIsCanMessage(item: Conversation, user: User): boolean {
+        if (!PermissionUtil.conversationIsCanOpen(item, user)) {
+            return false;
+        }
+        if (item.status !== ConversationStatus.LOADED) {
+            return false;
+        }
+        return true;
+    }
+
+    public static conversationIsCanCheck(item: Conversation, user: User): boolean {
+        if (!PermissionUtil.conversationIsCanOpen(item, user)) {
+            return false;
+        }
+        if (item.status !== ConversationStatus.ERROR) {
+            return false;
+        }
+        return true;
+    }
+
     public static conversationIsCanRemove(item: Conversation, user: User): boolean {
-        return PermissionUtil.conversationIsCanEdit(item, user);
+        return PermissionUtil.conversationIsCanOpen(item, user);
     }
 
 }

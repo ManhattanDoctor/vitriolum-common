@@ -8,4 +8,4 @@ export interface IAiConversationTask extends IAiTask {
 
 export type AiConversationTaskProgress = string;
 
-export type AiConversationTaskResponse = string;
+export type AiConversationTaskResponse = void;

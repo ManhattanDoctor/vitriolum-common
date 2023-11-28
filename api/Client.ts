@@ -127,8 +127,12 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return TransformUtil.toClass(Conversation, item);
     }
 
-    public async conversationRemove(uid: string): Promise<void> {
-        return this.call<void, void>(`${CONVERSATION_URL}/${uid}`, { method: 'delete' });
+    public async conversationRemove(id: number): Promise<void> {
+        return this.call<void, void>(`${CONVERSATION_URL}/${id}`, { method: 'delete' });
+    }
+
+    public async conversationReload(id: number): Promise<void> {
+        return this.call<void, void>(`${CONVERSATION_URL}/${id}/reload`, { method: 'post' });
     }
 
     public async conversationList(data: IConversationListDto): Promise<IConversationListDtoResponse> {
@@ -141,6 +145,7 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         let item = await this.call<IConversationMessageAddDtoResponse, IConversationMessageAddDto>(`${CONVERSATION_URL}/${id}/message`, { method: 'post', data: TraceUtil.addIfNeed(data) });
         return TransformUtil.toClass(ConversationMessage, item);
     }
+
     public async conversationMessageList(data: IConversationMessageListDto): Promise<IConversationMessageListDtoResponse> {
         let item = await this.call<IConversationMessageListDtoResponse, IConversationMessageListDto>(`${CONVERSATION_URL}/${data.conditions.conversationId}/message`, { data: TraceUtil.addIfNeed(data) });
         item.items = TransformUtil.toClassMany(ConversationMessage, item.items);

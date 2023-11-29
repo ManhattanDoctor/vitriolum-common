@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import { User, UserAccountType } from '../user';
 import { IUserEditDto } from '../api/user';
 import { Person, PersonPrivacy } from '../lib/person';
-import { Conversation, ConversationStatus } from '../lib/conversation';
+import { Conversation, ConversationMessage, ConversationStatus } from '../lib/conversation';
 
 export class PermissionUtil {
     //--------------------------------------------------------------------------
@@ -81,16 +81,6 @@ export class PermissionUtil {
         return item.userId === user.id;
     }
 
-    public static conversationIsCanMessage(item: Conversation, user: User): boolean {
-        if (!PermissionUtil.conversationIsCanOpen(item, user)) {
-            return false;
-        }
-        if (item.status !== ConversationStatus.LOADED) {
-            return false;
-        }
-        return true;
-    }
-
     public static conversationIsCanCheck(item: Conversation, user: User): boolean {
         if (!PermissionUtil.conversationIsCanOpen(item, user)) {
             return false;
@@ -103,6 +93,23 @@ export class PermissionUtil {
 
     public static conversationIsCanRemove(item: Conversation, user: User): boolean {
         return PermissionUtil.conversationIsCanOpen(item, user);
+    }
+
+    public static conversationIsCanMessageAdd(item: Conversation, user: User): boolean {
+        if (!PermissionUtil.conversationIsCanOpen(item, user)) {
+            return false;
+        }
+        if (item.status !== ConversationStatus.LOADED) {
+            return false;
+        }
+        return true;
+    }
+
+    public static conversationIsCanMessageRemove(item: Conversation, user: User): boolean {
+        if (!PermissionUtil.conversationIsCanOpen(item, user)) {
+            return false;
+        }
+        return true;
     }
 
 }

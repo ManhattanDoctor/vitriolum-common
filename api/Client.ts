@@ -152,6 +152,10 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return item;
     }
 
+    public async conversationMessageRemove(id: number, messageId: number): Promise<void> {
+        return this.call<void, void>(`${CONVERSATION_URL}/${id}/message/${messageId}`, { method: 'delete' });
+    }
+
     // --------------------------------------------------------------------------
     //
     //  Task Methods

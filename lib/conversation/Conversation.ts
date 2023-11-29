@@ -1,5 +1,6 @@
 import { Type } from 'class-transformer';
 import * as _ from 'lodash';
+import { AiConversationModel, AiModelConversationOptions } from '../../ai';
 
 export class Conversation {
     id: number;
@@ -7,6 +8,9 @@ export class Conversation {
     status: ConversationStatus;
     userId: number;
     system?: string;
+
+    model: AiConversationModel;
+    options: AiModelConversationOptions;
 
     @Type(() => Date)
     createdDate: Date;

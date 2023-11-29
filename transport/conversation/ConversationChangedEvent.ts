@@ -1,6 +1,6 @@
 import { TransportEvent } from "@ts-core/common";
 import { IConversationEventDto } from "./IConversationEventDto";
-import { ConversationStatus } from "../../lib/conversation";
+import { Conversation } from "../../lib/conversation";
 
 export class ConversationChangedEvent extends TransportEvent<IConversationChangedEventDto>{
     // --------------------------------------------------------------------------
@@ -22,5 +22,5 @@ export class ConversationChangedEvent extends TransportEvent<IConversationChange
     }
 }
 export interface IConversationChangedEventDto extends IConversationEventDto {
-    status: ConversationStatus;
+    item: Partial<Conversation>;
 }

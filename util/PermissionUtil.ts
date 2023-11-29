@@ -91,6 +91,10 @@ export class PermissionUtil {
         return true;
     }
 
+    public static conversationIsCanEdit(item: Conversation, user: User): boolean {
+        return PermissionUtil.conversationIsCanOpen(item, user);
+    }
+
     public static conversationIsCanRemove(item: Conversation, user: User): boolean {
         return PermissionUtil.conversationIsCanOpen(item, user);
     }

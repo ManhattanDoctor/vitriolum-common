@@ -1,3 +1,4 @@
+import { IOpenAiImageModelDetails, IOpenAiImageOptions } from "./model/openai";
 import { IStableImageOptions, IStableImageModelDetails } from "./model/stable";
 
 export enum AiImageModel {
@@ -5,5 +6,5 @@ export enum AiImageModel {
     OPEN_AI_IMAGE = 'OPEN_AI_IMAGE',
 }
 
-export type AiModelImageOptions = IStableImageOptions;
-export type AiModelImageDetails = IStableImageModelDetails;
+export type AiModelImageOptions = IOpenAiImageOptions | IStableImageOptions;
+export type AiModelImageDetails = IOpenAiImageModelDetails | IStableImageModelDetails;

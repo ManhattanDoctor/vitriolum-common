@@ -3,3 +3,4 @@ export * from './ConversationChangedEvent';
 export * from './ConversationRemovedEvent';
 export * from './ConversationMessageAddedEvent';
 export * from './ConversationMessageRemovedEvent';
+export * from './ConversationMessagesRemovedEvent';

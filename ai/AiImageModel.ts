@@ -1,7 +1,7 @@
 import { IStableImageOptions, IStableImageModelDetails } from "./model/stable";
 
 export enum AiImageModel {
-    STABLE = 'STABLE_IMAGE',
+    STABLE_IMAGE = 'STABLE_IMAGE',
     OPEN_AI_IMAGE = 'OPEN_AI_IMAGE',
 }
 

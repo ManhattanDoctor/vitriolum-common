@@ -7,14 +7,14 @@ import * as _ from 'lodash';
 import { LocaleProject } from './locale';
 import { IOAuthPopUpDto } from '@ts-core/oauth';
 import { IPersonAddDto, IPersonGetDto, IPersonGetDtoResponse, IPersonListDto, IPersonListDtoResponse } from './person';
-import { Person } from '../lib/person';
+import { Person } from '../person';
 import { IPersonTaskDto } from './person';
 import { ITaskDto, ITaskDtoResponse, ITaskProgress, } from './task';
 import { IAiModelGetDtoResponse, IAiModelGetDto } from './ai'
 import { AI_MODEL_TIMEOUT } from '../ai';
 import { AiTextTaskResponse, IAiTaskProgress } from '../ai/task';
 import { IConversationAddDto, IConversationAddDtoResponse, IConversationEditDto, IConversationEditDtoResponse, IConversationGetDtoResponse, IConversationListDto, IConversationListDtoResponse, IConversationMessageAddDto, IConversationMessageAddDtoResponse, IConversationMessageListDto, IConversationMessageListDtoResponse } from './conversation';
-import { Conversation, ConversationMessage } from '../lib/conversation';
+import { Conversation, ConversationMessage } from '../conversation';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
     // --------------------------------------------------------------------------

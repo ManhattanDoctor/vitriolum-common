@@ -1,4 +1,4 @@
-import { Conversation, ConversationMessage } from "../../lib/conversation";
+import { Conversation, ConversationMessage } from "../../conversation";
 import { IAiTask } from "./IAiTask";
 
 export interface IAiConversationTask extends IAiTask {

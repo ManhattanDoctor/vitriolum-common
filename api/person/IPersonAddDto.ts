@@ -1,6 +1,6 @@
 
 import { ITraceable } from '@ts-core/common';
-import { PersonManner, PersonPrivacy } from '../../lib/person';
+import { PersonManner, PersonPrivacy } from '../../person';
 
 export interface IPersonAddDto extends ITraceable {
     name: string;

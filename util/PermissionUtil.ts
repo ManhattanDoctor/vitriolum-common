@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 import { User, UserAccountType } from '../user';
 import { IUserEditDto } from '../api/user';
-import { Person, PersonPrivacy } from '../lib/person';
-import { Conversation, ConversationMessage, ConversationStatus } from '../lib/conversation';
+import { Person, PersonPrivacy } from '../person';
+import { Conversation, ConversationStatus } from '../conversation';
 
 export class PermissionUtil {
     //--------------------------------------------------------------------------

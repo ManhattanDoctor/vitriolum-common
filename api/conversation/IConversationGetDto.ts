@@ -1,3 +1,3 @@
-import { Conversation } from '../../lib/conversation';
+import { Conversation } from '../../conversation';
 
 export declare type IConversationGetDtoResponse = Conversation;

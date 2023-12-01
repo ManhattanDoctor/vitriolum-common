@@ -1,6 +1,6 @@
 import { Type } from 'class-transformer';
 import * as _ from 'lodash';
-import { AiConversationModel, AiModelConversationOptions } from '../../ai';
+import { AiConversationModel, AiModelConversationOptions } from '../ai';
 
 export class Conversation {
     id: number;

@@ -1,6 +1,6 @@
 
 import { ITraceable } from '@ts-core/common';
-import { Conversation } from '../../lib/conversation';
+import { Conversation } from '../../conversation';
 import { AiConversationModel, AiModelConversationOptions } from '../../ai';
 
 export interface IConversationAddDto extends ITraceable {

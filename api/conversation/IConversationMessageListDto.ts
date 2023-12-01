@@ -1,5 +1,5 @@
 import { ITraceable, IPaginable, IPagination } from '@ts-core/common';
-import { ConversationMessage } from '../../lib/conversation';
+import { ConversationMessage } from '../../conversation';
 
 export interface IConversationMessageListDto extends IPaginable<ConversationMessage>, ITraceable { }
 

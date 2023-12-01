@@ -1,6 +1,6 @@
 import { TransportEvent } from "@ts-core/common";
 import { IConversationEventDto } from "./IConversationEventDto";
-import { ConversationMessage } from "../../lib/conversation";
+import { ConversationMessage } from "../../conversation";
 
 export class ConversationMessageAddedEvent extends TransportEvent<IConversationMessageAddedEventDto>{
     // --------------------------------------------------------------------------

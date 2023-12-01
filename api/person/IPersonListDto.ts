@@ -1,5 +1,5 @@
 import { ITraceable, IPaginable, IPagination } from '@ts-core/common';
-import { Person } from '../../lib/person';
+import { Person } from '../../person';
 
 export interface IPersonListDto extends IPaginable<Person>, ITraceable { }
 

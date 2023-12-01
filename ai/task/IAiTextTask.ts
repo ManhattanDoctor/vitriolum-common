@@ -1,3 +1,4 @@
+import { IOpenAiTextProgress, IOpenAiTextResponse } from "../model/openai";
 import { IAiTask } from "./IAiTask";
 
 export interface IAiTextTask extends IAiTask {
@@ -5,9 +6,9 @@ export interface IAiTextTask extends IAiTask {
     system?: string;
 }
 
-export type AiTextTaskProgress = string;
+export type AiTextTaskProgress = IOpenAiTextProgress;
 
-export type AiTextTaskResponse = string;
+export type AiTextTaskResponse = IOpenAiTextResponse;
 
 export const AI_TEXT_TASK_MESSAGE_MIN_LENGTH = 1;
 export const AI_TEXT_TASK_MESSAGE_MAX_LENGTH = 131136;

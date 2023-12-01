@@ -1,8 +1,15 @@
+import { IOpenAiModelDetails } from "./IOpenAiModel";
+
 export interface IOpenAiTtsOptions {
     model: string;
     voice: string;
     speed?: number;
     format?: string;
+}
+
+export interface IOpenAiTtsModelDetails extends IOpenAiModelDetails {
+    voices: Array<string>;
+    formats: Array<string>;
 }
 
 export const OPEN_AI_TTS_OPTIONS_VOICE_MIN_LENGTH = 0;

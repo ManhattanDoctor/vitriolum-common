@@ -3,3 +3,7 @@ export interface IStableImageModelDetails {
     loras: Array<string>;
     models: Array<string>;
 }
+
+export type IStableImageProgress = Array<string>;
+
+export type IStableImageResponse = Array<string>;

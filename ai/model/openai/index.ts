@@ -1,6 +1,6 @@
-export * from './IOpenAiModelDetails';
+export * from './IOpenAiModel';
 //
-export * from './IOpenAiSttOptions';
-export * from './IOpenAiTtsOptions';
-export * from './IOpenAiTextOptions';
-export * from './IOpenAiImageOptions';
+export * from './IOpenAiStt';
+export * from './IOpenAiTts';
+export * from './IOpenAiText';
+export * from './IOpenAiImage';

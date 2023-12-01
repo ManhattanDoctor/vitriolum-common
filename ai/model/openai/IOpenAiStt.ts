@@ -1,8 +1,14 @@
+import { IOpenAiModelDetails } from "./IOpenAiModel";
+
 export interface IOpenAiSttOptions {
     model: string;
     prompt?: string;
     format?: string;
     language?: string;
+}
+
+export interface IOpenAiSttModelDetails extends IOpenAiModelDetails {
+    formats: Array<string>;
 }
 
 export const OPEN_AI_STT_OPTIONS_MODEL_MIN_LENGTH = 4;

@@ -1,3 +1,4 @@
+import { IOpenAiTextProgress, IOpenAiTextResponse } from "../model/openai";
 import { Conversation, ConversationMessage } from "../../conversation";
 import { IAiTask } from "./IAiTask";
 
@@ -6,6 +7,6 @@ export interface IAiConversationTask extends IAiTask {
     messages: Array<ConversationMessage>;
 }
 
-export type AiConversationTaskProgress = string;
+export type AiConversationTaskProgress = IOpenAiTextProgress;
 
-export type AiConversationTaskResponse = string;
+export type AiConversationTaskResponse = IOpenAiTextResponse;

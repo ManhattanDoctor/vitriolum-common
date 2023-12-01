@@ -1,3 +1,5 @@
+import { IOpenAiModelDetails } from "./IOpenAiModel";
+
 export interface IOpenAiImageOptions {
     model: string;
     quality?: string;
@@ -5,6 +7,13 @@ export interface IOpenAiImageOptions {
     style?: string;
     n?: number;
 }
+
+export interface IOpenAiImageModelDetails extends IOpenAiModelDetails {
+    sizes: Array<string>;
+    styles: Array<string>;
+    qualities: Array<string>;
+}
+
 
 export const OPEN_AI_IMAGE_OPTIONS_MODEL_MIN_LENGTH = 4;
 export const OPEN_AI_IMAGE_OPTIONS_MODEL_MAX_LENGTH = 128;

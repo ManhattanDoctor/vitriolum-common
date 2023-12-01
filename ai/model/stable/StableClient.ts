@@ -6,7 +6,7 @@ import { IRenderDto, IRenderDtoResponse } from './IRenderDto';
 import * as _ from 'lodash';
 import { IStreamProgress } from './IStreamDto';
 import { IStreamResult } from './IStreamDto';
-import { IStableImageModelDetails } from './IStableModelDetails';
+import { IStableImageModelDetails } from './IStableModel';
 
 export class StableClient extends TransportHttp<ITransportHttpSettings> {
 

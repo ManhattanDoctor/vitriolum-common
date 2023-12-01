@@ -14,6 +14,9 @@ export interface IOpenAiImageModelDetails extends IOpenAiModelDetails {
     qualities: Array<string>;
 }
 
+export type IOpenAiImageProgress = void;
+
+export type IOpenAiImageResponse = Array<string>;
 
 export const OPEN_AI_IMAGE_OPTIONS_MODEL_MIN_LENGTH = 4;
 export const OPEN_AI_IMAGE_OPTIONS_MODEL_MAX_LENGTH = 128;

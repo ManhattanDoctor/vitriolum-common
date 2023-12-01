@@ -2,9 +2,9 @@
 import { ITaskDto } from '../task';
 import { IAiTask } from '../../ai/task';
 import { IPersonDto } from './IPersonDto';
-import { AiModelTextOptions } from '../../ai';
+import { AiTextModel, AiModelTextOptions } from '../../ai';
 
-export interface IPersonTaskDto extends ITaskDto<IPersonTextTask, AiModelTextOptions> { }
+export interface IPersonTaskDto extends ITaskDto<IPersonTextTask, AiTextModel, AiModelTextOptions> { }
 
 export interface IPersonTextTask extends IAiTask {
     person: IPersonDto;

@@ -1,5 +1,4 @@
 export enum FileLinkType {
-    PERSON = 'PERSON',
     CONVERSATION = 'CONVERSATION',
 }
 

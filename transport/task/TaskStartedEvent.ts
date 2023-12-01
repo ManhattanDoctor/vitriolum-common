@@ -1,14 +1,14 @@
 import { TransportEvent } from "@ts-core/common";
-import { IAiTaskEventDto } from "./AiTaskEventDto";
+import { ITaskEventDto } from "./TaskEventDto";
 
-export class AiTaskStartedEvent extends TransportEvent<IAiTaskEventDto>{
+export class TaskStartedEvent extends TransportEvent<ITaskEventDto>{
     // --------------------------------------------------------------------------
     //
     //  Public Static Properties
     //
     // --------------------------------------------------------------------------
 
-    public static readonly NAME = 'AiTaskStartedEvent';
+    public static readonly NAME = 'TaskStartedEvent';
 
     // --------------------------------------------------------------------------
     //
@@ -16,7 +16,7 @@ export class AiTaskStartedEvent extends TransportEvent<IAiTaskEventDto>{
     //
     // --------------------------------------------------------------------------
 
-    constructor(data: IAiTaskEventDto) {
-        super(AiTaskStartedEvent.NAME, data);
+    constructor(data: ITaskEventDto) {
+        super(TaskStartedEvent.NAME, data);
     }
 }

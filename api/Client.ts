@@ -6,9 +6,6 @@ import { User } from '../user';
 import * as _ from 'lodash';
 import { LocaleProject } from './locale';
 import { IOAuthPopUpDto } from '@ts-core/oauth';
-import { IPersonAddDto, IPersonGetDto, IPersonGetDtoResponse, IPersonListDto, IPersonListDtoResponse } from './person';
-import { Person } from '../person';
-import { IPersonTaskDto } from './person';
 import { ITaskDto, ITaskDtoResponse, ITaskProgress, } from './task';
 import { IAiModelGetDtoResponse, IAiModelGetDto } from './ai'
 import { AI_MODEL_TIMEOUT } from '../ai';
@@ -79,36 +76,6 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     public async userEdit(data: IUserEditDto): Promise<IUserEditDtoResponse> {
         let item = await this.call<IUserEditDtoResponse, IUserEditDto>(`${USER_URL}/${data.uid}`, { method: 'put', data: TraceUtil.addIfNeed(data) });
         return TransformUtil.toClass(User, item);
-    }
-
-    // --------------------------------------------------------------------------
-    //
-    //  Person Methods
-    //
-    // --------------------------------------------------------------------------
-
-    public async personAdd(data: IPersonAddDto): Promise<IPersonGetDtoResponse> {
-        let item = await this.call<IPersonGetDtoResponse, IPersonAddDto>(PERSON_URL, { method: 'post', data: TraceUtil.addIfNeed(data) });
-        return TransformUtil.toClass(Person, item);
-    }
-
-    public async personGet(uid: string, data?: IPersonGetDto): Promise<IPersonGetDtoResponse> {
-        let item = await this.call<IPersonGetDtoResponse, IPersonGetDto>(`${PERSON_URL}/${uid}`, { data: TraceUtil.addIfNeed(data) });
-        return TransformUtil.toClass(Person, item);
-    }
-
-    public async personRemove(uid: string): Promise<void> {
-        return this.call<void, void>(`${PERSON_URL}/${uid}`, { method: 'delete' });
-    }
-
-    public async personList(data: IPersonListDto): Promise<IPersonListDtoResponse> {
-        let item = await this.call<IPersonListDtoResponse, IPersonListDto>(PERSON_URL, { data: TraceUtil.addIfNeed(data) });
-        item.items = TransformUtil.toClassMany(Person, item.items);
-        return item;
-    }
-
-    public async personTask(data: IPersonTaskDto): Promise<AiTextTaskResponse> {
-        return this.call<AiTextTaskResponse, IPersonTaskDto>(PERSON_TASK_URL, { data: TraceUtil.addIfNeed(data), method: 'post' }, { timeout: AI_MODEL_TIMEOUT });
     }
 
     // --------------------------------------------------------------------------
@@ -230,9 +197,7 @@ export const TASK_URL = PREFIX + 'task';
 export const USER_URL = PREFIX + 'user';
 export const OAUTH_URL = PREFIX + 'oauth';
 export const LOCALE_URL = PREFIX + 'locale';
-export const PERSON_URL = PREFIX + 'person';
 export const AI_MODEL_URL = PREFIX + 'aimodel';
-export const PERSON_TASK_URL = PREFIX + 'personTask';
 export const CONVERSATION_URL = PREFIX + 'conversation';
 
 export const INIT_URL = PREFIX + 'init';

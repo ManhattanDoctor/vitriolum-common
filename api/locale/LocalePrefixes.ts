@@ -1,9 +1,9 @@
 
 export enum LocaleProject {
-    PERSON = 'person',
+    VITRIOL = 'vitriol',
 }
 
-export const PERSON_LOCALE_PREFIXES = [
+export const VITRIOL_LOCALE_PREFIXES = [
     '.json',
     'Custom.json',
 
@@ -11,8 +11,6 @@ export const PERSON_LOCALE_PREFIXES = [
 
     'Ai.json',
     'Main.json',
-    'Main.json',
     'About.json',
-    'Person.json',
     'Conversation.json',
-];
+]

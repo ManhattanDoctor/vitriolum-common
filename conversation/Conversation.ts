@@ -7,6 +7,9 @@ export class Conversation {
     name: string;
     status: ConversationStatus;
     userId: number;
+    picture: string;
+
+    color?: string;
     system?: string;
 
     model: AiConversationModel;
@@ -22,8 +25,21 @@ export enum ConversationStatus {
     LOADING = "LOADING",
 }
 
+export enum ConversationColor {
+    ONE = 'ONE',
+    TWO = 'TWO',
+    THREE = 'THREE',
+    FOUR = 'FOUR',
+    FIVE = 'FIVE',
+    SIX = 'SIX',
+    SEVEN = 'SEVEN'
+}
+
 export const CONVERSATION_NAME_MIN_LENGTH = 2;
 export const CONVERSATION_NAME_MAX_LENGTH = 64;
+
+export const CONVERSATION_PICTURE_MIN_LENGTH = 2;
+export const CONVERSATION_PICTURE_MAX_LENGTH = 1024;
 
 export const CONVERSATION_SYSTEM_MIN_LENGTH = 2;
 export const CONVERSATION_SYSTEM_MAX_LENGTH = 1024;

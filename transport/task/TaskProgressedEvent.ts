@@ -1,14 +1,14 @@
 import { TransportEvent } from "@ts-core/common";
-import { IAiTaskEventDto } from "./AiTaskEventDto";
+import { ITaskEventDto } from "./TaskEventDto";
 
-export class AiTaskProgressedEvent<T> extends TransportEvent<IAiTaskProgressDto<T>>{
+export class TaskProgressedEvent<T> extends TransportEvent<IAiTaskProgressDto<T>>{
     // --------------------------------------------------------------------------
     //
     //  Public Static Properties
     //
     // --------------------------------------------------------------------------
 
-    public static readonly NAME = 'AiTaskProgressedEvent';
+    public static readonly NAME = 'TaskProgressedEvent';
 
     // --------------------------------------------------------------------------
     //
@@ -17,11 +17,11 @@ export class AiTaskProgressedEvent<T> extends TransportEvent<IAiTaskProgressDto<
     // --------------------------------------------------------------------------
 
     constructor(data: IAiTaskProgressDto<T>) {
-        super(AiTaskProgressedEvent.NAME, data);
+        super(TaskProgressedEvent.NAME, data);
     }
 }
 
-export interface IAiTaskProgressDto<T> extends IAiTaskEventDto {
+export interface IAiTaskProgressDto<T> extends ITaskEventDto {
     data?: T;
     total?: number;
     percent?: number;

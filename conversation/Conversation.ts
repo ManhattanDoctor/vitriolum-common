@@ -7,9 +7,10 @@ export class Conversation {
     name: string;
     status: ConversationStatus;
     userId: number;
+    window: number;
     picture: string;
 
-    color?: string;
+    color?: ConversationColor;
     system?: string;
 
     model: AiConversationModel;
@@ -43,3 +44,6 @@ export const CONVERSATION_PICTURE_MAX_LENGTH = 1024;
 
 export const CONVERSATION_SYSTEM_MIN_LENGTH = 2;
 export const CONVERSATION_SYSTEM_MAX_LENGTH = 1024;
+
+export const CONVERSATION_WINDOW_MIN = 10;
+export const CONVERSATION_WINDOW_MAX = 1024;

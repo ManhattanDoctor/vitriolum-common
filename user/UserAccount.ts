@@ -4,6 +4,5 @@ export class UserAccount {
 
 export enum UserAccountType {
     FREE = 'FREE',
-    MASTER = 'MASTER',
     ADMINISTRATOR = 'ADMINISTRATOR'
 }

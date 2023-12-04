@@ -12,6 +12,9 @@ import { AI_MODEL_TIMEOUT } from '../ai';
 import { AiTextTaskResponse, IAiTaskProgress } from '../ai/task';
 import { IConversationAddDto, IConversationAddDtoResponse, IConversationEditDto, IConversationEditDtoResponse, IConversationGetDtoResponse, IConversationListDto, IConversationListDtoResponse, IConversationMessageAddDto, IConversationMessageAddDtoResponse, IConversationMessageListDto, IConversationMessageListDtoResponse } from './conversation';
 import { Conversation, ConversationMessage } from '../conversation';
+import { IPaymentListDto, IPaymentListDtoResponse, IPaymentTransactionListDto, IPaymentTransactionListDtoResponse } from './payment';
+import { Payment, PaymentTransaction } from '../payment';
+import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICoinStatusGetDto } from './coin';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
     // --------------------------------------------------------------------------
@@ -132,6 +135,43 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return this.call<void, void>(`${CONVERSATION_URL}/${id}/message`, { method: 'delete' });
     }
 
+    //--------------------------------------------------------------------------
+    //
+    // 	Coin Methods
+    //
+    //--------------------------------------------------------------------------
+
+    public async coinStatusGet(data?: ICoinStatusGetDto): Promise<CoinStatusGetDtoResponse> {
+        let item = await this.call<CoinStatusGetDtoResponse>(`${COIN_URL}/status`, { data: TraceUtil.addIfNeed(data) });
+        return TransformUtil.toClass(CoinStatusGetDtoResponse, item);
+    }
+
+    public async coinAccountsGet(uid: UserUID): Promise<ICoinAccountsGetDto> {
+        return this.call<ICoinAccountsGetDto>(`${COIN_URL}/${uid}/accounts`);
+    }
+
+    public async coinBalanceEdit(data: ICoinBalanceEditDto): Promise<void> {
+        return this.call<void, ICoinBalanceEditDto>(`${COIN_URL}/balance`, { data: TraceUtil.addIfNeed(data), method: 'post' });
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    // 	Payment Methods
+    //
+    //--------------------------------------------------------------------------
+
+    public async paymentList(data?: IPaymentListDto): Promise<IPaymentListDtoResponse> {
+        let item = await this.call<IPaymentListDtoResponse, IPaymentListDto>(PAYMENT_URL, { data: TraceUtil.addIfNeed(data) });
+        item.items = TransformUtil.toClassMany(Payment, item.items);
+        return item;
+    }
+
+    public async paymentTransactionList(data?: IPaymentTransactionListDto): Promise<IPaymentTransactionListDtoResponse> {
+        let item = await this.call<IPaymentTransactionListDtoResponse, IPaymentTransactionListDto>(PAYMENT_TRANSACTION_URL, { data: TraceUtil.addIfNeed(data) });
+        item.items = TransformUtil.toClassMany(PaymentTransaction, item.items);
+        return item;
+    }
+
     // --------------------------------------------------------------------------
     //
     //  Task Methods
@@ -199,6 +239,10 @@ export const OAUTH_URL = PREFIX + 'oauth';
 export const LOCALE_URL = PREFIX + 'locale';
 export const AI_MODEL_URL = PREFIX + 'aimodel';
 export const CONVERSATION_URL = PREFIX + 'conversation';
+
+export const COIN_URL = PREFIX + 'coin';
+export const PAYMENT_URL = PREFIX + 'payment';
+export const PAYMENT_TRANSACTION_URL = PREFIX + 'paymentTransaction';
 
 export const INIT_URL = PREFIX + 'init';
 export const LOGIN_URL = PREFIX + 'login';

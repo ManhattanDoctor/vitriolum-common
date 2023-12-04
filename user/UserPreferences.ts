@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 
 export class UserPreferences {
     name: string;
+    theme?: UserPreferencesTheme;
     phone?: string;
     email?: string;
     isMale?: boolean;
@@ -15,6 +16,11 @@ export class UserPreferences {
 
     @Type(() => Date)
     birthday?: Date;
+}
+
+export enum UserPreferencesTheme {
+    DARK = 'DARK',
+    LIGHT = 'LIGHT',
 }
 
 export const USER_PREFERENCES_STRING_MAX_LENGTH = 256;

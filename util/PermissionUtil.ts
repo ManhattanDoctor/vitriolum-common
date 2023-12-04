@@ -27,6 +27,16 @@ export class PermissionUtil {
         return !_.isNil(item) ? item.account.type === UserAccountType.ADMINISTRATOR : false;
     }
 
+    public static userIsCanCoinAccountsGet(item: User, user: User): boolean {
+        if (_.isNil(user)) {
+            return false;
+        }
+        if (PermissionUtil.userIsAdministrator(user)) {
+            return true;
+        }
+        return item.id === user.id;
+    }
+
     //--------------------------------------------------------------------------
     //
     // 	Conversation Methods

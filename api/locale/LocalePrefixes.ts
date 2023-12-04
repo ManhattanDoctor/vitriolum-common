@@ -1,9 +1,10 @@
 
 export enum LocaleProject {
     VITRIOL = 'vitriol',
+    VITRIOLUM = 'vitriolum',
 }
 
-export const VITRIOL_LOCALE_PREFIXES = [
+export const VITRIOLUM_LOCALE_PREFIXES = [
     '.json',
     'Custom.json',
 

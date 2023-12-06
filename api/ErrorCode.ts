@@ -1,7 +1,10 @@
+import { CoinId } from "../coin";
+import { PaymentTransactionType } from "../payment";
 import { FilterableConditionType } from "@ts-core/common";
 
 export enum ErrorCode {
     INVALID_REQUEST = 'INVALID_REQUEST',
+    INSUFFICIENT_FUNDS = 'INSUFFICIENT_FUNDS',
 
     LOGIN_ID_INVALID = 'LOGIN_ID_INVALID',
     LOGIN_TOKEN_INVALID = 'LOGIN_TOKEN_INVALID',
@@ -27,4 +30,11 @@ export interface IInvalidDto<T = any> {
     value: T | Array<T>;
     expected?: T | Array<T>;
     condition?: FilterableConditionType;
+}
+
+export interface IInsufficientFundsDto {
+    value: string;
+    target: PaymentTransactionType;
+    coinId: CoinId;
+    expected: string;
 }

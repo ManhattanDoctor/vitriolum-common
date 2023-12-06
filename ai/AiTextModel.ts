@@ -1,4 +1,4 @@
-import { IOpenAiTextOptions, IOpenAiTextModelDetails } from "./model/openai";
+import { IOpenAiTextOptions, IOpenAiTextModelDetails, IOpenAiTextConsumption } from "./model/openai";
 
 export enum AiTextModel {
     OPEN_AI = 'OPEN_AI_TEXT'
@@ -6,3 +6,4 @@ export enum AiTextModel {
 
 export type AiModelTextOptions = IOpenAiTextOptions;
 export type AiModelTextDetails  = IOpenAiTextModelDetails;
+export type AiModelTextConsumption  = IOpenAiTextConsumption

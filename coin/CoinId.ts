@@ -1,5 +1,6 @@
 export enum CoinId {
-    RUB = 'RUB'
+    RUB = 'RUB',
+    USD = 'USD',
 }
 
 export interface ICoinAmount {

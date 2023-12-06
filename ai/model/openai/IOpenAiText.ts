@@ -11,6 +11,12 @@ export type IOpenAiTextProgress = string;
 
 export type IOpenAiTextResponse = string;
 
+export interface IOpenAiTextConsumption {
+    total: number;
+    input: number;
+    output: number;
+}
+
 export interface IOpenAiTextModelDetails extends IOpenAiModelDetails { }
 
 export const OPEN_AI_TEXT_OPTIONS_TEMPERATURE_MIN = 0;

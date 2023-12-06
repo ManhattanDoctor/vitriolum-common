@@ -48,7 +48,7 @@ export class LoginUser {
 
     protected parse(item: OAuthUser): void {
         this.id = item.id.toString();
-        this.preferences = { location: item.location };
-        ObjectUtil.copyProperties(item, this.preferences, ['name', 'email', 'phone', 'locale', 'isMale', 'picture', 'location', 'birthday', 'description', 'vk'])
+        this.preferences = {};
+        ObjectUtil.copyProperties(item, this.preferences, ['name', 'email', 'phone', 'locale', 'picture'])
     }
 }

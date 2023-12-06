@@ -13,5 +13,6 @@ export const VITRIOLUM_LOCALE_PREFIXES = [
     'Ai.json',
     'Main.json',
     'About.json',
+    'Payment.json',
     'Conversation.json',
 ]

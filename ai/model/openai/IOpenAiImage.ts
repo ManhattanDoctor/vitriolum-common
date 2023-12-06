@@ -1,25 +1,27 @@
-import { IOpenAiModelDetails } from "./IOpenAiModel";
-
-export interface IOpenAiImageOptions {
-    model: string;
-    quality?: string;
+export interface IOpenAiImageDalle2Options {
     size?: string;
-    style?: string;
     n?: number;
 }
+export interface IOpenAiImageDalle3Options {
+    size?: string;
+    style?: string;
+    quality?: string;
+}
+export type IOpenAiImageOptions = IOpenAiImageDalle2Options | IOpenAiImageDalle3Options;
 
-export interface IOpenAiImageModelDetails extends IOpenAiModelDetails {
+export interface IOpenAiImageDalle2Details {
+    sizes: Array<string>;
+}
+export interface IOpenAiImageDalle3Details {
     sizes: Array<string>;
     styles: Array<string>;
     qualities: Array<string>;
 }
+export type IOpenAiImageModelDetails = IOpenAiImageDalle2Details | IOpenAiImageDalle3Details
 
 export type IOpenAiImageProgress = void;
 
 export type IOpenAiImageResponse = Array<string>;
-
-export const OPEN_AI_IMAGE_OPTIONS_MODEL_MIN_LENGTH = 4;
-export const OPEN_AI_IMAGE_OPTIONS_MODEL_MAX_LENGTH = 128;
 
 export const OPEN_AI_IMAGE_OPTIONS_QUALITY_MIN_LENGTH = 2;
 export const OPEN_AI_IMAGE_OPTIONS_QUALITY_MAX_LENGTH = 32;

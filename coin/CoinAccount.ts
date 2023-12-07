@@ -18,6 +18,4 @@ export class CoinAccount implements ICoinAmount {
     user?: User;
 }
 
-export type CoinAccounts = {
-    [key in CoinId]?: string;
-}
+export type CoinAccounts = Record<CoinId, string>;

@@ -9,4 +9,4 @@ export enum AiImageModel {
 
 export type AiModelImageOptions = IOpenAiImageOptions | IStableImageOptions;
 export type AiModelImageDetails = IOpenAiImageModelDetails | IStableImageModelDetails;
-export type AiModelTextConsumption = IOpenAiImageConsumption;
+export type AiModelImageConsumption = IOpenAiImageConsumption;

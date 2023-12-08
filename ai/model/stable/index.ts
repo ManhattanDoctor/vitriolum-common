@@ -3,5 +3,4 @@ export * from './IRenderDto';
 export * from './IStreamDto';
 export * from './StableClient';
 //
-export * from './IStableModel';
-export * from './IStableImageOptions';
+export * from './IStableImage';

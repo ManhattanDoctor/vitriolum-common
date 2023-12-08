@@ -9,15 +9,15 @@ export interface IOpenAiImageDalle3Options {
 }
 export type IOpenAiImageOptions = IOpenAiImageDalle2Options | IOpenAiImageDalle3Options;
 
-export interface IOpenAiImageDalle2Details {
+export interface IOpenAiImageDalle2ModelDetails {
     sizes: Array<string>;
 }
-export interface IOpenAiImageDalle3Details {
+export interface IOpenAiImageDalle3ModelDetails {
     sizes: Array<string>;
     styles: Array<string>;
     qualities: Array<string>;
 }
-export type IOpenAiImageModelDetails = IOpenAiImageDalle2Details | IOpenAiImageDalle3Details
+export type IOpenAiImageModelDetails = IOpenAiImageDalle2ModelDetails | IOpenAiImageDalle3ModelDetails
 
 export type IOpenAiImageProgress = void;
 

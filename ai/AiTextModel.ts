@@ -5,5 +5,5 @@ export enum AiTextModel {
 }
 
 export type AiModelTextOptions = IOpenAiTextOptions;
-export type AiModelTextDetails  = IOpenAiTextModelDetails;
-export type AiModelTextConsumption  = IOpenAiTextConsumption;
+export type AiModelTextDetails = IOpenAiTextModelDetails;
+export type AiModelTextConsumption = IOpenAiTextConsumption;

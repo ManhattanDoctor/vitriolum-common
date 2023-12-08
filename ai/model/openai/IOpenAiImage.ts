@@ -1,11 +1,11 @@
 export interface IOpenAiImageDalle2Options {
-    size?: string;
-    n?: number;
+    size: string;
+    n: number;
 }
 export interface IOpenAiImageDalle3Options {
-    size?: string;
-    style?: string;
-    quality?: string;
+    size: string;
+    style: string;
+    quality: string;
 }
 export type IOpenAiImageOptions = IOpenAiImageDalle2Options | IOpenAiImageDalle3Options;
 
@@ -23,14 +23,7 @@ export type IOpenAiImageProgress = void;
 
 export type IOpenAiImageResponse = Array<string>;
 
-export const OPEN_AI_IMAGE_OPTIONS_QUALITY_MIN_LENGTH = 2;
-export const OPEN_AI_IMAGE_OPTIONS_QUALITY_MAX_LENGTH = 32;
-
-export const OPEN_AI_IMAGE_OPTIONS_SIZE_MIN_LENGTH = 2;
-export const OPEN_AI_IMAGE_OPTIONS_SIZE_MAX_LENGTH = 32;
-
-export const OPEN_AI_IMAGE_OPTIONS_STYLE_MIN_LENGTH = 2;
-export const OPEN_AI_IMAGE_OPTIONS_STYLE_MAX_LENGTH = 32;
+export type IOpenAiImageConsumption = number;
 
 export const OPEN_AI_IMAGE_OPTIONS_N_MIN = 1;
 export const OPEN_AI_IMAGE_OPTIONS_N_MAX = 4;

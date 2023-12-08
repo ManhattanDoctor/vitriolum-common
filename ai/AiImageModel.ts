@@ -1,4 +1,4 @@
-import { IOpenAiImageModelDetails, IOpenAiImageOptions } from "./model/openai";
+import { IOpenAiImageConsumption, IOpenAiImageModelDetails, IOpenAiImageOptions } from "./model/openai";
 import { IStableImageOptions, IStableImageModelDetails } from "./model/stable";
 
 export enum AiImageModel {
@@ -9,3 +9,4 @@ export enum AiImageModel {
 
 export type AiModelImageOptions = IOpenAiImageOptions | IStableImageOptions;
 export type AiModelImageDetails = IOpenAiImageModelDetails | IStableImageModelDetails;
+export type AiModelTextConsumption = IOpenAiImageConsumption;

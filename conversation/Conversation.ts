@@ -12,6 +12,7 @@ export class Conversation {
 
     color?: ConversationColor;
     system?: string;
+    lastMessageDate?: Date;
 
     model: AiConversationModel;
     options: AiModelConversationOptions;
@@ -38,6 +39,9 @@ export enum ConversationColor {
 
 export const CONVERSATION_NAME_MIN_LENGTH = 2;
 export const CONVERSATION_NAME_MAX_LENGTH = 64;
+
+export const CONVERSATION_WINDOW_MIN_LENGTH = 0;
+export const CONVERSATION_WINDOW_MAX_LENGTH = 1024;
 
 export const CONVERSATION_PICTURE_MIN_LENGTH = 2;
 export const CONVERSATION_PICTURE_MAX_LENGTH = 1024;

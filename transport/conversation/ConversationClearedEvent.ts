@@ -1,14 +1,14 @@
 import { TransportEvent } from "@ts-core/common";
 import { IConversationEventDto } from "./IConversationEventDto";
 
-export class ConversationMessagesRemovedEvent extends TransportEvent<IConversationEventDto>{
+export class ConversationClearedEvent extends TransportEvent<IConversationEventDto>{
     // --------------------------------------------------------------------------
     //
     //  Public Static Properties
     //
     // --------------------------------------------------------------------------
 
-    public static readonly NAME = 'ConversationMessagesRemovedEvent';
+    public static readonly NAME = 'ConversationClearedEvent';
 
     // --------------------------------------------------------------------------
     //
@@ -17,6 +17,6 @@ export class ConversationMessagesRemovedEvent extends TransportEvent<IConversati
     // --------------------------------------------------------------------------
 
     constructor(data: IConversationEventDto) {
-        super(ConversationMessagesRemovedEvent.NAME, data);
+        super(ConversationClearedEvent.NAME, data);
     }
 }

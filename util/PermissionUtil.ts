@@ -70,7 +70,7 @@ export class PermissionUtil {
     public static conversationIsCanClear(item: Conversation, user: User): boolean {
         return PermissionUtil.conversationIsCanMessageRemove(item, user);
     }
-    
+
     public static conversationIsCanRemove(item: Conversation, user: User): boolean {
         return PermissionUtil.conversationIsCanOpen(item, user);
     }
@@ -79,7 +79,7 @@ export class PermissionUtil {
         if (!PermissionUtil.conversationIsCanOpen(item, user)) {
             return false;
         }
-        if (item.status !== ConversationStatus.LOADED) {
+        if (item.status === ConversationStatus.LOADING) {
             return false;
         }
         return true;

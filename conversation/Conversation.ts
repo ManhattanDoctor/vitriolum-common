@@ -7,8 +7,9 @@ export class Conversation {
     name: string;
     status: ConversationStatus;
     userId: number;
-    window: number;
+    history: number;
     picture: string;
+    isConsiderHistory: boolean;
 
     color?: ConversationColor;
     system?: string;
@@ -40,14 +41,11 @@ export enum ConversationColor {
 export const CONVERSATION_NAME_MIN_LENGTH = 2;
 export const CONVERSATION_NAME_MAX_LENGTH = 64;
 
-export const CONVERSATION_WINDOW_MIN_LENGTH = 0;
-export const CONVERSATION_WINDOW_MAX_LENGTH = 1024;
-
 export const CONVERSATION_PICTURE_MIN_LENGTH = 2;
 export const CONVERSATION_PICTURE_MAX_LENGTH = 1024;
 
 export const CONVERSATION_SYSTEM_MIN_LENGTH = 2;
 export const CONVERSATION_SYSTEM_MAX_LENGTH = 1024;
 
-export const CONVERSATION_WINDOW_MIN = 10;
-export const CONVERSATION_WINDOW_MAX = 1024;
+export const CONVERSATION_HISTORY_MIN = 5;
+export const CONVERSATION_HISTORY_MAX = 256;

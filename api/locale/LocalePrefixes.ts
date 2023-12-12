@@ -1,6 +1,5 @@
 
 export enum LocaleProject {
-    VITRIOL = 'vitriol',
     VITRIOLUM = 'vitriolum',
 }
 

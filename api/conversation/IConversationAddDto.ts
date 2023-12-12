@@ -10,5 +10,7 @@ export interface IConversationAddDto extends ITraceable {
 
     color?: ConversationColor;
     system?: string;
+    history?: number;
+    isConsiderHistory?: boolean;
 }
 export type IConversationAddDtoResponse = Conversation;

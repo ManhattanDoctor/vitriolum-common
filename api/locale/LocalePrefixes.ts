@@ -1,9 +1,9 @@
 
 export enum LocaleProject {
-    VITRIOLUM = 'vitriolum',
+    GNOSISAI = 'gnosisai',
 }
 
-export const VITRIOLUM_LOCALE_PREFIXES = [
+export const GNOSISAI_LOCALE_PREFIXES = [
     '.json',
     'Custom.json',
 

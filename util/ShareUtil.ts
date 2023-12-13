@@ -8,9 +8,9 @@ export class ShareUtil {
     //
     //--------------------------------------------------------------------------
 
-    public static VK_URL = 'https://vk.com/vitriolum';
-    public static SITE_URL = 'https://vitriolum.one';
-    public static ASSETS_URL = 'https://vk.vitriolum.one/person/assets';
+    public static VK_URL = 'https://vk.com/gnosisai';
+    public static SITE_URL = 'https://gnosisai.ru';
+    public static ASSETS_URL = 'https://vk.occultist.one/gnosisai/assets';
 }
 
 export interface IShareUrl {

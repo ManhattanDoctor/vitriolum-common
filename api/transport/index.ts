@@ -1,3 +1,3 @@
 export * from './CoinBalanceEditedEvent';
 
-export const SOCKET_NAMESPACE = 'vitriolum';
+export const SOCKET_NAMESPACE = 'gnosisai';

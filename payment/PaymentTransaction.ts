@@ -1,5 +1,4 @@
 import { Type } from 'class-transformer';
-import { User } from '../user';
 import { CoinId, ICoinAmount } from '../coin';
 import { PaymentAccountId } from './Payment';
 

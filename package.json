@@ -1,7 +1,7 @@
 {
-    "name": "@vitriolum/common",
+    "name": "@gnosis/common",
     "version": "1.0.0",
-    "description": "Common classes for vitriolum",
+    "description": "Common classes for gnosis",
     "main": "",
     "author": "Renat Gubaev",
     "license": "ISC",

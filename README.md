@@ -1,2 +1,2 @@
-# vitriolum-common
+# gnosis-common
 Common classes

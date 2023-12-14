@@ -7,6 +7,13 @@ export enum AiImageModel {
     OPEN_AI_DALLE_3 = 'OPEN_AI_IMAGE_DALLE_3',
 }
 
+export interface IAiImage {
+    mime: string;
+    width: number;
+    height: number;
+    source: string;
+}
+
 export type AiModelImageOptions = IOpenAiImageOptions | IStableImageOptions;
 export type AiModelImageDetails = IOpenAiImageModelDetails | IStableImageModelDetails;
 export type AiModelImageConsumption = IOpenAiImageConsumption;

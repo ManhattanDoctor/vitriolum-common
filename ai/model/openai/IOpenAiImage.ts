@@ -1,3 +1,5 @@
+import { IAiImage } from "../../AiImageModel";
+
 export interface IOpenAiImageDalle2Options {
     size: string;
     n: number;
@@ -21,7 +23,7 @@ export type IOpenAiImageModelDetails = IOpenAiImageDalle2ModelDetails | IOpenAiI
 
 export type IOpenAiImageProgress = void;
 
-export type IOpenAiImageResponse = Array<string>;
+export type IOpenAiImageResponse = Array<IAiImage>;
 
 export type IOpenAiImageConsumption = number;
 

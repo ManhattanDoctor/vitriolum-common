@@ -1,4 +1,5 @@
 import { RandomUtil } from "@ts-core/common";
+import { IAiImage } from "../../AiImageModel";
 
 export interface IStableImageOptions {
     seed: number;
@@ -25,7 +26,7 @@ export interface IStableImageModelDetails {
 
 export type IStableImageProgress = Array<string>;
 
-export type IStableImageResponse = Array<string>;
+export type IStableImageResponse = Array<IAiImage>;
 
 export type IStableImageConsumption = number;
 

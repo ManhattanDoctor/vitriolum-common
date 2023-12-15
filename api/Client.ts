@@ -240,6 +240,7 @@ export const LOCALE_URL = PREFIX + 'locale';
 export const AI_MODEL_URL = PREFIX + 'aimodel';
 export const CONVERSATION_URL = PREFIX + 'conversation';
 
+export const FILE_URL = PREFIX + 'file';
 export const COIN_URL = PREFIX + 'coin';
 export const PAYMENT_URL = PREFIX + 'payment';
 export const PAYMENT_TRANSACTION_URL = PREFIX + 'paymentTransaction';

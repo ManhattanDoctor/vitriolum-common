@@ -12,15 +12,13 @@ export class File {
     hash: string;
     extension: string;
 
-    linkId: number;
-    linkType: string;
+    userId: number;
 
     @Type(() => FileBlob)
     blob?: FileBlob;
 
     @Type(() => Date)
     createdDate: Date;
-
-    @Type(() => Date)
-    updatedDate: Date;
 }
+
+export const FilePictureExtensions = ['jpg', 'jpeg', 'png'];

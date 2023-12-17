@@ -24,7 +24,7 @@ export interface IStableImageModelDetails {
     models: Array<string>;
 }
 
-export type IStableImageProgress = Array<string>;
+export type IStableImageProgress = Array<IAiImage>;
 
 export type IStableImageResponse = Array<IAiImage>;
 

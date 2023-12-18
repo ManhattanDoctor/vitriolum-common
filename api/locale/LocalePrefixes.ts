@@ -10,6 +10,8 @@ export const GNOSISAI_LOCALE_PREFIXES = [
     'User.json',
 
     'Ai.json',
+    'Coin.json',
+    'File.json',
     'Main.json',
     'About.json',
     'Payment.json',

@@ -220,12 +220,16 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     //
     //--------------------------------------------------------------------------
 
+    public get sid(): string {
+        return !_.isNil(this.authorization) ? this.authorization.substring(7) : null;
+    }
     public set sid(value: string) {
-        if (!_.isNil(this.headers)) {
-            this.headers.Authorization = `Bearer ${value}`;
-        }
+        this.headers.Authorization = `Bearer ${value}`;
     }
 
+    public get authorization(): string {
+        return !_.isNil(this.headers.Authorization) ? this.headers.Authorization : null;
+    }
     public get oauthRedirectUrl(): string {
         return `${this.url}${OAUTH_URL}`;
     }

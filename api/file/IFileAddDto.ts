@@ -5,10 +5,10 @@ export interface IFileAddDto extends ITraceable {
     description?: string;
 }
 
-export interface IFileBase64AddDto extends IFileAddDto {
-    data: string;
-    mime: string;
+export interface IFileBufferAddDto extends IFileAddDto {
     name: string;
+    mime: string;
+    base64: string;
 }
 
 export type IFileAddDtoResponse = File;

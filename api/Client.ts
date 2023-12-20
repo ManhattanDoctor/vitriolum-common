@@ -15,8 +15,9 @@ import { Conversation, ConversationMessage } from '../conversation';
 import { IPaymentListDto, IPaymentListDtoResponse, IPaymentTransactionListDto, IPaymentTransactionListDtoResponse } from './payment';
 import { Payment, PaymentTransaction } from '../payment';
 import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICoinStatusGetDto } from './coin';
-import { IFileAddDtoResponse, IFileBase64AddDto, IFileListDto, IFileListDtoResponse, IFileRemoveDtoResponse } from './file';
+import { IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileRemoveDtoResponse } from './file';
 import { File } from '../file';
+import { IFileBufferAddDto } from './file';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
 
@@ -170,8 +171,8 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     //
     // --------------------------------------------------------------------------
 
-    public async fileBase64Add(data: IFileBase64AddDto): Promise<IFileAddDtoResponse> {
-        let item = await this.call<IFileAddDtoResponse, IFileBase64AddDto>(`${FILE_BASE64_URL}`, { data: TraceUtil.addIfNeed(data), method: 'post' });
+    public async fileBufferAdd(data: IFileBufferAddDto): Promise<IFileAddDtoResponse> {
+        let item = await this.call<IFileAddDtoResponse, IFileBufferAddDto>(`${FILE_BUFFER_URL}`, { data: TraceUtil.addIfNeed(data), method: 'post' });
         item = TransformUtil.toClass(File, item);
         return item;
     }
@@ -260,7 +261,7 @@ export const AI_MODEL_URL = PREFIX + 'aimodel';
 export const CONVERSATION_URL = PREFIX + 'conversation';
 
 export const FILE_URL = PREFIX + 'file';
-export const FILE_BASE64_URL = PREFIX + 'fileBase64';
+export const FILE_BUFFER_URL = PREFIX + 'fileBuffer';
 
 export const COIN_URL = PREFIX + 'coin';
 export const PAYMENT_URL = PREFIX + 'payment';

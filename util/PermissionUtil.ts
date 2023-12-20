@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 import { User, UserAccountType } from '../user';
 import { IUserEditDto } from '../api/user';
 import { Conversation, ConversationStatus } from '../conversation';
+import { File } from '../file';
 
 export class PermissionUtil {
     //--------------------------------------------------------------------------
@@ -90,5 +91,25 @@ export class PermissionUtil {
             return false;
         }
         return true;
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    // 	File Methods
+    //
+    //--------------------------------------------------------------------------
+
+    public static fileIsCanOpen(item: File, user: User): boolean {
+        if (_.isNil(user)) {
+            return false;
+        }
+        if (PermissionUtil.userIsAdministrator(user)) {
+            return true;
+        }
+        return item.userId === user.id;
+    }
+
+    public static fileIsCanRemove(item: File, user: User): boolean {
+        return PermissionUtil.fileIsCanOpen(item, user);
     }
 }

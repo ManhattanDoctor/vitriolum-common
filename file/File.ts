@@ -40,6 +40,7 @@ export enum FileAudioExtension {
     FLAC = 'flac',
 }
 export enum FileDocumentExtension {
+    TEXT = 'txt',
     PDF = 'png',
     XLS = 'xls',
     DOC = 'doc',
@@ -62,6 +63,7 @@ export enum FileAudioMime {
     FLAC = 'audio/x-flac',
 }
 export enum FileDocumentMime {
+    TXT = 'text/plain',
     PDF = 'application/pdf',
     DOC = 'application/msword',
     XLS = 'application/vnd.ms-excel',

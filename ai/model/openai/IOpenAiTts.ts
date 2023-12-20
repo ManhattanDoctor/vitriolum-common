@@ -12,6 +12,12 @@ export interface IOpenAiTtsModelDetails extends IOpenAiModelDetails {
     formats: Array<string>;
 }
 
+export type IOpenAiTtsProgress = void;
+
+export type IOpenAiTtsResponse = string;
+
+export type IOpenAiTtsConsumption = number;
+
 export const OPEN_AI_TTS_OPTIONS_VOICE_MIN_LENGTH = 0;
 export const OPEN_AI_TTS_OPTIONS_VOICE_MAX_LENGTH = 16;
 

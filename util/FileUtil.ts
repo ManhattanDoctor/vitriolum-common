@@ -1,4 +1,4 @@
-import { FileAudioMime, FileAudioMimes, FileDocumentMime, FileDocumentMimes, FileImageMime, FileImageMimes, FileType } from "../file";
+import { FileAudioExtension, FileAudioMime, FileAudioMimes, FileDocumentExtension, FileDocumentMime, FileDocumentMimes, FileImageExtension, FileImageMime, FileImageMimes, FileType } from "../file";
 import * as _ from 'lodash';
 
 export class FileUtil {
@@ -10,7 +10,7 @@ export class FileUtil {
     // --------------------------------------------------------------------------
 
     public static createName(name: string, mime: string): string {
-        let item = `${_.truncate(name, { length: 10 })}_${Date.now()}.${FileUtil.getExtension(mime)}`;
+        let item = `${_.truncate(name, { length: 25 })}_${Date.now()}.${FileUtil.getExtension(mime)}`;
         return item;
     }
 
@@ -30,29 +30,31 @@ export class FileUtil {
     public static getExtension(mime: string): string {
         switch (mime) {
             case FileImageMime.PNG:
-                return 'png';
+                return FileImageExtension.PNG;
             case FileImageMime.JPEG:
-                return 'jpg';
+                return FileImageExtension.JPG;
+
             case FileAudioMime.MP3:
-                return 'mp3';
+                return FileAudioExtension.MP3;
             case FileAudioMime.AAC:
-                return 'aac';
+                return FileAudioExtension.AAC;
             case FileAudioMime.OPUS:
-                return 'opus';
+                return FileAudioExtension.OPUS;
             case FileAudioMime.FLAC:
-                return 'flac';
+                return FileAudioExtension.FLAC;
+
             case FileDocumentMime.TXT:
-                return 'txt';
+                return FileDocumentExtension.TXT;
             case FileDocumentMime.DOC:
-                return 'doc';
+                return FileDocumentExtension.DOC;
             case FileDocumentMime.DOCX:
-                return 'docx';
+                return FileDocumentExtension.DOCX;
             case FileDocumentMime.PDF:
-                return 'pdf';
+                return FileDocumentExtension.PDF;
             case FileDocumentMime.XLS:
-                return 'xls';
+                return FileDocumentExtension.XLS;
             case FileDocumentMime.XLSX:
-                return 'xlsx';
+                return FileDocumentExtension.XLSX;
         }
         return null;
     }

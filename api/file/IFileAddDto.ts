@@ -8,6 +8,7 @@ export interface IFileAddDto extends ITraceable {
 export interface IFileBase64AddDto extends IFileAddDto {
     data: string;
     mime: string;
+    name: string;
 }
 
 export type IFileAddDtoResponse = File;

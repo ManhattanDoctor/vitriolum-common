@@ -15,18 +15,10 @@ import { Conversation, ConversationMessage } from '../conversation';
 import { IPaymentListDto, IPaymentListDtoResponse, IPaymentTransactionListDto, IPaymentTransactionListDtoResponse } from './payment';
 import { Payment, PaymentTransaction } from '../payment';
 import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICoinStatusGetDto } from './coin';
+import { IFileAddDtoResponse, IFileBase64AddDto, IFileListDto, IFileListDtoResponse, IFileRemoveDtoResponse } from './file';
+import { File } from '../file';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
-    // --------------------------------------------------------------------------
-    //
-    //  Static Methods
-    //
-    // --------------------------------------------------------------------------
-
-    public static totp(): Promise<string> {
-        let window = 5 * DateUtil.MILLISECONDS_MINUTE;
-        return Promise.resolve(`Login data is "${Math.floor(Date.now() / window)}"`);
-    }
 
     // --------------------------------------------------------------------------
     //
@@ -174,6 +166,29 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
 
     // --------------------------------------------------------------------------
     //
+    //  File Methods
+    //
+    // --------------------------------------------------------------------------
+
+    public async fileBase64Add(data: IFileBase64AddDto): Promise<IFileAddDtoResponse> {
+        let item = await this.call<IFileAddDtoResponse, IFileBase64AddDto>(`${FILE_BASE64_URL}`, { data: TraceUtil.addIfNeed(data), method: 'post' });
+        item = TransformUtil.toClass(File, item);
+        return item;
+    }
+
+    public async fileList(data?: IFileListDto): Promise<IFileListDtoResponse> {
+        let item = await this.call<IFileListDtoResponse, IFileListDto>(`${FILE_URL}`, { data: TraceUtil.addIfNeed(data) });
+        item.items = TransformUtil.toClassMany(File, item.items);
+        return item;
+    }
+
+    public async fileRemove(id: number): Promise<IFileRemoveDtoResponse> {
+        let item = await this.call<IFileRemoveDtoResponse, number>(`${FILE_URL}/${id}`, { method: 'delete' });
+        return TransformUtil.toClass(File, item);
+    }
+
+    // --------------------------------------------------------------------------
+    //
     //  Task Methods
     //
     // --------------------------------------------------------------------------
@@ -245,6 +260,8 @@ export const AI_MODEL_URL = PREFIX + 'aimodel';
 export const CONVERSATION_URL = PREFIX + 'conversation';
 
 export const FILE_URL = PREFIX + 'file';
+export const FILE_BASE64_URL = PREFIX + 'fileBase64';
+
 export const COIN_URL = PREFIX + 'coin';
 export const PAYMENT_URL = PREFIX + 'payment';
 export const PAYMENT_TRANSACTION_URL = PREFIX + 'paymentTransaction';

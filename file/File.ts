@@ -77,3 +77,44 @@ export const FileMimes = [...FileImageMimes, ...FileDocumentMimes, ...FileAudioM
 export const FILE_SIZE_MAX = 5242880; // 5mb
 export const FILE_NAME_MAX_LENGTH = 124;
 export const FILE_AMOUNT_MAX = 10;
+
+export function getFileType(mime: string): FileType {
+    if (FileImageMimes.includes(mime)) {
+        return FileType.IMAGE;
+    }
+    if (FileAudioMimes.includes(mime)) {
+        return FileType.AUDIO;
+    }
+    if (FileDocumentMimes.includes(mime)) {
+        return FileType.DOCUMENT;
+    }
+    return null;
+}
+
+export function getFileExtension(mime: string): string {
+    switch (mime) {
+        case FileImageMime.PNG:
+            return 'png';
+        case FileImageMime.JPEG:
+            return 'jpg';
+        case FileAudioMime.MP3:
+            return 'mp3';
+        case FileAudioMime.AAC:
+            return 'aac';
+        case FileAudioMime.OPUS:
+            return 'opus';
+        case FileAudioMime.FLAC:
+            return 'flac';
+        case FileDocumentMime.DOC:
+            return 'doc';
+        case FileDocumentMime.DOCX:
+            return 'docx';
+        case FileDocumentMime.PDF:
+            return 'pdf';
+        case FileDocumentMime.XLS:
+            return 'xls';
+        case FileDocumentMime.XLSX:
+            return 'xlsx';
+    }
+    return null;
+}

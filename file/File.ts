@@ -67,7 +67,6 @@ export enum FileDocumentMime {
     PDF = 'application/pdf',
     DOC = 'application/msword',
     XLS = 'application/vnd.ms-excel',
-    JPEG = 'image/jpeg',
     XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     DOCX = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 }

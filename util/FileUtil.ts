@@ -1,3 +1,4 @@
+import { Sha512, TraceUtil } from "@ts-core/common";
 import { FileAudioExtension, FileAudioMime, FileAudioMimes, FileDocumentExtension, FileDocumentMime, FileDocumentMimes, FileImageExtension, FileImageMime, FileImageMimes, FileType } from "../file";
 import * as _ from 'lodash';
 
@@ -5,13 +6,24 @@ export class FileUtil {
 
     // --------------------------------------------------------------------------
     //
-    //  Static Methods
+    //  Properties
     //
     // --------------------------------------------------------------------------
 
-    public static createName(name: string, mime: string): string {
-        let item = `${_.truncate(name, { length: 25 })}_${Date.now()}.${FileUtil.getExtension(mime)}`;
-        return item;
+    private static _extensionToMime: Record<string, string>;
+    private static _mimeToExtension: Record<string, string>;
+
+    // --------------------------------------------------------------------------
+    //
+    //  Public Methods
+    //
+    // --------------------------------------------------------------------------
+
+    public static createName(mime: string, name?: string): string {
+        if (_.isEmpty(name)) {
+            name = Sha512.hex(TraceUtil.generate());
+        }
+        return `${_.truncate(name, { length: 16 })}_${Date.now()}.${FileUtil.getExtension(mime)}`;
     }
 
     public static getType(mime: string): FileType {
@@ -27,35 +39,37 @@ export class FileUtil {
         return null;
     }
 
+    public static getMime(extension: string): string {
+        return FileUtil.extensionToMime[extension];
+    }
+
     public static getExtension(mime: string): string {
-        switch (mime) {
-            case FileImageMime.PNG:
-                return FileImageExtension.PNG;
-            case FileImageMime.JPEG:
-                return FileImageExtension.JPG;
+        return FileUtil.mimeToExtension[mime];
+    }
 
-            case FileAudioMime.MP3:
-                return FileAudioExtension.MP3;
-            case FileAudioMime.AAC:
-                return FileAudioExtension.AAC;
-            case FileAudioMime.OPUS:
-                return FileAudioExtension.OPUS;
-            case FileAudioMime.FLAC:
-                return FileAudioExtension.FLAC;
+    // --------------------------------------------------------------------------
+    //
+    //  Private Properties
+    //
+    // --------------------------------------------------------------------------
 
-            case FileDocumentMime.TXT:
-                return FileDocumentExtension.TXT;
-            case FileDocumentMime.DOC:
-                return FileDocumentExtension.DOC;
-            case FileDocumentMime.DOCX:
-                return FileDocumentExtension.DOCX;
-            case FileDocumentMime.PDF:
-                return FileDocumentExtension.PDF;
-            case FileDocumentMime.XLS:
-                return FileDocumentExtension.XLS;
-            case FileDocumentMime.XLSX:
-                return FileDocumentExtension.XLSX;
+    private static get mimeToExtension(): Record<string, string> {
+        if (_.isNil(this._mimeToExtension)) {
+            let item = this._mimeToExtension = {};
+            for (let [key, value] of Object.entries(FileImageMime)) item[value] = FileImageExtension[key];
+            for (let [key, value] of Object.entries(FileAudioMime)) item[value] = FileAudioExtension[key];
+            for (let [key, value] of Object.entries(FileDocumentMime)) item[value] = FileDocumentExtension[key];
+            item[FileImageMime.JPEG] = FileImageExtension.JPG;
         }
-        return null;
+        return this._mimeToExtension;
+    }
+
+    private static get extensionToMime(): Record<string, string> {
+        if (_.isNil(this._extensionToMime)) {
+            let item = this._extensionToMime = {};
+            for (let [key, value] of Object.entries(this.mimeToExtension)) item[value] = key;
+            item[FileImageExtension.JPEG] = FileImageMime.JPEG;
+        }
+        return this._extensionToMime;
     }
 }

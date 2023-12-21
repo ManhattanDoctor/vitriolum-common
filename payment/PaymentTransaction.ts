@@ -1,6 +1,9 @@
-import { Type } from 'class-transformer';
+import { Type, Transform } from 'class-transformer';
 import { CoinId, ICoinAmount } from '../coin';
 import { PaymentAccountId } from './Payment';
+import { AiModel } from '../ai';
+import { AiModelConsumption } from '../ai';
+import { AiModelOptions } from '../ai';
 
 export class PaymentTransaction implements ICoinAmount {
     id: number;
@@ -11,8 +14,8 @@ export class PaymentTransaction implements ICoinAmount {
     coinId: CoinId;
     userId: number;
 
-    itemId?: number;
-    itemType?: PaymentTransactionItemType;
+    @Transform(item => JSON.parse(item.obj), { toClassOnly: true })
+    details?: IPaymentTransactionDetails;
 
     @Type(() => Date)
     createdDate: Date;
@@ -21,6 +24,12 @@ export class PaymentTransaction implements ICoinAmount {
 
     @Type(() => Date)
     activatedDate?: Date;
+}
+
+export interface IPaymentTransactionDetails {
+    model: AiModel;
+    options: AiModelOptions;
+    consumption: AiModelConsumption;
 }
 
 export enum PaymentTransactionItemType {

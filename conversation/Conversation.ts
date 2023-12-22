@@ -14,6 +14,7 @@ export class Conversation {
     color?: ConversationColor;
     system?: string;
     lastMessageDate?: Date;
+    historyResetDate?: Date;
 
     model: AiConversationModel;
     options: AiModelConversationOptions;
@@ -36,6 +37,10 @@ export enum ConversationColor {
     FIVE = 'FIVE',
     SIX = 'SIX',
     SEVEN = 'SEVEN'
+}
+
+export enum ConversationCommand {
+    HISTORY_RESET = 'HISTORY_RESET'
 }
 
 export const CONVERSATION_NAME_MIN_LENGTH = 2;

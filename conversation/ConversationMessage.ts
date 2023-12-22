@@ -5,10 +5,11 @@ import { Conversation } from './Conversation';
 
 export enum ConversationMessageRole {
     USER = 'USER',
-    TOOL = 'TOOL',
     SYSTEM = 'SYSTEM',
-    FUNCTION = 'FUNCTION',
-    ASSISTANT = 'ASSISTANT',
+    COMMAND = 'COMMAND',
+    // TOOL = 'TOOL',
+    // FUNCTION = 'FUNCTION',
+    // ASSISTANT = 'ASSISTANT',
 }
 
 export enum ConversationMessageContentType {

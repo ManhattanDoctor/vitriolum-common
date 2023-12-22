@@ -68,6 +68,10 @@ export class PermissionUtil {
         return PermissionUtil.conversationIsCanOpen(item, user);
     }
 
+    public static conversationIsCanCommand(item: Conversation, user: User): boolean {
+        return PermissionUtil.conversationIsCanOpen(item, user);
+    }
+
     public static conversationIsCanClear(item: Conversation, user: User): boolean {
         return PermissionUtil.conversationIsCanMessageRemove(item, user);
     }

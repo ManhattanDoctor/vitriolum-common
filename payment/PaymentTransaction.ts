@@ -13,8 +13,6 @@ export class PaymentTransaction implements ICoinAmount {
     amount: string;
     coinId: CoinId;
     userId: number;
-
-    @Transform(item => JSON.parse(item.obj), { toClassOnly: true })
     details?: IPaymentTransactionDetails;
 
     @Type(() => Date)

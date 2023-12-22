@@ -1,7 +1,8 @@
 import { ITraceable } from '@ts-core/common';
-import { ConversationMessage } from '../../conversation';
+import { ConversationMessage, ConversationMessageRole } from '../../conversation';
 
 export interface IConversationMessageAddDto extends ITraceable {
+    role: ConversationMessageRole;
     value: string;
     files?: Array<number>;
     history?: number;

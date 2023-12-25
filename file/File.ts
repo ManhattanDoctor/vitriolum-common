@@ -76,5 +76,5 @@ export const FileDocumentMimes: Array<string> = Object.values(FileDocumentMime);
 export const FileMimes = [...FileImageMimes, ...FileDocumentMimes, ...FileAudioMimes];
 
 export const FILE_SIZE_MAX = 5242880; // 5mb
-export const FILE_AMOUNT_MAX = 10;
+export const FILE_AMOUNT_MAX = 50;
 export const FILE_NAME_MAX_LENGTH = 124;

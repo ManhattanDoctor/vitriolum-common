@@ -26,6 +26,7 @@ export class ConversationUtil {
                 value += `${content.value}\n`;
             }
         }
-        return value.trim();
+        value = value.trim();
+        return !_.isEmpty(value) ? value : null;
     }
 }

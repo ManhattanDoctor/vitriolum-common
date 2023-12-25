@@ -7,9 +7,9 @@ export enum ConversationMessageRole {
     USER = 'USER',
     SYSTEM = 'SYSTEM',
     COMMAND = 'COMMAND',
+    ASSISTANT = 'ASSISTANT',
     // TOOL = 'TOOL',
     // FUNCTION = 'FUNCTION',
-    // ASSISTANT = 'ASSISTANT',
 }
 
 export enum ConversationMessageContentType {
@@ -31,9 +31,6 @@ export class ConversationMessage {
 export class ConversationMessageContent {
     type: ConversationMessageContentType;
     value: string;
-
-    @Type(() => File)
-    file?: File;
 }
 
 export const CONVERSATION_MESSAGE_CONTENT_MIN_LENGTH = 1;

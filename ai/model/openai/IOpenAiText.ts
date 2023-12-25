@@ -2,6 +2,7 @@ import { IOpenAiModelDetails } from "./IOpenAiModel";
 
 export interface IOpenAiTextOptions {
     model: string;
+    maxTokens?: number;
     temperature?: number;
     presencePenalty?: number;
     frequencyPenalty?: number;
@@ -9,7 +10,10 @@ export interface IOpenAiTextOptions {
 
 export type IOpenAiTextProgress = string;
 
-export type IOpenAiTextResponse = string;
+export interface IOpenAiTextResponse {
+    role: string;
+    content: string;
+}
 
 export interface IOpenAiTextConsumption {
     input: number;

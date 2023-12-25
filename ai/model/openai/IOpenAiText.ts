@@ -25,6 +25,9 @@ export interface IOpenAiTextModelDetails extends IOpenAiModelDetails { }
 export const OPEN_AI_TEXT_OPTIONS_TEMPERATURE_MIN = 0;
 export const OPEN_AI_TEXT_OPTIONS_TEMPERATURE_MAX = 2;
 
+export const OPEN_AI_TEXT_OPTIONS_MAX_TOKENS_MIN = 0;
+export const OPEN_AI_TEXT_OPTIONS_MAX_TOKENS_MAX = 1_000_000_000;
+
 export const OPEN_AI_TEXT_OPTIONS_FREQUENCY_PENALTY_MIN = -2;
 export const OPEN_AI_TEXT_OPTIONS_FREQUENCY_PENALTY_MAX = 2;
 

@@ -1,5 +1,5 @@
-import { Sha512, TraceUtil } from "@ts-core/common";
-import { FileAudioExtension, FileAudioMime, FileAudioMimes, FileDocumentExtension, FileDocumentMime, FileDocumentMimes, FileImageExtension, FileImageMime, FileImageMimes, FileType } from "../file";
+import { Sha512, TraceUtil, UnreachableStatementError } from "@ts-core/common";
+import { FileAudioExtension, FileAudioExtensions, FileAudioMime, FileAudioMimes, FileDocumentExtension, FileDocumentExtensions, FileDocumentMime, FileDocumentMimes, FileExtensions, FileImageExtension, FileImageExtensions, FileImageMime, FileImageMimes, FileMimes, FileType } from "../file";
 import * as _ from 'lodash';
 
 export class FileUtil {
@@ -46,6 +46,39 @@ export class FileUtil {
     public static getExtension(mime: string): string {
         return FileUtil.mimeToExtension[mime];
     }
+
+    public static getMimesByType(type: FileType): Array<string> {
+        if (_.isEmpty(type)) {
+            return FileMimes;
+        }
+        switch (type) {
+            case FileType.IMAGE:
+                return FileImageMimes;
+            case FileType.AUDIO:
+                return FileAudioMimes;
+            case FileType.DOCUMENT:
+                return FileDocumentMimes;
+            default:
+                throw new UnreachableStatementError(type);
+        }
+    }
+
+    public static getExtensionByType(type: FileType): Array<string> {
+        if (_.isEmpty(type)) {
+            return FileExtensions;
+        }
+        switch (type) {
+            case FileType.IMAGE:
+                return FileImageExtensions;
+            case FileType.AUDIO:
+                return FileAudioExtensions;
+            case FileType.DOCUMENT:
+                return FileDocumentExtensions;
+            default:
+                throw new UnreachableStatementError(type);
+        }
+    }
+
 
     // --------------------------------------------------------------------------
     //

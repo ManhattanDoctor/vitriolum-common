@@ -1,24 +1,9 @@
+import { IOpenAiImageDalle2ModelDetails, IOpenAiImageDalle2Options } from "./IOpenAiImageDalle2";
+import { IOpenAiImageDalle3ModelDetails, IOpenAiImageDalle3Options } from "./IOpenAiImageDalle3";
 import { IAiImage } from "../../AiImageModel";
 
-export interface IOpenAiImageDalle2Options {
-    size: string;
-    n: number;
-}
-export interface IOpenAiImageDalle3Options {
-    size: string;
-    style: string;
-    quality: string;
-}
 export type IOpenAiImageOptions = IOpenAiImageDalle2Options | IOpenAiImageDalle3Options;
 
-export interface IOpenAiImageDalle2ModelDetails {
-    sizes: Array<string>;
-}
-export interface IOpenAiImageDalle3ModelDetails {
-    sizes: Array<string>;
-    styles: Array<string>;
-    qualities: Array<string>;
-}
 export type IOpenAiImageModelDetails = IOpenAiImageDalle2ModelDetails | IOpenAiImageDalle3ModelDetails
 
 export type IOpenAiImageProgress = void;

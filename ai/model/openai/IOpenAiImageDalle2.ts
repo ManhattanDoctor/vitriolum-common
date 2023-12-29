@@ -1,5 +1,3 @@
-import { IAiImage } from "../../AiImageModel";
-
 export interface IOpenAiImageDalle2Options {
     size: OpenAiImageDalle2Size;
     n: number;

@@ -1,3 +1,4 @@
+import { UnreachableStatementError } from "@ts-core/common";
 import { IOpenAiModelDetails } from "./IOpenAiModel";
 
 export interface IOpenAiTextOptions {
@@ -40,3 +41,18 @@ export const OPEN_AI_TEXT_OPTIONS_FREQUENCY_PENALTY_MAX = 2;
 
 export const OPEN_AI_TEXT_OPTIONS_PRESENCE_PENALTY_MIN = -2;
 export const OPEN_AI_TEXT_OPTIONS_PRESENCE_PENALTY_MAX = 2;
+
+export function getMaxTokens(model: OpenAiTextModel): number {
+    switch (model) {
+        case OpenAiTextModel.GPT_4:
+            return 8192;
+        case OpenAiTextModel.GPT_35_TURBO:
+            return 8192;
+        case OpenAiTextModel.GPT_4_1106_PREVIEW:
+            return 128000;
+        case OpenAiTextModel.GPT_4_VISION_PREVIEW:
+            return 4096;
+        default:
+            throw new UnreachableStatementError(model);
+    }
+}

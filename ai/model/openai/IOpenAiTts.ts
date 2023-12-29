@@ -1,10 +1,15 @@
 import { IOpenAiModelDetails } from "./IOpenAiModel";
 
 export interface IOpenAiTtsOptions {
-    model: string;
+    model: OpenAiTtsModel;
     voice: string;
     speed?: number;
     format?: string;
+}
+
+export enum OpenAiTtsModel {
+    TTS_1 = 'tts-1',
+    TTS_1_HD = 'tts-1-hd',
 }
 
 export interface IOpenAiTtsModelDetails extends IOpenAiModelDetails {
@@ -20,9 +25,6 @@ export type IOpenAiTtsConsumption = number;
 
 export const OPEN_AI_TTS_OPTIONS_VOICE_MIN_LENGTH = 0;
 export const OPEN_AI_TTS_OPTIONS_VOICE_MAX_LENGTH = 16;
-
-export const OPEN_AI_TTS_OPTIONS_MODEL_MIN_LENGTH = 4;
-export const OPEN_AI_TTS_OPTIONS_MODEL_MAX_LENGTH = 128;
 
 export const OPEN_AI_TTS_OPTIONS_FORMAT_MIN_LENGTH = 3;
 export const OPEN_AI_TTS_OPTIONS_FORMAT_MAX_LENGTH = 12;

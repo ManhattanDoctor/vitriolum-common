@@ -1,3 +1,3 @@
-export interface IOpenAiModelDetails {
-    models: Array<string>;
+export interface IOpenAiModelDetails<T> {
+    models: Array<T>;
 }

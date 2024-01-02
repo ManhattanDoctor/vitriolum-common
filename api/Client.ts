@@ -100,7 +100,7 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     }
 
     public async conversationCheck(id: number): Promise<void> {
-        return this.call<void, void>(`${CONVERSATION_URL}/${id}/check`, { method: 'post' });
+        return this.call<void, void>(`${CONVERSATION_URL}/${id}/check`, { method: 'post', timeout: AI_MODEL_TIMEOUT });
     }
 
     public async conversationClear(id: number): Promise<void> {

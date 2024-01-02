@@ -10,4 +10,4 @@ export type AiModelOptions = AiModelTextOptions | AiModelImageOptions | AiModelT
 export type AiModelDetails = AiModelTextDetails | AiModelImageDetails | AiModelTtsDetails | AiModelSttDetails | AiModelConversationDetails;
 export type AiModelConsumption = AiModelTextConsumption | AiModelImageConsumption | AiModelConversationConsumption;
 
-export const AI_MODEL_TIMEOUT = 5 * DateUtil.MILLISECONDS_MINUTE;
+export const AI_MODEL_TIMEOUT = 10 * DateUtil.MILLISECONDS_MINUTE;

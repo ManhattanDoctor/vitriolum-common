@@ -100,7 +100,7 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     }
 
     public async conversationCheck(id: number): Promise<void> {
-        return this.call<void, void>(`${CONVERSATION_URL}/${id}/check`, { method: 'post', timeout: AI_MODEL_TIMEOUT });
+        return this.call<void, void>(`${CONVERSATION_URL}/${id}/check`, { method: 'post' });
     }
 
     public async conversationClear(id: number): Promise<void> {
@@ -114,7 +114,7 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     }
 
     public async conversationMessageAdd(id: number, data: IConversationMessageAddDto): Promise<IConversationMessageAddDtoResponse> {
-        let item = await this.call<IConversationMessageAddDtoResponse, IConversationMessageAddDto>(`${CONVERSATION_URL}/${id}/message`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
+        let item = await this.call<IConversationMessageAddDtoResponse, IConversationMessageAddDto>(`${CONVERSATION_URL}/${id}/message`, { method: 'post', data: TraceUtil.addIfNeed(data) });
         return TransformUtil.toClass(ConversationMessage, item);
     }
 

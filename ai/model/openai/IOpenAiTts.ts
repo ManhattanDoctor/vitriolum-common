@@ -4,7 +4,7 @@ export interface IOpenAiTtsOptions {
     model: OpenAiTtsModel;
     voice: OpenAiTtsVoice;
     speed?: number;
-    format?: string;
+    format?: OpenAiTtsFormat;
 }
 
 export enum OpenAiTtsModel {

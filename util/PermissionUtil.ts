@@ -116,4 +116,25 @@ export class PermissionUtil {
     public static fileIsCanRemove(item: File, user: User): boolean {
         return PermissionUtil.fileIsCanOpen(item, user);
     }
+
+    //--------------------------------------------------------------------------
+    //
+    // 	OpenAi Methods
+    //
+    //--------------------------------------------------------------------------
+
+    public static openAiFileIsCanAdd(item: File, user: User): boolean {
+        if (!_.isNil(item.openAiUid)) {
+            return false;
+        }
+        return PermissionUtil.fileIsCanOpen(item, user);
+    }
+
+    public static openAiFileIsCanRemove(item: File, user: User): boolean {
+        if (_.isNil(item.openAiUid)) {
+            return false;
+        }
+        return PermissionUtil.fileIsCanRemove(item, user);
+    }
+
 }

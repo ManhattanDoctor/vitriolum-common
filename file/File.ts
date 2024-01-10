@@ -12,8 +12,9 @@ export class File {
     mime: string;
     hash: string;
     extension: string;
-
+    
     userId: number;
+    openAiUid?: string;
 
     @Type(() => FileBlob)
     blob?: FileBlob;

@@ -18,6 +18,7 @@ import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICo
 import { IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileRemoveDtoResponse } from './file';
 import { File } from '../file';
 import { IFileBufferAddDto } from './file';
+import { IOpenAiFileAddDto, IOpenAiFileAddDtoResponse, IOpenAiFileRemoveDtoResponse } from './openAi';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
 
@@ -218,6 +219,22 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
 
     // --------------------------------------------------------------------------
     //
+    //  OpenAi
+    //
+    // --------------------------------------------------------------------------
+
+    public async openAiFileAdd(data: IOpenAiFileAddDto): Promise<IOpenAiFileAddDtoResponse> {
+        let item = await this.call<IOpenAiFileAddDtoResponse, IOpenAiFileAddDto>(`${OPEN_AI_FILE_URL}/${data.id}`, { data: TraceUtil.addIfNeed(data), method: 'post' });
+        return TransformUtil.toClass(File, item);
+    }
+
+    public async openAiFileRemove(id: number): Promise<IOpenAiFileRemoveDtoResponse> {
+        let item = await this.call<IOpenAiFileRemoveDtoResponse, number>(`${OPEN_AI_FILE_URL}/${id}`, { method: 'delete' });
+        return TransformUtil.toClass(File, item);
+    }
+
+    // --------------------------------------------------------------------------
+    //
     //  Other Methods
     //
     // --------------------------------------------------------------------------
@@ -262,6 +279,8 @@ export const CONVERSATION_URL = PREFIX + 'conversation';
 
 export const FILE_URL = PREFIX + 'file';
 export const FILE_BUFFER_URL = PREFIX + 'fileBuffer';
+
+export const OPEN_AI_FILE_URL = PREFIX + 'openAi/file';
 
 export const COIN_URL = PREFIX + 'coin';
 export const PAYMENT_URL = PREFIX + 'payment';

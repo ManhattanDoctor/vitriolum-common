@@ -1,3 +1,4 @@
+export * from './IOpenAiFile';
 export * from './IOpenAiModel';
 //
 export * from './IOpenAiStt';

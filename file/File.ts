@@ -42,7 +42,7 @@ export enum FileAudioExtension {
 }
 export enum FileDocumentExtension {
     TXT = 'txt',
-    PDF = 'png',
+    PDF = 'pdf',
     XLS = 'xls',
     DOC = 'doc',
     DOCX = 'docx',

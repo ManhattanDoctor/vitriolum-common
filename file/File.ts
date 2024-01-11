@@ -14,7 +14,7 @@ export class File {
     extension: string;
     
     userId: number;
-    openAiUid?: string;
+    openAiId?: string;
 
     @Type(() => FileBlob)
     blob?: FileBlob;

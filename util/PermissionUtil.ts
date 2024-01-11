@@ -124,14 +124,14 @@ export class PermissionUtil {
     //--------------------------------------------------------------------------
 
     public static openAiFileIsCanAdd(item: File, user: User): boolean {
-        if (!_.isNil(item.openAiUid)) {
+        if (!_.isNil(item.openAiId)) {
             return false;
         }
         return PermissionUtil.fileIsCanOpen(item, user);
     }
 
     public static openAiFileIsCanRemove(item: File, user: User): boolean {
-        if (_.isNil(item.openAiUid)) {
+        if (_.isNil(item.openAiId)) {
             return false;
         }
         return PermissionUtil.fileIsCanRemove(item, user);

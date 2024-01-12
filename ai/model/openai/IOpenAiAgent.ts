@@ -13,6 +13,7 @@ export class OpenAiAgent {
 
     tools?: Array<OpenAiAgentTool>;
     system?: string;
+    lastMessageDate?: Date;
 
     openAiRunId?: string;
     openAiRunStatus?: OpenAiAgentStatus;

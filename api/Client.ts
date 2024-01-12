@@ -18,7 +18,7 @@ import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICo
 import { IFileAddDtoResponse, IFileListDto, IFileListDtoResponse } from './file';
 import { File } from '../file';
 import { IFileBufferAddDto } from './file';
-import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiFileAddDto } from './openai';
+import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiAgentListDto, IOpenAiAgentListDtoResponse, IOpenAiFileAddDto } from './openai';
 import { OpenAiAgent } from '../ai/model/openai';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
@@ -254,6 +254,20 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
 
     public async openAiAgentRemove(id: number): Promise<void> {
         return this.call<void, void>(`${OPEN_AI_AGENT_URL}/${id}`, { method: 'delete' });
+    }
+
+    public async openAiAgentCheck(id: number): Promise<void> {
+        return this.call<void, void>(`${OPEN_AI_AGENT_URL}/${id}/check`, { method: 'post' });
+    }
+
+    public async openAiAgentClear(id: number): Promise<void> {
+        return this.call<void, void>(`${OPEN_AI_AGENT_URL}/${id}/clear`, { method: 'post' });
+    }
+
+    public async openAiAgentList(data: IOpenAiAgentListDto): Promise<IOpenAiAgentListDtoResponse> {
+        let item = await this.call<IOpenAiAgentListDtoResponse, IOpenAiAgentListDto>(OPEN_AI_AGENT_URL, { data: TraceUtil.addIfNeed(data) });
+        item.items = TransformUtil.toClassMany(OpenAiAgent, item.items);
+        return item;
     }
 
     // --------------------------------------------------------------------------

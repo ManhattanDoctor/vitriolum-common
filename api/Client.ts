@@ -15,10 +15,11 @@ import { Conversation, ConversationMessage } from '../conversation';
 import { IPaymentListDto, IPaymentListDtoResponse, IPaymentTransactionListDto, IPaymentTransactionListDtoResponse } from './payment';
 import { Payment, PaymentTransaction } from '../payment';
 import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICoinStatusGetDto } from './coin';
-import { IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileRemoveDtoResponse } from './file';
+import { IFileAddDtoResponse, IFileListDto, IFileListDtoResponse } from './file';
 import { File } from '../file';
 import { IFileBufferAddDto } from './file';
-import { IOpenAiFileAddDto, IOpenAiFileAddDtoResponse, IOpenAiFileRemoveDtoResponse } from './openAi';
+import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiFileAddDto } from './openAi';
+import { OpenAiAgent } from '../ai/model/openAi';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
 
@@ -184,9 +185,8 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return item;
     }
 
-    public async fileRemove(id: number): Promise<IFileRemoveDtoResponse> {
-        let item = await this.call<IFileRemoveDtoResponse, number>(`${FILE_URL}/${id}`, { method: 'delete' });
-        return TransformUtil.toClass(File, item);
+    public async fileRemove(id: number): Promise<void> {
+        return this.call<void, number>(`${FILE_URL}/${id}`, { method: 'delete' });
     }
 
     // --------------------------------------------------------------------------
@@ -219,18 +219,41 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
 
     // --------------------------------------------------------------------------
     //
-    //  OpenAi
+    //  OpenAi File
     //
     // --------------------------------------------------------------------------
 
-    public async openAiFileAdd(data: IOpenAiFileAddDto): Promise<IOpenAiFileAddDtoResponse> {
-        let item = await this.call<IOpenAiFileAddDtoResponse, IOpenAiFileAddDto>(`${OPEN_AI_FILE_URL}/${data.id}`, { data: TraceUtil.addIfNeed(data), method: 'post' });
-        return TransformUtil.toClass(File, item);
+    public async openAiFileAdd(data: IOpenAiFileAddDto): Promise<void> {
+        return this.call<void, IOpenAiFileAddDto>(`${OPEN_AI_FILE_URL}/${data.id}`, { data: TraceUtil.addIfNeed(data), method: 'post' });
     }
 
-    public async openAiFileRemove(id: number): Promise<IOpenAiFileRemoveDtoResponse> {
-        let item = await this.call<IOpenAiFileRemoveDtoResponse, number>(`${OPEN_AI_FILE_URL}/${id}`, { method: 'delete' });
-        return TransformUtil.toClass(File, item);
+    public async openAiFileRemove(id: number): Promise<void> {
+        return this.call<void, number>(`${OPEN_AI_FILE_URL}/${id}`, { method: 'delete' });
+    }
+
+    // --------------------------------------------------------------------------
+    //
+    //  OpenAi Agent
+    //
+    // --------------------------------------------------------------------------
+
+    public async openAiAgentAdd(data: IOpenAiAgentAddDto): Promise<IOpenAiAgentAddDtoResponse> {
+        let item = await this.call<IOpenAiAgentAddDtoResponse, IOpenAiAgentAddDto>(OPEN_AI_AGENT_URL, { method: 'post', data: TraceUtil.addIfNeed(data) });
+        return TransformUtil.toClass(OpenAiAgent, item);
+    }
+
+    public async openAiAgentGet(id: number): Promise<IOpenAiAgentGetDtoResponse> {
+        let item = await this.call<IOpenAiAgentGetDtoResponse>(`${OPEN_AI_AGENT_URL}/${id}`);
+        return TransformUtil.toClass(OpenAiAgent, item);
+    }
+
+    public async openAiAgentEdit(data: IOpenAiAgentEditDto): Promise<IOpenAiAgentEditDtoResponse> {
+        let item = await this.call<IOpenAiAgentEditDtoResponse, IOpenAiAgentEditDto>(`${OPEN_AI_AGENT_URL}/${data.id}`, { method: 'put', data: TraceUtil.addIfNeed(data) });
+        return TransformUtil.toClass(OpenAiAgent, item);
+    }
+
+    public async openAiAgentRemove(id: number): Promise<void> {
+        return this.call<void, void>(`${OPEN_AI_AGENT_URL}/${id}`, { method: 'delete' });
     }
 
     // --------------------------------------------------------------------------
@@ -281,6 +304,7 @@ export const FILE_URL = PREFIX + 'file';
 export const FILE_BUFFER_URL = PREFIX + 'fileBuffer';
 
 export const OPEN_AI_FILE_URL = PREFIX + 'openAi/file';
+export const OPEN_AI_AGENT_URL = PREFIX + 'openAi/agent';
 
 export const COIN_URL = PREFIX + 'coin';
 export const PAYMENT_URL = PREFIX + 'payment';

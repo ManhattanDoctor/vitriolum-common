@@ -3,6 +3,7 @@ import { User, UserAccountType } from '../user';
 import { IUserEditDto } from '../api/user';
 import { Conversation, ConversationStatus } from '../conversation';
 import { File } from '../file';
+import { OpenAiAgent } from '../ai/model/openAi';
 
 export class PermissionUtil {
     //--------------------------------------------------------------------------
@@ -113,28 +114,74 @@ export class PermissionUtil {
         return item.userId === user.id;
     }
 
+    public static fileIsCanEdit(item: File, user: User): boolean {
+        return PermissionUtil.fileIsCanOpen(item, user);
+    }
+
     public static fileIsCanRemove(item: File, user: User): boolean {
         return PermissionUtil.fileIsCanOpen(item, user);
     }
 
     //--------------------------------------------------------------------------
     //
-    // 	OpenAi Methods
+    // 	OpenAiAgnet Methods
     //
     //--------------------------------------------------------------------------
 
-    public static openAiFileIsCanAdd(item: File, user: User): boolean {
-        if (!_.isNil(item.openAiId)) {
+    public static openAiAgentIsCanOpen(item: OpenAiAgent, user: User): boolean {
+        if (_.isNil(user)) {
             return false;
         }
-        return PermissionUtil.fileIsCanOpen(item, user);
+        if (PermissionUtil.userIsAdministrator(user)) {
+            return true;
+        }
+        return item.userId === user.id;
     }
 
-    public static openAiFileIsCanRemove(item: File, user: User): boolean {
-        if (_.isNil(item.openAiId)) {
+    public static openAiAgentIsCanCheck(item: OpenAiAgent, user: User): boolean {
+        if (!PermissionUtil.openAiAgentIsCanOpen(item, user)) {
             return false;
         }
-        return PermissionUtil.fileIsCanRemove(item, user);
+        /*
+        if (item.status !== ConversationStatus.ERROR) {
+            return false;
+        }
+        */
+        return true;
     }
 
+    public static openAiAgentIsCanEdit(item: OpenAiAgent, user: User): boolean {
+        return PermissionUtil.openAiAgentIsCanOpen(item, user);
+    }
+
+    public static openAiAgentIsCanCommand(item: OpenAiAgent, user: User): boolean {
+        return PermissionUtil.openAiAgentIsCanOpen(item, user);
+    }
+
+    public static openAiAgentIsCanClear(item: OpenAiAgent, user: User): boolean {
+        return PermissionUtil.openAiAgentIsCanMessageRemove(item, user);
+    }
+
+    public static openAiAgentIsCanRemove(item: OpenAiAgent, user: User): boolean {
+        return PermissionUtil.openAiAgentIsCanOpen(item, user);
+    }
+
+    public static openAiAgentIsCanMessageAdd(item: OpenAiAgent, user: User): boolean {
+        if (!PermissionUtil.openAiAgentIsCanOpen(item, user)) {
+            return false;
+        }
+        /*
+        if (item.status === ConversationStatus.LOADING) {
+            return false;
+        }
+        */
+        return true;
+    }
+
+    public static openAiAgentIsCanMessageRemove(item: OpenAiAgent, user: User): boolean {
+        if (!PermissionUtil.openAiAgentIsCanOpen(item, user)) {
+            return false;
+        }
+        return true;
+    }
 }

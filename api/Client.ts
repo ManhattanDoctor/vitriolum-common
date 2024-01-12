@@ -224,11 +224,11 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     // --------------------------------------------------------------------------
 
     public async openAiFileAdd(data: IOpenAiFileAddDto): Promise<void> {
-        return this.call<void, IOpenAiFileAddDto>(`${OPEN_AI_FILE_URL}/${data.id}`, { data: TraceUtil.addIfNeed(data), method: 'post' });
+        return this.call<void, IOpenAiFileAddDto>(`${OPEN_AI_FILE_URL}/${data.id}`, { data: TraceUtil.addIfNeed(data), method: 'post', timeout: AI_MODEL_TIMEOUT });
     }
 
     public async openAiFileRemove(id: number): Promise<void> {
-        return this.call<void, number>(`${OPEN_AI_FILE_URL}/${id}`, { method: 'delete' });
+        return this.call<void, number>(`${OPEN_AI_FILE_URL}/${id}`, { method: 'delete', timeout: AI_MODEL_TIMEOUT });
     }
 
     // --------------------------------------------------------------------------

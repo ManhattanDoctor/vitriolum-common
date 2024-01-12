@@ -1,4 +1,4 @@
-import { OpenAiAgent } from '../../ai/model/openAi';
+import { OpenAiAgent } from '../../ai/model/openai';
 import { IOpenAiAgentAddDto } from './IOpenAiAgentAddDto';
 
 export interface IOpenAiAgentEditDto extends Partial<IOpenAiAgentAddDto> {

@@ -1,6 +1,6 @@
 import { TransportEvent } from "@ts-core/common";
 import { IOpenAiAgentEventDto } from "./IOpenAiAgentEventDto";
-import { OpenAiAgent } from "../../ai/model/openAi";
+import { OpenAiAgent } from "../../ai/model/openai";
 
 export class OpenAiAgentChangedEvent extends TransportEvent<IOpenAiAgentChangedEventDto>{
     // --------------------------------------------------------------------------

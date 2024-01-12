@@ -18,8 +18,8 @@ import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICo
 import { IFileAddDtoResponse, IFileListDto, IFileListDtoResponse } from './file';
 import { File } from '../file';
 import { IFileBufferAddDto } from './file';
-import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiFileAddDto } from './openAi';
-import { OpenAiAgent } from '../ai/model/openAi';
+import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiFileAddDto } from './openai';
+import { OpenAiAgent } from '../ai/model/openai';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
 

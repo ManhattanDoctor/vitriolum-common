@@ -3,7 +3,7 @@ import { User, UserAccountType } from '../user';
 import { IUserEditDto } from '../api/user';
 import { Conversation, ConversationStatus } from '../conversation';
 import { File } from '../file';
-import { OpenAiAgent } from '../ai/model/openAi';
+import { OpenAiAgent } from '../ai/model/openai';
 
 export class PermissionUtil {
     //--------------------------------------------------------------------------

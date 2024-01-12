@@ -1,3 +1,3 @@
-import { OpenAiAgent } from "../../ai/model/openAi";
+import { OpenAiAgent } from "../../ai/model/openai";
 
 export declare type IOpenAiAgentGetDtoResponse = OpenAiAgent;

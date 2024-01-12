@@ -1,5 +1,5 @@
 import { ITraceable, IPaginable, IPagination } from '@ts-core/common';
-import { OpenAiAgent } from '../../ai/model/openAi';
+import { OpenAiAgent } from '../../ai/model/openai';
 
 export interface IOpenAiAgentListDto extends IPaginable<OpenAiAgent>, ITraceable { }
 

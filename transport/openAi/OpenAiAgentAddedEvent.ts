@@ -1,5 +1,5 @@
 import { TransportEvent } from "@ts-core/common";
-import { OpenAiAgent } from "../../ai/model/openAi";
+import { OpenAiAgent } from "../../ai/model/openai";
 
 export class OpenAiAgentAddedEvent extends TransportEvent<OpenAiAgent>{
     // --------------------------------------------------------------------------

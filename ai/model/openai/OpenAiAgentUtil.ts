@@ -1,5 +1,6 @@
 
 import * as _ from 'lodash';
+import { OpenAiAgentMessage, OpenAiAgentMessageContentType } from './OpenAiAgentMessage';
 
 export class OpenAiAgentUtil {
     // --------------------------------------------------------------------------
@@ -12,23 +13,21 @@ export class OpenAiAgentUtil {
         return `openAiAgent${id}`;
     }
 
-    /*
-    public static messageHasTextContent(item: ConversationMessage): boolean {
-        return !_.isEmpty(ConversationUtil.messageGetTextContent(item));
+    public static messageHasTextContent(item: OpenAiAgentMessage): boolean {
+        return !_.isEmpty(OpenAiAgentUtil.messageGetTextContent(item));
     }
 
-    public static messageGetTextContent(item: ConversationMessage): string {
+    public static messageGetTextContent(item: OpenAiAgentMessage): string {
         if (_.isEmpty(item.contents)) {
             return null;
         }
         let value = '';
         for (let content of item.contents) {
-            if (content.type === ConversationMessageContentType.TEXT) {
+            if (content.type === OpenAiAgentMessageContentType.TEXT) {
                 value += `${content.value}\n`;
             }
         }
         value = value.trim();
         return !_.isEmpty(value) ? value : null;
     }
-    */
 }

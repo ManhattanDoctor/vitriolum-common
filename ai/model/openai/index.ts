@@ -1,7 +1,8 @@
 export * from './IOpenAiFile';
-export * from './IOpenAiAgent';
 export * from './IOpenAiModel';
 //
+export * from './OpenAiAgent';
+export * from './OpenAiAgentMessage';
 export * from './OpenAiAgentUtil';
 //
 export * from './IOpenAiStt';

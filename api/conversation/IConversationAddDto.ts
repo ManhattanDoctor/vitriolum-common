@@ -1,14 +1,15 @@
 
 import { ITraceable } from '@ts-core/common';
-import { Conversation, ConversationColor } from '../../conversation';
+import { Conversation } from '../../conversation';
 import { AiConversationModel, AiModelConversationOptions } from '../../ai';
+import { Color } from '../../color';
 
 export interface IConversationAddDto extends ITraceable {
     name: string;
     model: AiConversationModel;
     options: AiModelConversationOptions;
 
-    color?: ConversationColor;
+    color?: Color;
     system?: string;
     history?: number;
     isConsiderHistory?: boolean;

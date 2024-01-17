@@ -1,6 +1,7 @@
 import { Type } from 'class-transformer';
 import * as _ from 'lodash';
 import { AiConversationModel, AiModelConversationOptions } from '../ai';
+import { Color } from '../color';
 
 export class Conversation {
     id: number;
@@ -11,7 +12,7 @@ export class Conversation {
     picture: string;
     isConsiderHistory: boolean;
 
-    color?: ConversationColor;
+    color?: Color;
     system?: string;
     lastMessageDate?: Date;
     historyResetDate?: Date;
@@ -27,16 +28,6 @@ export enum ConversationStatus {
     ERROR = "ERROR",
     LOADED = "LOADED",
     LOADING = "LOADING",
-}
-
-export enum ConversationColor {
-    ONE = 'ONE',
-    TWO = 'TWO',
-    THREE = 'THREE',
-    FOUR = 'FOUR',
-    FIVE = 'FIVE',
-    SIX = 'SIX',
-    SEVEN = 'SEVEN'
 }
 
 export enum ConversationCommand {

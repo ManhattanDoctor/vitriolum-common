@@ -9,7 +9,7 @@ export class AiUtil {
     //
     // --------------------------------------------------------------------------
 
-    public static isModelSupportFile(model: string): boolean {
+    public static isModelSupportsFile(model: string): boolean {
         switch (model) {
             case OpenAiTextModel.GPT_4_VISION_PREVIEW:
                 return true;
@@ -17,7 +17,7 @@ export class AiUtil {
         return false;
     }
 
-    public static isModelSupportStream(model: string): boolean {
+    public static isModelSupportsStream(model: string): boolean {
         switch (model) {
             case OpenAiTextModel.GPT_4_VISION_PREVIEW:
                 return false;

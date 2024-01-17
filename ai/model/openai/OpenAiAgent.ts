@@ -1,6 +1,7 @@
 import { Type } from 'class-transformer';
 import { OpenAiTextModel } from "./IOpenAiText";
 import { File } from "../../../file";
+import { Color } from '../../../color';
 
 export class OpenAiAgent {
     id: number;
@@ -11,8 +12,9 @@ export class OpenAiAgent {
     openAiId: string;
     openAiTreadId: string;
 
-    tools?: Array<OpenAiAgentTool>;
+    color?: Color;
     system?: string;
+    tools?: Array<OpenAiAgentTool>;
     lastMessageDate?: Date;
 
     openAiRunId?: string;

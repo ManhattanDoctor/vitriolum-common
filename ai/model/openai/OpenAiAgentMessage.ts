@@ -20,8 +20,8 @@ export class OpenAiAgentMessage {
     id: number;
     role: OpenAiAgentMessageRole;
     contents: Array<OpenAiAgentMessageContent>;
-    agent: OpenAiAgent;
-    agentId: number;
+    openAiAgent: OpenAiAgent;
+    openAiAgentId: number;
 
     @Type(() => Date)
     createdDate: Date;

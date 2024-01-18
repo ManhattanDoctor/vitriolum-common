@@ -8,13 +8,14 @@ export class OpenAiAgent {
     name: string;
     model: OpenAiTextModel;
     userId: number;
+    status: OpenAiAgentStatus;
     picture: string;
     openAiId: string;
     openAiTreadId: string;
 
+    tools?: Array<OpenAiAgentTool>;
     color?: Color;
     system?: string;
-    tools?: Array<OpenAiAgentTool>;
     lastMessageDate?: Date;
 
     openAiRunId?: string;
@@ -25,6 +26,12 @@ export class OpenAiAgent {
 
     @Type(() => Date)
     createdDate: Date;
+}
+
+export enum OpenAiAgentStatus {
+    ERROR = "ERROR",
+    LOADED = "LOADED",
+    LOADING = "LOADING",
 }
 
 export enum OpenAiAgentStatus {

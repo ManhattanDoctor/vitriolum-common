@@ -3,7 +3,7 @@ import { User, UserAccountType } from '../user';
 import { IUserEditDto } from '../api/user';
 import { Conversation, ConversationStatus } from '../conversation';
 import { File } from '../file';
-import { OpenAiAgent } from '../ai/model/openai';
+import { OpenAiAgent, OpenAiAgentStatus } from '../ai/model/openai';
 
 export class PermissionUtil {
     //--------------------------------------------------------------------------
@@ -142,11 +142,9 @@ export class PermissionUtil {
         if (!PermissionUtil.openAiAgentIsCanOpen(item, user)) {
             return false;
         }
-        /*
-        if (item.status !== ConversationStatus.ERROR) {
+        if (item.status !== OpenAiAgentStatus.ERROR) {
             return false;
         }
-        */
         return true;
     }
 
@@ -170,11 +168,9 @@ export class PermissionUtil {
         if (!PermissionUtil.openAiAgentIsCanOpen(item, user)) {
             return false;
         }
-        /*
-        if (item.status === ConversationStatus.LOADING) {
+        if (item.status === OpenAiAgentStatus.LOADING) {
             return false;
         }
-        */
         return true;
     }
 

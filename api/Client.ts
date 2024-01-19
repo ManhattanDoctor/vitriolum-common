@@ -18,8 +18,8 @@ import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICo
 import { IFileAddDtoResponse, IFileListDto, IFileListDtoResponse } from './file';
 import { File } from '../file';
 import { IFileBufferAddDto } from './file';
-import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiAgentListDto, IOpenAiAgentListDtoResponse, IOpenAiFileAddDto } from './openai';
-import { OpenAiAgent } from '../ai/model/openai';
+import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiAgentListDto, IOpenAiAgentListDtoResponse, IOpenAiAgentMessageDto, IOpenAiAgentMessageDtoResponse, IOpenAiAgentMessageListDto, IOpenAiAgentMessageListDtoResponse, IOpenAiFileAddDto } from './openai';
+import { OpenAiAgent, OpenAiAgentMessage } from '../ai/model/openai';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
 
@@ -267,6 +267,17 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     public async openAiAgentList(data: IOpenAiAgentListDto): Promise<IOpenAiAgentListDtoResponse> {
         let item = await this.call<IOpenAiAgentListDtoResponse, IOpenAiAgentListDto>(OPEN_AI_AGENT_URL, { data: TraceUtil.addIfNeed(data) });
         item.items = TransformUtil.toClassMany(OpenAiAgent, item.items);
+        return item;
+    }
+
+    public async openAiAgentMessageAdd(id: number, data: IOpenAiAgentMessageDto): Promise<IOpenAiAgentMessageDtoResponse> {
+        let item = await this.call<IOpenAiAgentMessageDtoResponse, IOpenAiAgentMessageDto>(`${OPEN_AI_AGENT_URL}/${id}/message`, { method: 'post', data: TraceUtil.addIfNeed(data) });
+        return TransformUtil.toClass(OpenAiAgentMessage, item);
+    }
+
+    public async openAiAgentMessageList(data: IOpenAiAgentMessageListDto): Promise<IOpenAiAgentMessageListDtoResponse> {
+        let item = await this.call<IOpenAiAgentMessageListDtoResponse, IOpenAiAgentMessageListDto>(`${OPEN_AI_AGENT_URL}/${data.conditions.openAiAgentId}/message`, { data: TraceUtil.addIfNeed(data) });
+        item.items = TransformUtil.toClassMany(OpenAiAgentMessage, item.items);
         return item;
     }
 

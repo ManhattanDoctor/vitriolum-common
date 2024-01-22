@@ -14,7 +14,7 @@ export enum ConversationMessageRole {
 
 export enum ConversationMessageContentType {
     TEXT = 'TEXT',
-    IMAGE_URL = 'IMAGE_URL',
+    IMAGE = 'IMAGE',
 }
 
 export class ConversationMessage {

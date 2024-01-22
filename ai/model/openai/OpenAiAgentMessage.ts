@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 export enum OpenAiAgentMessageRole {
     USER = 'USER',
     SYSTEM = 'SYSTEM',
-    COMMAND = 'COMMAND',
+    // COMMAND = 'COMMAND',
     ASSISTANT = 'ASSISTANT',
     // TOOL = 'TOOL',
     // FUNCTION = 'FUNCTION',
@@ -13,7 +13,7 @@ export enum OpenAiAgentMessageRole {
 
 export enum OpenAiAgentMessageContentType {
     TEXT = 'TEXT',
-    IMAGE_URL = 'IMAGE_URL',
+    IMAGE = 'IMAGE',
 }
 
 export class OpenAiAgentMessage {

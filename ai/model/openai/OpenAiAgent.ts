@@ -10,16 +10,10 @@ export class OpenAiAgent {
     userId: number;
     status: OpenAiAgentStatus;
     picture: string;
-    openAiId: string;
-    openAiTreadId: string;
-
     tools?: Array<OpenAiAgentTool>;
     color?: Color;
     system?: string;
     lastMessageDate?: Date;
-
-    openAiRunId?: string;
-    openAiRunStatus?: OpenAiAgentStatus;
 
     @Type(() => File)
     files?: Array<File>;
@@ -34,7 +28,7 @@ export enum OpenAiAgentStatus {
     LOADING = "LOADING",
 }
 
-export enum OpenAiAgentStatus {
+export enum OpenAiAgentRunStatus {
     QUEUED = 'queued',
     FAILED = 'failed',
     EXPIRED = 'expired',

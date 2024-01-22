@@ -18,7 +18,7 @@ import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICo
 import { IFileAddDtoResponse, IFileListDto, IFileListDtoResponse } from './file';
 import { File } from '../file';
 import { IFileBufferAddDto } from './file';
-import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiAgentListDto, IOpenAiAgentListDtoResponse, IOpenAiAgentMessageDto, IOpenAiAgentMessageDtoResponse, IOpenAiAgentMessageListDto, IOpenAiAgentMessageListDtoResponse, IOpenAiFileAddDto } from './openai';
+import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiAgentListDto, IOpenAiAgentListDtoResponse, IOpenAiAgentMessageAddDto, IOpenAiAgentMessageAddDtoResponse, IOpenAiAgentMessageListDto, IOpenAiAgentMessageListDtoResponse, IOpenAiFileAddDto } from './openai';
 import { OpenAiAgent, OpenAiAgentMessage } from '../ai/model/openai';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
@@ -270,8 +270,8 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return item;
     }
 
-    public async openAiAgentMessageAdd(id: number, data: IOpenAiAgentMessageDto): Promise<IOpenAiAgentMessageDtoResponse> {
-        let item = await this.call<IOpenAiAgentMessageDtoResponse, IOpenAiAgentMessageDto>(`${OPEN_AI_AGENT_URL}/${id}/message`, { method: 'post', data: TraceUtil.addIfNeed(data) });
+    public async openAiAgentMessageAdd(id: number, data: IOpenAiAgentMessageAddDto): Promise<IOpenAiAgentMessageAddDtoResponse> {
+        let item = await this.call<IOpenAiAgentMessageAddDtoResponse, IOpenAiAgentMessageAddDto>(`${OPEN_AI_AGENT_URL}/${id}/message`, { method: 'post', data: TraceUtil.addIfNeed(data) });
         return TransformUtil.toClass(OpenAiAgentMessage, item);
     }
 

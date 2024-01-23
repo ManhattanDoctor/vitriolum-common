@@ -142,17 +142,15 @@ export class PermissionUtil {
         if (!PermissionUtil.openAiAgentIsCanOpen(item, user)) {
             return false;
         }
-        if (item.status !== OpenAiAgentStatus.ERROR) {
-            return false;
+        switch (item.status) {
+            case OpenAiAgentStatus.LOADING:
+                return false;
+            default:
+                return true;
         }
-        return true;
     }
 
     public static openAiAgentIsCanEdit(item: OpenAiAgent, user: User): boolean {
-        return PermissionUtil.openAiAgentIsCanOpen(item, user);
-    }
-
-    public static openAiAgentIsCanCommand(item: OpenAiAgent, user: User): boolean {
         return PermissionUtil.openAiAgentIsCanOpen(item, user);
     }
 
@@ -168,10 +166,12 @@ export class PermissionUtil {
         if (!PermissionUtil.openAiAgentIsCanOpen(item, user)) {
             return false;
         }
-        if (item.status === OpenAiAgentStatus.LOADING) {
-            return false;
+        switch (item.status) {
+            case OpenAiAgentStatus.LOADING:
+                return false;
+            default:
+                return true;
         }
-        return true;
     }
 
     public static openAiAgentIsCanMessageRemove(item: OpenAiAgent, user: User): boolean {

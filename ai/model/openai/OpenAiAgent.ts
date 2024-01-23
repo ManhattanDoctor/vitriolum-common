@@ -26,6 +26,8 @@ export enum OpenAiAgentStatus {
     ERROR = "ERROR",
     LOADED = "LOADED",
     LOADING = "LOADING",
+    EXPIRED = "EXPIRED",
+    CANCELLED = "CANCELLED",
 }
 
 export enum OpenAiAgentRunStatus {

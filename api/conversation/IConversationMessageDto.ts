@@ -3,7 +3,7 @@ import { ConversationMessage, ConversationMessageRole } from '../../conversation
 
 export interface IConversationMessageAddDto extends ITraceable {
     role: ConversationMessageRole;
-    value: string;
+    text: string;
     files?: Array<number>;
     history?: number;
 }

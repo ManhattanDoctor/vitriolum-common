@@ -12,27 +12,22 @@ export enum ConversationMessageRole {
     // FUNCTION = 'FUNCTION',
 }
 
-export enum ConversationMessageContentType {
-    TEXT = 'TEXT',
-    IMAGE = 'IMAGE',
-}
-
 export class ConversationMessage {
     id: number;
     role: ConversationMessageRole;
-    contents: Array<ConversationMessageContent>;
     conversation: Conversation;
     conversationId: number;
+
+    text?: string;
+    
+    @Type(() => File)
+    files?: Array<File>;
 
     @Type(() => Date)
     createdDate: Date;
 }
 
-export class ConversationMessageContent {
-    type: ConversationMessageContentType;
-    value: string;
-}
 
-export const CONVERSATION_MESSAGE_CONTENT_MIN_LENGTH = 1;
-export const CONVERSATION_MESSAGE_CONTENT_MAX_LENGTH = 131136;
+export const CONVERSATION_MESSAGE_TEXT_MIN_LENGTH = 1;
+export const CONVERSATION_MESSAGE_TEXT_MAX_LENGTH = 131136;
 

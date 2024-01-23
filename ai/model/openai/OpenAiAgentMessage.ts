@@ -6,14 +6,14 @@ export enum OpenAiAgentMessageRole {
     USER = 'USER',
     SYSTEM = 'SYSTEM',
     // COMMAND = 'COMMAND',
-    ASSISTANT = 'ASSISTANT',
+    // ASSISTANT = 'ASSISTANT',
     // TOOL = 'TOOL',
     // FUNCTION = 'FUNCTION',
 }
 
 export enum OpenAiAgentMessageContentType {
     TEXT = 'TEXT',
-    IMAGE = 'IMAGE',
+    FILE = 'FILE',
 }
 
 export class OpenAiAgentMessage {

@@ -1,4 +1,3 @@
-import { ConversationMessage, ConversationMessageContentType } from "./ConversationMessage";
 import * as _ from 'lodash';
 
 export class ConversationUtil {
@@ -10,23 +9,5 @@ export class ConversationUtil {
 
     public static getRoom(id: number): string {
         return `conversation${id}`;
-    }
-
-    public static messageHasTextContent(item: ConversationMessage): boolean {
-        return !_.isEmpty(ConversationUtil.messageGetTextContent(item));
-    }
-
-    public static messageGetTextContent(item: ConversationMessage): string {
-        if (_.isEmpty(item.contents)) {
-            return null;
-        }
-        let value = '';
-        for (let content of item.contents) {
-            if (content.type === ConversationMessageContentType.TEXT) {
-                value += `${content.value}\n`;
-            }
-        }
-        value = value.trim();
-        return !_.isEmpty(value) ? value : null;
     }
 }

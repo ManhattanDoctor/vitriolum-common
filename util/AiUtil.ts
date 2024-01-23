@@ -11,6 +11,7 @@ export class AiUtil {
 
     public static isModelSupportsFile(model: string): boolean {
         switch (model) {
+            case OpenAiTextModel.GPT_4_1106_PREVIEW:
             case OpenAiTextModel.GPT_4_VISION_PREVIEW:
                 return true;
         }

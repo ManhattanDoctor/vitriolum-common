@@ -1,5 +1,4 @@
 import { Type } from 'class-transformer';
-import { FileBlob } from './FileBlob';
 import * as _ from 'lodash';
 
 export class File {
@@ -15,9 +14,6 @@ export class File {
     
     userId: number;
     openAiId?: string;
-
-    @Type(() => FileBlob)
-    blob?: FileBlob;
 
     @Type(() => Date)
     createdDate: Date;

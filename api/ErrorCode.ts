@@ -39,6 +39,7 @@ export enum ErrorCode {
 
     OPEN_AI_AGENT_NOT_FOUND = 'OPEN_AI_AGENT_NOT_FOUND',
     OPEN_AI_AGENT_FORBIDDEN = 'OPEN_AI_AGENT_FORBIDDEN',
+    OPEN_AI_AGENT_IN_PROGRESS = 'OPEN_AI_AGENT_IN_PROGRESS',
 }
 
 export interface IInvalidDto<T = any> {

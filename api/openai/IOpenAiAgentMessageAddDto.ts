@@ -3,7 +3,7 @@ import { OpenAiAgentMessage, OpenAiAgentMessageRole } from '../../ai/model/opena
 
 export interface IOpenAiAgentMessageAddDto extends ITraceable {
     role: OpenAiAgentMessageRole;
-    value: string;
+    text: string;
     files?: Array<number>;
 }
 

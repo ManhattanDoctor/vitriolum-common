@@ -59,10 +59,12 @@ export class PermissionUtil {
         if (!PermissionUtil.conversationIsCanOpen(item, user)) {
             return false;
         }
-        if (item.status !== ConversationStatus.ERROR) {
-            return false;
+        switch (item.status) {
+            case ConversationStatus.ERROR:
+                return true;
+            default:
+                return false;
         }
-        return true;
     }
 
     public static conversationIsCanEdit(item: Conversation, user: User): boolean {
@@ -77,6 +79,18 @@ export class PermissionUtil {
         return PermissionUtil.conversationIsCanMessageRemove(item, user);
     }
 
+    public static conversationIsCanCancel(item: Conversation, user: User): boolean {
+        if (!PermissionUtil.conversationIsCanOpen(item, user)) {
+            return false;
+        }
+        switch (item.status) {
+            case ConversationStatus.LOADING:
+                return true;
+            default:
+                return false;
+        }
+    }
+
     public static conversationIsCanRemove(item: Conversation, user: User): boolean {
         return PermissionUtil.conversationIsCanOpen(item, user);
     }
@@ -85,10 +99,7 @@ export class PermissionUtil {
         if (!PermissionUtil.conversationIsCanOpen(item, user)) {
             return false;
         }
-        if (item.status === ConversationStatus.LOADING) {
-            return false;
-        }
-        return true;
+        return !PermissionUtil.conversationIsCanCheck(item, user);
     }
 
     public static conversationIsCanMessageRemove(item: Conversation, user: User): boolean {
@@ -143,10 +154,12 @@ export class PermissionUtil {
             return false;
         }
         switch (item.status) {
-            case OpenAiAgentStatus.LOADING:
-                return false;
-            default:
+            case OpenAiAgentStatus.ERROR:
+            case OpenAiAgentStatus.EXPIRED:
+            case OpenAiAgentStatus.CANCELED:
                 return true;
+            default:
+                return false;
         }
     }
 
@@ -158,6 +171,18 @@ export class PermissionUtil {
         return PermissionUtil.openAiAgentIsCanMessageRemove(item, user);
     }
 
+    public static openAiAgentIsCanCancel(item: OpenAiAgent, user: User): boolean {
+        if (!PermissionUtil.openAiAgentIsCanOpen(item, user)) {
+            return false;
+        }
+        switch (item.status) {
+            case OpenAiAgentStatus.LOADING:
+                return true;
+            default:
+                return false;
+        }
+    }
+
     public static openAiAgentIsCanRemove(item: OpenAiAgent, user: User): boolean {
         return PermissionUtil.openAiAgentIsCanOpen(item, user);
     }
@@ -166,12 +191,7 @@ export class PermissionUtil {
         if (!PermissionUtil.openAiAgentIsCanOpen(item, user)) {
             return false;
         }
-        switch (item.status) {
-            case OpenAiAgentStatus.LOADING:
-                return false;
-            default:
-                return true;
-        }
+        return !PermissionUtil.openAiAgentIsCanCheck(item, user);
     }
 
     public static openAiAgentIsCanMessageRemove(item: OpenAiAgent, user: User): boolean {

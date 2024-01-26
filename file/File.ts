@@ -39,7 +39,6 @@ export enum FileAudioExtension {
 export enum FileDocumentExtension {
     TXT = 'txt',
     PDF = 'pdf',
-    XLS = 'xls',
     DOC = 'doc',
     DOCX = 'docx',
     XLSX = 'xlsx',
@@ -63,7 +62,6 @@ export enum FileDocumentMime {
     TXT = 'text/plain',
     PDF = 'application/pdf',
     DOC = 'application/msword',
-    XLS = 'application/vnd.ms-excel',
     XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     DOCX = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 }

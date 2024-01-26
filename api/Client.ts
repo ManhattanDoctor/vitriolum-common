@@ -1,9 +1,8 @@
 
-import { TransformUtil, TransportHttp, ITransportHttpSettings, DateUtil, TraceUtil, ILogger, LoggerLevel, TransportCryptoManager } from '@ts-core/common';
+import { TransformUtil, TransportHttp, ITransportHttpSettings, TraceUtil, ILogger, LoggerLevel, TransportCryptoManager } from '@ts-core/common';
 import { IInitDto, IInitDtoResponse, ILoginDto, ILoginDtoResponse } from './login';
 import { IUserGetDtoResponse, IUserEditDto, IUserEditDtoResponse, UserUID } from './user';
 import { User } from '../user';
-import * as _ from 'lodash';
 import { LocaleProject } from './locale';
 import { IOAuthPopUpDto } from '@ts-core/oauth';
 import { ITaskDto, ITaskDtoResponse, ITaskProgress, } from './task';
@@ -15,11 +14,11 @@ import { Conversation, ConversationMessage } from '../conversation';
 import { IPaymentListDto, IPaymentListDtoResponse, IPaymentTransactionListDto, IPaymentTransactionListDtoResponse } from './payment';
 import { Payment, PaymentTransaction } from '../payment';
 import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICoinStatusGetDto } from './coin';
-import { IFileAddDtoResponse, IFileListDto, IFileListDtoResponse } from './file';
+import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse } from './file';
 import { File } from '../file';
-import { IFileBufferAddDto } from './file';
 import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiAgentListDto, IOpenAiAgentListDtoResponse, IOpenAiAgentMessageAddDto, IOpenAiAgentMessageAddDtoResponse, IOpenAiAgentMessageListDto, IOpenAiAgentMessageListDtoResponse, IOpenAiFileAddDto } from './openai';
 import { OpenAiAgent, OpenAiAgentMessage } from '../ai/model/openai';
+import * as _ from 'lodash';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
 
@@ -254,6 +253,10 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     public async openAiAgentEdit(data: IOpenAiAgentEditDto): Promise<IOpenAiAgentEditDtoResponse> {
         let item = await this.call<IOpenAiAgentEditDtoResponse, IOpenAiAgentEditDto>(`${OPEN_AI_AGENT_URL}/${data.id}`, { method: 'put', data: TraceUtil.addIfNeed(data) });
         return TransformUtil.toClass(OpenAiAgent, item);
+    }
+
+    public async openAiAgentStatus(id: number): Promise<any> {
+        return this.call<any, void>(`${OPEN_AI_AGENT_URL}/${id}/status`);
     }
 
     public async openAiAgentRemove(id: number): Promise<void> {

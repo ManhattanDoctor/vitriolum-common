@@ -171,6 +171,18 @@ export class PermissionUtil {
         return PermissionUtil.openAiAgentIsCanMessageRemove(item, user);
     }
 
+    public static openAiAgentIsCanStatus(item: OpenAiAgent, user: User): boolean {
+        if (!PermissionUtil.openAiAgentIsCanOpen(item, user)) {
+            return false;
+        }
+        switch (item.status) {
+            case OpenAiAgentStatus.LOADING:
+                return true;
+            default:
+                return false;
+        }
+    }
+
     public static openAiAgentIsCanCancel(item: OpenAiAgent, user: User): boolean {
         if (!PermissionUtil.openAiAgentIsCanOpen(item, user)) {
             return false;

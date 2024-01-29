@@ -1,14 +1,14 @@
 import { TransportEvent } from "@ts-core/common";
 import { IOpenAiAgentEventDto } from "./IOpenAiAgentEventDto";
 
-export class OpenAiAgentErroredEvent extends TransportEvent<IOpenAiAgentEventDto>{
+export class OpenAiAgentCanceledEvent extends TransportEvent<IOpenAiAgentEventDto>{
     // --------------------------------------------------------------------------
     //
     //  Public Static Properties
     //
     // --------------------------------------------------------------------------
 
-    public static readonly NAME = 'OpenAiAgentErroredEvent';
+    public static readonly NAME = 'OpenAiAgentCanceledEvent';
 
     // --------------------------------------------------------------------------
     //
@@ -17,6 +17,6 @@ export class OpenAiAgentErroredEvent extends TransportEvent<IOpenAiAgentEventDto
     // --------------------------------------------------------------------------
 
     constructor(data: IOpenAiAgentEventDto) {
-        super(OpenAiAgentErroredEvent.NAME, data);
+        super(OpenAiAgentCanceledEvent.NAME, data);
     }
 }

@@ -4,7 +4,9 @@ export interface IOpenAiAgentStatusDtoResponse<T = string> {
 }
 
 export enum OpenAiAgentStatusType {
-    CODE = 'CODE',
     TEXT = 'TEXT',
-    IMAGE = 'IMAGE'
+    FUNCTION = 'FUNCTION',
+    RETRIEVAL = 'RETRIEVAL',
+    IMAGE_FILE = 'IMAGE_FILE',
+    CODE_INTERPRETER = 'CODE_INTERPRETER',
 }

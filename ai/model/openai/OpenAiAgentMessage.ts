@@ -28,5 +28,5 @@ export class OpenAiAgentMessage {
 }
 
 export const OPEN_AI_AGENT_MESSAGE_TEXT_MIN_LENGTH = 1;
-export const OPEN_AI_AGENT_MESSAGE_TEXT_MAX_LENGTH = 131136;
+export const OPEN_AI_AGENT_MESSAGE_TEXT_MAX_LENGTH = 500000;
 

@@ -1,6 +1,6 @@
-export interface IOpenAiAgentStatusDtoResponse<T = string> {
+export interface IOpenAiAgentStatusDtoResponse {
     type: OpenAiAgentStatusType;
-    value: T;
+    data?: IOpenAiAgentStatusDtoResponseData;
 }
 
 export enum OpenAiAgentStatusType {
@@ -9,4 +9,16 @@ export enum OpenAiAgentStatusType {
     RETRIEVAL = 'RETRIEVAL',
     IMAGE_FILE = 'IMAGE_FILE',
     CODE_INTERPRETER = 'CODE_INTERPRETER',
+}
+
+export type IOpenAiAgentStatusDtoResponseData = IOpenAiAgentStatusFunction | IOpenAiAgentStatusCodeInterpreter | string | void;
+
+export interface IOpenAiAgentStatusCodeInterpreter {
+    input: string;
+    outputs: Array<any>;
+}
+export interface IOpenAiAgentStatusFunction {
+    name: string;
+    output: string;
+    arguments: string;
 }

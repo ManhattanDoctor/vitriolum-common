@@ -255,8 +255,8 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return TransformUtil.toClass(OpenAiAgent, item);
     }
 
-    public async openAiAgentStatus(id: number): Promise<IOpenAiAgentStatusDtoResponse> {
-        return this.call<any, void>(`${OPEN_AI_AGENT_URL}/${id}/status`);
+    public async openAiAgentStatus(id: number, timeout: number): Promise<IOpenAiAgentStatusDtoResponse> {
+        return this.call<any, void>(`${OPEN_AI_AGENT_URL}/${id}/status`, { isHandleError: false, isHandleLoading: false });
     }
 
     public async openAiAgentRemove(id: number): Promise<void> {

@@ -34,8 +34,6 @@ export function getRandomSeed(): number {
     return RandomUtil.randomNumber(STABLE_IMAGE_OPTIONS_SEED_MIN, STABLE_IMAGE_OPTIONS_SEED_MAX)
 }
 
-
-
 export const STABLE_IMAGE_OPTIONS_MODEL_MIN_LENGTH = 4;
 export const STABLE_IMAGE_OPTIONS_MODEL_MAX_LENGTH = 128;
 

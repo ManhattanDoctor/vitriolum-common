@@ -1,4 +1,5 @@
 import { IOpenAiTextProgress, IOpenAiTextResponse } from "../model/openai";
+import { IGigaChatTextProgress, IGigaChatTextResponse } from "../model/gigachat";
 import { IAiTask } from "./IAiTask";
 
 export interface IAiTextTask extends IAiTask {
@@ -6,9 +7,9 @@ export interface IAiTextTask extends IAiTask {
     system?: string;
 }
 
-export type AiTextTaskProgress = IOpenAiTextProgress;
+export type AiTextTaskProgress = IOpenAiTextProgress | IGigaChatTextProgress;
 
-export type AiTextTaskResponse = IOpenAiTextResponse;
+export type AiTextTaskResponse = IOpenAiTextResponse | IGigaChatTextResponse;
 
 export const AI_TEXT_TASK_MESSAGE_MIN_LENGTH = 1;
 export const AI_TEXT_TASK_MESSAGE_MAX_LENGTH = 128000;

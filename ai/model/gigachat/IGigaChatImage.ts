@@ -8,4 +8,7 @@ export type IGigaChatImageProgress = void;
 
 export type IGigaChatImageResponse = Array<IAiImage>;
 
-export type IGigaChatImageConsumption = number;
+export interface IGigaChatImageConsumption {
+    input: number;
+    output: number;
+}

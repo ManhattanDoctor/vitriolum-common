@@ -10,8 +10,8 @@ export interface IGigaChatTextOptions {
 }
 
 export enum GigaChatTextModel {
-    PRO = 'GigaChat-Pro',
-    LITE = 'GigaChat'
+    LITE = 'GigaChat',
+    PRO = 'GigaChat-Pro'
 }
 
 export type IGigaChatTextProgress = string;

@@ -71,6 +71,10 @@ export class PermissionUtil {
         return PermissionUtil.conversationIsCanOpen(item, user);
     }
 
+    public static conversationIsCanExport(item: Conversation, user: User): boolean {
+        return PermissionUtil.conversationIsCanOpen(item, user) && !_.isEmpty(item.messages);
+    }
+
     public static conversationIsCanCommand(item: Conversation, user: User): boolean {
         return PermissionUtil.conversationIsCanOpen(item, user);
     }
@@ -211,5 +215,9 @@ export class PermissionUtil {
             return false;
         }
         return true;
+    }
+
+    public static openAiAgentIsCanExport(item: OpenAiAgent, user: User): boolean {
+        return PermissionUtil.openAiAgentIsCanOpen(item, user) && !_.isEmpty(item.messages);
     }
 }

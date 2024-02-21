@@ -2,6 +2,7 @@ import { Type } from 'class-transformer';
 import * as _ from 'lodash';
 import { AiConversationModel, AiModelConversationOptions } from '../ai';
 import { Color } from '../color';
+import { ConversationMessage } from './ConversationMessage';
 
 export class Conversation {
     id: number;
@@ -14,6 +15,7 @@ export class Conversation {
 
     color?: Color;
     system?: string;
+    messages?: Array<ConversationMessage>;
     lastMessageDate?: Date;
     historyResetDate?: Date;
 

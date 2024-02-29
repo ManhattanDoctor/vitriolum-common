@@ -5,7 +5,6 @@ import { Conversation } from './Conversation';
 
 export enum ConversationMessageRole {
     USER = 'USER',
-    SYSTEM = 'SYSTEM',
     COMMAND = 'COMMAND',
     ASSISTANT = 'ASSISTANT',
     // TOOL = 'TOOL',

@@ -1,0 +1,8 @@
+export enum AiTool {
+    TAVILY = 'TAVILY',
+    GOOGLE = 'GOOGLE',
+    WOLFRAM = 'WOLFRAM',
+    YOU_TUBE = 'YOU_TUBE',
+    WIKIPEDIA = 'WIKIPEDIA',
+    GOOGLE_NEWS = 'GOOGLE_NEWS',
+}

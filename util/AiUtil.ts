@@ -18,12 +18,4 @@ export class AiUtil {
         }
         return false;
     }
-
-    public static isModelSupportsStream(model: string): boolean {
-        switch (model) {
-            case OpenAiTextModel.GPT_4_VISION_PREVIEW:
-                return false;
-        }
-        return true;
-    }
 }

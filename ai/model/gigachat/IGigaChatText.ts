@@ -1,5 +1,6 @@
 import { UnreachableStatementError } from "@ts-core/common";
 import { IGigaChatModelDetails } from "./IGigaChatModel";
+import { AiTool } from "../../AiTool";
 
 export interface IGigaChatTextOptions {
     model: GigaChatTextModel;
@@ -26,7 +27,9 @@ export interface IGigaChatTextConsumption {
     output: number;
 }
 
-export interface IGigaChatTextModelDetails extends IGigaChatModelDetails<GigaChatTextModel> { }
+export interface IGigaChatTextModelDetails extends IGigaChatModelDetails<GigaChatTextModel> {
+    tools: Array<AiTool>;
+}
 
 export const GIGA_CHAT_TEXT_OPTIONS_TEMPERATURE_MIN = 0;
 export const GIGA_CHAT_TEXT_OPTIONS_TEMPERATURE_MAX = 2;

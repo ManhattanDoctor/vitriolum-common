@@ -3,7 +3,6 @@ import * as _ from 'lodash';
 import { AiConversationModel, AiModelConversationOptions } from '../ai';
 import { Color } from '../color';
 import { ConversationMessage } from './ConversationMessage';
-import { AiTool } from '../ai';
 
 export class Conversation {
     id: number;
@@ -15,7 +14,6 @@ export class Conversation {
     isConsiderHistory: boolean;
 
     color?: Color;
-    tools?: Array<AiTool>;
     system?: string;
     messages?: Array<ConversationMessage>;
     lastMessageDate?: Date;

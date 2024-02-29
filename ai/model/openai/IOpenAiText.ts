@@ -32,7 +32,9 @@ export interface IOpenAiTextConsumption {
     output: number;
 }
 
-export interface IOpenAiTextModelDetails extends IOpenAiModelDetails<OpenAiTextModel> { }
+export interface IOpenAiTextModelDetails extends IOpenAiModelDetails<OpenAiTextModel> {
+    tools: Array<AiTool>;
+}
 
 export const OPEN_AI_TEXT_OPTIONS_TEMPERATURE_MIN = 0;
 export const OPEN_AI_TEXT_OPTIONS_TEMPERATURE_MAX = 2;

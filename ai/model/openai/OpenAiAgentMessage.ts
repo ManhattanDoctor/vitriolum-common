@@ -7,9 +7,9 @@ export enum OpenAiAgentMessageRole {
     USER = 'USER',
     SYSTEM = 'SYSTEM',
     ASSISTANT = 'ASSISTANT',
-    // ASSISTANT = 'ASSISTANT',
     // TOOL = 'TOOL',
     // FUNCTION = 'FUNCTION',
+    // ASSISTANT = 'ASSISTANT',
 }
 
 export class OpenAiAgentMessage {

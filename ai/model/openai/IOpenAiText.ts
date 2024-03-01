@@ -1,11 +1,11 @@
 import { UnreachableStatementError } from "@ts-core/common";
 import { IOpenAiModelDetails } from "./IOpenAiModel";
-import { AiTool } from "../../../ai";
+import { AiToolType } from "../../../ai";
 
 export interface IOpenAiTextOptions {
     model: OpenAiTextModel;
 
-    tools?: Array<AiTool>;
+    tools?: Array<AiToolType>;
     maxTokens?: number;
     temperature?: number;
     presencePenalty?: number;
@@ -33,7 +33,7 @@ export interface IOpenAiTextConsumption {
 }
 
 export interface IOpenAiTextModelDetails extends IOpenAiModelDetails<OpenAiTextModel> {
-    tools: Array<AiTool>;
+    tools: Array<AiToolType>;
 }
 
 export const OPEN_AI_TEXT_OPTIONS_TEMPERATURE_MIN = 0;

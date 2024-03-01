@@ -1,8 +1,10 @@
-export enum AiTool {
+export enum AiToolType {
+    BING = 'BING',
+    AMAZON = 'AMAZON',
     TAVILY = 'TAVILY',
     GOOGLE = 'GOOGLE',
-    WOLFRAM = 'WOLFRAM',
     YOU_TUBE = 'YOU_TUBE',
     WIKIPEDIA = 'WIKIPEDIA',
     GOOGLE_NEWS = 'GOOGLE_NEWS',
+    WOLFRAM_ALPHA = 'WOLFRAM_ALPHA',
 }

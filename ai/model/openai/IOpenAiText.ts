@@ -1,7 +1,9 @@
 import { UnreachableStatementError } from "@ts-core/common";
 import { IOpenAiModelDetails } from "./IOpenAiModel";
-import { AiToolType, IAiToolConsumption } from "../../../ai";
+import { AiToolType } from "../../../ai";
 import { IAiTextConsumption } from "../IAiTextConsumption";
+import { IAiTextProgress } from "../IAiTextProgress";
+import { IAiTextResponse } from "../IAiTextResponse";
 
 export interface IOpenAiTextOptions {
     model: OpenAiTextModel;
@@ -21,12 +23,9 @@ export enum OpenAiTextModel {
     GPT_35_TURBO = 'gpt-3.5-turbo',
 }
 
-export type IOpenAiTextProgress = string;
+export type IOpenAiTextProgress = IAiTextProgress;
 
-export interface IOpenAiTextResponse {
-    role: string;
-    content: string;
-}
+export type IOpenAiTextResponse = IAiTextResponse;
 
 export type IOpenAiTextConsumption = IAiTextConsumption;
 

@@ -2,6 +2,8 @@ import { UnreachableStatementError } from "@ts-core/common";
 import { IGigaChatModelDetails } from "./IGigaChatModel";
 import { AiToolType } from "../../AiTool";
 import { IAiTextConsumption } from "../IAiTextConsumption";
+import { IAiTextProgress } from "../IAiTextProgress";
+import { IAiTextResponse } from "../IAiTextResponse";
 
 export interface IGigaChatTextOptions {
     model: GigaChatTextModel;
@@ -16,12 +18,9 @@ export enum GigaChatTextModel {
     PRO = 'GigaChat-Pro'
 }
 
-export type IGigaChatTextProgress = string;
+export type IGigaChatTextProgress = IAiTextProgress;
 
-export interface IGigaChatTextResponse {
-    role: string;
-    content: string;
-}
+export type IGigaChatTextResponse = IAiTextResponse;
 
 export type IGigaChatTextConsumption = IAiTextConsumption;
 

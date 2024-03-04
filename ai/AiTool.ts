@@ -1,4 +1,5 @@
 export enum AiToolType {
+    SERP = 'SERP',
     BING = 'BING',
     AMAZON = 'AMAZON',
     TAVILY = 'TAVILY',

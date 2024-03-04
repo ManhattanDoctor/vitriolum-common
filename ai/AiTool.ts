@@ -3,6 +3,7 @@ export enum AiToolType {
     AMAZON = 'AMAZON',
     TAVILY = 'TAVILY',
     GOOGLE = 'GOOGLE',
+    SERPER = 'SERPER',
     YOU_TUBE = 'YOU_TUBE',
     WIKIPEDIA = 'WIKIPEDIA',
     GOOGLE_NEWS = 'GOOGLE_NEWS',

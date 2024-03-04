@@ -1,6 +1,7 @@
 import { UnreachableStatementError } from "@ts-core/common";
 import { IOpenAiModelDetails } from "./IOpenAiModel";
-import { AiToolType } from "../../../ai";
+import { AiToolType, IAiToolConsumption } from "../../../ai";
+import { IAiTextConsumption } from "../IAiTextConsumption";
 
 export interface IOpenAiTextOptions {
     model: OpenAiTextModel;
@@ -27,10 +28,7 @@ export interface IOpenAiTextResponse {
     content: string;
 }
 
-export interface IOpenAiTextConsumption {
-    input: number;
-    output: number;
-}
+export type IOpenAiTextConsumption = IAiTextConsumption;
 
 export interface IOpenAiTextModelDetails extends IOpenAiModelDetails<OpenAiTextModel> {
     tools: Array<AiToolType>;

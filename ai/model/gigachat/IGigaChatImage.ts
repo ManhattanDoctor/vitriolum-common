@@ -1,3 +1,4 @@
+import { IAiTextConsumption } from "../IAiTextConsumption";
 import { IAiImage } from "../../AiImageModel";
 
 export interface IGigaChatImageOptions { }
@@ -8,7 +9,4 @@ export type IGigaChatImageProgress = void;
 
 export type IGigaChatImageResponse = Array<IAiImage>;
 
-export interface IGigaChatImageConsumption {
-    input: number;
-    output: number;
-}
+export type IGigaChatImageConsumption = IAiTextConsumption;

@@ -8,3 +8,8 @@ export enum AiToolType {
     GOOGLE_NEWS = 'GOOGLE_NEWS',
     WOLFRAM_ALPHA = 'WOLFRAM_ALPHA',
 }
+
+export interface IAiToolConsumption {
+    type: AiToolType;
+    value: number;
+}

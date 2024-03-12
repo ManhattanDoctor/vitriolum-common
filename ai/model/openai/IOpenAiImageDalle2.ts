@@ -1,6 +1,6 @@
 export interface IOpenAiImageDalle2Options {
-    size: OpenAiImageDalle2Size;
     n: number;
+    size: OpenAiImageDalle2Size;
 }
 export enum OpenAiImageDalle2Size {
     SIZE_1024 = '1024x1024',

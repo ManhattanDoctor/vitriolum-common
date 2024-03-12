@@ -1,4 +1,3 @@
-export * from './AiUtil';
 export * from './ParseUtil';
 export * from './ShareUtil';
 export * from './LoginUtil';

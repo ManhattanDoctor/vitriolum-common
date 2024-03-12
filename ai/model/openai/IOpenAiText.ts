@@ -7,7 +7,6 @@ import { IAiTextResponse } from "../IAiTextResponse";
 
 export interface IOpenAiTextOptions {
     model: OpenAiTextModel;
-
     tools?: Array<AiToolType>;
     maxTokens?: number;
     temperature?: number;

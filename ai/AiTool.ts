@@ -1,17 +1,22 @@
 export enum AiToolType {
-    SERP = 'SERP',
-    BING = 'BING',
-    AMAZON = 'AMAZON',
+    TEST = 'TEST',
+    // BING = 'BING',
+    // AMAZON = 'AMAZON',
+    // YOU_TUBE = 'YOU_TUBE',
+    // GOOGLE_NEWS = 'GOOGLE_NEWS',
+    //
     TAVILY = 'TAVILY',
     GOOGLE = 'GOOGLE',
-    SERPER = 'SERPER',
-    YOU_TUBE = 'YOU_TUBE',
+    YANDEX = 'YANDEX',
     WIKIPEDIA = 'WIKIPEDIA',
-    GOOGLE_NEWS = 'GOOGLE_NEWS',
     WOLFRAM_ALPHA = 'WOLFRAM_ALPHA',
+    IMAGE_RECOGNITION = 'IMAGE_RECOGNITION',
+    IMAGE_DRAWING_DALLE_2 = 'IMAGE_DRAWING_DALLE_2',
+    IMAGE_DRAWING_DALLE_3 = 'IMAGE_DRAWING_DALLE_3',
+    CONTENT_SUMMARIZATION = 'CONTENT_SUMMARIZATION',
 }
 
 export interface IAiToolConsumption {
     type: AiToolType;
-    value: number;
+    value: string;
 }

@@ -192,12 +192,12 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return this.call<void, number>(`${FILE_URL}/${id}`, { method: 'delete' });
     }
 
-    public async fileVectorizeAdd(id: number): Promise<void> {
-        return this.call<void, number>(`${FILE_VECTORIZE_URL}/${id}`, { method: 'post', timeout: AI_MODEL_TIMEOUT });
+    public async fileVectorAdd(id: number): Promise<void> {
+        return this.call<void, number>(`${FILE_VECTOR_URL}/${id}`, { method: 'post', timeout: AI_MODEL_TIMEOUT });
     }
 
-    public async fileVectorizeRemove(id: number): Promise<void> {
-        return this.call<void, number>(`${FILE_VECTORIZE_URL}/${id}`, { method: 'delete', timeout: AI_MODEL_TIMEOUT });
+    public async fileVectorRemove(id: number): Promise<void> {
+        return this.call<void, number>(`${FILE_VECTOR_URL}/${id}`, { method: 'delete', timeout: AI_MODEL_TIMEOUT });
     }
 
     // --------------------------------------------------------------------------
@@ -345,7 +345,7 @@ export const AI_MODEL_URL = PREFIX + 'aimodel';
 export const CONVERSATION_URL = PREFIX + 'conversation';
 
 export const FILE_URL = PREFIX + 'file';
-export const FILE_VECTORIZE_URL = PREFIX + 'fileVectorize';
+export const FILE_VECTOR_URL = PREFIX + 'fileVector';
 export const FILE_BUFFER_URL = PREFIX + 'fileBuffer';
 
 export const OPEN_AI_FILE_URL = PREFIX + 'openAi/file';

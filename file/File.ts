@@ -10,9 +10,10 @@ export class File {
     size: number;
     mime: string;
     hash: string;
-    extension: string;
-    
     userId: number;
+    extension: string;
+
+    vectorId?: string;
     openAiId?: string;
 
     @Type(() => Date)
@@ -47,6 +48,7 @@ export const FileImageExtensions: Array<string> = Object.values(FileImageExtensi
 export const FileAudioExtensions: Array<string> = Object.values(FileAudioExtension);
 export const FileDocumentExtensions: Array<string> = Object.values(FileDocumentExtension);
 export const FileExtensions = [...FileImageExtensions, ...FileDocumentExtensions, ...FileAudioExtensions];
+export type FileExtension = FileImageExtension | FileDocumentExtension | FileAudioExtension;
 
 export enum FileImageMime {
     PNG = 'image/png',
@@ -69,6 +71,7 @@ export const FileImageMimes: Array<string> = Object.values(FileImageMime);
 export const FileAudioMimes: Array<string> = Object.values(FileAudioMime);
 export const FileDocumentMimes: Array<string> = Object.values(FileDocumentMime);
 export const FileMimes = [...FileImageMimes, ...FileDocumentMimes, ...FileAudioMimes];
+export type FileMime = FileImageMime | FileDocumentMime | FileAudioMime;
 
 export const FILE_SIZE_MAX = 10485760; // 10mb
 export const FILE_AMOUNT_MAX = 50;

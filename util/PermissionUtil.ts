@@ -4,6 +4,7 @@ import { IUserEditDto } from '../api/user';
 import { Conversation, ConversationStatus } from '../conversation';
 import { File } from '../file';
 import { OpenAiAgent, OpenAiAgentStatus } from '../ai/model/openai';
+import { FileUtil } from './FileUtil';
 
 export class PermissionUtil {
     //--------------------------------------------------------------------------
@@ -135,6 +136,10 @@ export class PermissionUtil {
 
     public static fileIsCanRemove(item: File, user: User): boolean {
         return PermissionUtil.fileIsCanOpen(item, user);
+    }
+
+    public static fileIsCanVectorize(item: File, user: User): boolean {
+        return PermissionUtil.fileIsCanOpen(item, user) && FileUtil.isCanVectorize(item.mime);
     }
 
     //--------------------------------------------------------------------------

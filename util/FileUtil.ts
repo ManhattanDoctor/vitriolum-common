@@ -1,5 +1,5 @@
 import { Sha512, TraceUtil, UnreachableStatementError } from "@ts-core/common";
-import { FileAudioExtension, FileAudioExtensions, FileAudioMime, FileAudioMimes, FileDocumentExtension, FileDocumentExtensions, FileDocumentMime, FileDocumentMimes, FileExtensions, FileImageExtension, FileImageExtensions, FileImageMime, FileImageMimes, FileMimes, FileType } from "../file";
+import { FileAudioExtension, FileAudioExtensions, FileAudioMime, FileAudioMimes, FileDocumentExtension, FileDocumentExtensions, FileDocumentMime, FileDocumentMimes, FileExtensions, FileImageExtension, FileImageExtensions, FileImageMime, FileImageMimes, FileMime, FileMimes, FileType } from "../file";
 import * as _ from 'lodash';
 
 export class FileUtil {
@@ -79,6 +79,16 @@ export class FileUtil {
         }
     }
 
+    public static isCanVectorize(item: string): boolean {
+        switch (item) {
+            case FileDocumentMime.PDF:
+            case FileDocumentMime.TXT:
+            case FileDocumentMime.DOCX:
+                return true;
+            default:
+                return false;
+        }
+    }
 
     // --------------------------------------------------------------------------
     //

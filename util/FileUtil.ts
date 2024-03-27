@@ -79,7 +79,7 @@ export class FileUtil {
         }
     }
 
-    public static isCanVectorize(item: string): boolean {
+    public static isCanContentVectorize(item: string): boolean {
         switch (item) {
             case FileDocumentMime.PDF:
             case FileDocumentMime.TXT:

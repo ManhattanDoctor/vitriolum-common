@@ -138,12 +138,12 @@ export class PermissionUtil {
         return PermissionUtil.fileIsCanOpen(item, user);
     }
 
-    public static fileIsCanVectorAdd(item: File, user: User): boolean {
-        return PermissionUtil.fileIsCanOpen(item, user) && FileUtil.isCanVectorize(item.mime);
+    public static fileIsCanContentVectorAdd(item: File, user: User): boolean {
+        return PermissionUtil.fileIsCanOpen(item, user) && FileUtil.isCanContentVectorize(item.mime);
     }
 
-    public static fileIsCanVectorRemove(item: File, user: User): boolean {
-        return PermissionUtil.fileIsCanVectorAdd(item, user);
+    public static fileIsCanContentVectorRemove(item: File, user: User): boolean {
+        return PermissionUtil.fileIsCanOpen(item, user);
     }
 
     //--------------------------------------------------------------------------

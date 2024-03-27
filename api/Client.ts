@@ -19,6 +19,7 @@ import { File } from '../file';
 import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiAgentListDto, IOpenAiAgentListDtoResponse, IOpenAiAgentMessageAddDto, IOpenAiAgentMessageAddDtoResponse, IOpenAiAgentMessageListDto, IOpenAiAgentMessageListDtoResponse, IOpenAiAgentStatusDtoResponse, IOpenAiFileAddDto } from './openai';
 import { OpenAiAgent, OpenAiAgentMessage } from '../ai/model/openai';
 import * as _ from 'lodash';
+import { IFileContentVectorAddDto } from './file';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
 
@@ -192,12 +193,12 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return this.call<void, number>(`${FILE_URL}/${id}`, { method: 'delete' });
     }
 
-    public async fileVectorAdd(id: number): Promise<void> {
-        return this.call<void, number>(`${FILE_VECTOR_URL}/${id}`, { method: 'post', timeout: AI_MODEL_TIMEOUT });
+    public async fileContentVectorAdd(data: IFileContentVectorAddDto): Promise<void> {
+        return this.call<void, IFileContentVectorAddDto>(`${FILE_CONTENT_VECTOR_URL}/${data.id}`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
     }
 
-    public async fileVectorRemove(id: number): Promise<void> {
-        return this.call<void, number>(`${FILE_VECTOR_URL}/${id}`, { method: 'delete', timeout: AI_MODEL_TIMEOUT });
+    public async fileContentVectorRemove(id: number): Promise<void> {
+        return this.call<void, number>(`${FILE_CONTENT_VECTOR_URL}/${id}`, { method: 'delete', timeout: AI_MODEL_TIMEOUT });
     }
 
     // --------------------------------------------------------------------------
@@ -345,8 +346,8 @@ export const AI_MODEL_URL = PREFIX + 'aimodel';
 export const CONVERSATION_URL = PREFIX + 'conversation';
 
 export const FILE_URL = PREFIX + 'file';
-export const FILE_VECTOR_URL = PREFIX + 'fileVector';
 export const FILE_BUFFER_URL = PREFIX + 'fileBuffer';
+export const FILE_CONTENT_VECTOR_URL = PREFIX + 'fileContentVector';
 
 export const OPEN_AI_FILE_URL = PREFIX + 'openAi/file';
 export const OPEN_AI_AGENT_URL = PREFIX + 'openAi/agent';

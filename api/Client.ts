@@ -194,7 +194,7 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     }
 
     public async fileContentVectorAdd(data: IFileContentVectorAddDto): Promise<IFileContentVectorAddDtoResponse> {
-        return this.call<IFileContentVectorAddDtoResponse, IFileContentVectorAddDto>(`${FILE_CONTENT_VECTOR_URL}/${data.id}`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
+        return this.call<IFileContentVectorAddDtoResponse, IFileContentVectorAddDto>(`${FILE_CONTENT_VECTOR_URL}`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
     }
 
     public async fileContentVectorRemove(id: number): Promise<void> {

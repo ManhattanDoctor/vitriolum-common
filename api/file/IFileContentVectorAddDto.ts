@@ -9,7 +9,7 @@ export interface IFileContentVectorAddDto extends ITraceable {
 
 export interface IFileContentVectorAddDtoResponse extends ITraceable {
     chunks: number;
-    length: number;
+    symbols: number;
 }
 
 export interface IFileContentSplitter {

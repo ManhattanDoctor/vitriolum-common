@@ -3,6 +3,7 @@ import { FileContentSplitterType, FileContentSplitterOptions } from '../../file'
 
 export interface IFileContentVectorAddDto extends ITraceable {
     id: number;
+    isTest?: boolean;
     splitter?: IFileContentSplitter;
 }
 

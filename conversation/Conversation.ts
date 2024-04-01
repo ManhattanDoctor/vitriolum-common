@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 import { AiConversationModel, AiModelConversationOptions } from '../ai';
 import { Color } from '../color';
 import { ConversationMessage } from './ConversationMessage';
+import { File, IFileContentSearchOptions } from '../file';
 
 export class Conversation {
     id: number;
@@ -18,6 +19,10 @@ export class Conversation {
     messages?: Array<ConversationMessage>;
     lastMessageDate?: Date;
     historyResetDate?: Date;
+    fileSearchOptions?: IFileContentSearchOptions;
+
+    @Type(() => File)
+    files?: Array<File>;
 
     model: AiConversationModel;
     options: AiModelConversationOptions;

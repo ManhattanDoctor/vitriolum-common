@@ -11,7 +11,7 @@ export interface IFileContentCharacterSplitterOptions {
 }
 
 export interface FileContentSplitResult {
-    id: string;
+    id: number;
     chunks: number;
     symbols: number;
 }

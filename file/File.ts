@@ -13,7 +13,7 @@ export class File {
     userId: number;
     extension: string;
 
-    vectorId?: string;
+    vectorId?: number;
     openAiId?: string;
 
     @Type(() => Date)

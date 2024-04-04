@@ -1,5 +1,6 @@
 export interface IFileContentSearchOptions {
     files?: Array<number>;
+    userId: number;
     minScore: number;
     maxDocuments: number;
 }

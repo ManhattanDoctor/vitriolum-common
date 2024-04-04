@@ -1,6 +1,7 @@
 import { Sha512, TraceUtil, UnreachableStatementError } from "@ts-core/common";
 import { FileAudioExtension, FileAudioExtensions, FileAudioMime, FileAudioMimes, FileDocumentExtension, FileDocumentExtensions, FileDocumentMime, FileDocumentMimes, FileExtensions, FileImageExtension, FileImageExtensions, FileImageMime, FileImageMimes, FileMime, FileMimes, FileType } from "../file";
 import * as _ from 'lodash';
+import { File } from "../file";
 
 export class FileUtil {
 
@@ -88,6 +89,19 @@ export class FileUtil {
             default:
                 return false;
         }
+    }
+
+    public static getVectorId(item: File, chunk?: number): string {
+        let prefix = `user${item.userId}#file${item.id}`;
+        return !_.isNil(chunk) ? `${prefix}#chunk${chunk}` : prefix;
+    }
+
+    public static getVectorIds(item: File): Array<string> {
+        let items = new Array();
+        for (let i = 0; i < item.vectorId; i++) {
+            items.push(FileUtil.getVectorId(item, i));
+        }
+        return items;
     }
 
     // --------------------------------------------------------------------------

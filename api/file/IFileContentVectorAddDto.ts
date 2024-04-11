@@ -6,7 +6,7 @@ export interface IFileContentVectorAddDto extends ITraceable {
     splitter?: IFileContentSplitter;
 }
 
-export interface IFileContentVectorAddDtoResponse extends ITraceable {
+export interface IFileContentVectorAddTestDtoResponse extends ITraceable {
     chunks: number;
     symbols: number;
 }

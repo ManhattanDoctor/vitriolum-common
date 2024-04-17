@@ -10,6 +10,8 @@ export interface IConversationAddDto extends ITraceable {
     model: AiConversationModel;
     options: AiModelConversationOptions;
 
+    userId?: number;
+
     color?: Color;
     files?: Array<number>;
     system?: string;

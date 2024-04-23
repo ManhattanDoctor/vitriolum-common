@@ -20,6 +20,8 @@ export class File {
     createdDate: Date;
 }
 
+export const FILE_VECTOR_ID_LOADING = 0;
+
 export enum FileType {
     IMAGE = 'IMAGE',
     AUDIO = 'AUDIO',

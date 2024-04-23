@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import { User, UserAccountType } from '../user';
 import { IUserEditDto } from '../api/user';
 import { Conversation, ConversationStatus } from '../conversation';
-import { File } from '../file';
+import { FILE_VECTOR_ID_LOADING, File } from '../file';
 import { OpenAiAgent, OpenAiAgentStatus } from '../ai/model/openai';
 import { FileUtil } from './FileUtil';
 
@@ -139,11 +139,11 @@ export class PermissionUtil {
     }
 
     public static fileIsCanContentVectorAdd(item: File, user: User): boolean {
-        return PermissionUtil.fileIsCanOpen(item, user) && FileUtil.isCanContentVectorize(item.mime);
+        return _.isNil(item.vectorId) && PermissionUtil.fileIsCanOpen(item, user) && FileUtil.isCanContentVectorize(item.mime);
     }
 
     public static fileIsCanContentVectorRemove(item: File, user: User): boolean {
-        return PermissionUtil.fileIsCanOpen(item, user);
+        return !_.isNil(item.vectorId) && item.vectorId !== FILE_VECTOR_ID_LOADING && PermissionUtil.fileIsCanOpen(item, user);
     }
 
     //--------------------------------------------------------------------------

@@ -96,9 +96,12 @@ export class FileUtil {
         return !_.isNil(chunk) ? `${prefix}#chunk${chunk}` : prefix;
     }
 
-    public static getVectorIds(item: File): Array<string> {
+    public static getVectorIds(item: File, vectorId?: number): Array<string> {
+        if (_.isNil(vectorId)) {
+            vectorId = item.vectorId;
+        }
         let items = new Array();
-        for (let i = 0; i < item.vectorId; i++) {
+        for (let i = 0; i < vectorId; i++) {
             items.push(FileUtil.getVectorId(item, i));
         }
         return items;

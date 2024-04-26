@@ -17,8 +17,10 @@ export interface IOpenAiTextOptions {
 export enum OpenAiTextModel {
     GPT_35_TURBO = 'gpt-3.5-turbo',
     GPT_4 = 'gpt-4',
-    GPT_4_1106_PREVIEW = 'gpt-4-1106-preview',
-    GPT_4_0125_PREVIEW = 'gpt-4-0125-preview',
+    GPT_4_32K = 'gpt-4-32k',
+    GPT_4_TURBO = 'gpt-4-turbo',
+    GPT_4_TURBO_PREVIEW = 'gpt-4-turbo-preview',
+    GPT_4_PREVIEW = 'gpt-4-preview',
     GPT_4_VISION_PREVIEW = 'gpt-4-vision-preview',
 }
 
@@ -47,14 +49,17 @@ export const OPEN_AI_TEXT_OPTIONS_PRESENCE_PENALTY_MAX = 2;
 export function getMaxTokens(model: OpenAiTextModel): number {
     switch (model) {
         case OpenAiTextModel.GPT_4:
+        case OpenAiTextModel.GPT_4_PREVIEW:
             return 8192;
+        case OpenAiTextModel.GPT_4_32K:
+            return 32768;
         case OpenAiTextModel.GPT_35_TURBO:
-            return 8192;
-        case OpenAiTextModel.GPT_4_1106_PREVIEW:
-        case OpenAiTextModel.GPT_4_0125_PREVIEW:
+            return 16385;
+        case OpenAiTextModel.GPT_4_TURBO:
+        case OpenAiTextModel.GPT_4_TURBO_PREVIEW:
             return 128000;
         case OpenAiTextModel.GPT_4_VISION_PREVIEW:
-            return 4096;
+            return 128000;
         default:
             throw new UnreachableStatementError(model);
     }

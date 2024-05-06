@@ -1,7 +1,7 @@
 import { IOpenAiTextProgress, IOpenAiTextResponse } from "../model/openai";
 import { IGigaChatTextProgress, IGigaChatTextResponse } from "../model/gigachat";
+import { File, IFileContentSearchOptions } from "../../file";
 import { IAiTask } from "./IAiTask";
-import { IFileContentSearchOptions } from "../../file";
 
 export interface IAiTextTask extends IAiTask {
     message: string;

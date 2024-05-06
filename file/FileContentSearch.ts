@@ -1,8 +1,8 @@
 import { File } from "./File";
 
 export interface IFileContentSearchOptions {
-    scope?: FileContentSearchScope;
     files?: Array<FileSearchInfo>;
+    scope?: FileContentSearchScope;
     minScore: number;
     maxDocuments: number;
 }

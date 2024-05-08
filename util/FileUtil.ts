@@ -82,6 +82,8 @@ export class FileUtil {
 
     public static isCanContentVectorize(item: string): boolean {
         switch (item) {
+            case FileImageMime.PNG:
+            case FileImageMime.JPEG:
             case FileDocumentMime.PDF:
             case FileDocumentMime.TXT:
             case FileDocumentMime.DOCX:

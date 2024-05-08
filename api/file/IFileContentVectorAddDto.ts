@@ -4,6 +4,7 @@ import { FileContentSplitterType, FileContentSplitterOptions } from '../../file'
 export interface IFileContentVectorAddDto extends ITraceable {
     id: number;
     splitter?: IFileContentSplitter;
+    isRecognizeImages?: boolean;
 }
 
 export interface IFileContentVectorAddTestDtoResponse extends ITraceable {

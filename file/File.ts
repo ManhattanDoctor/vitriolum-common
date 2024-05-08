@@ -46,11 +46,11 @@ export enum FileDocumentExtension {
     DOCX = 'docx',
     XLSX = 'xlsx',
 }
+export type FileExtension = FileImageExtension | FileDocumentExtension | FileAudioExtension;
 export const FileImageExtensions: Array<string> = Object.values(FileImageExtension);
 export const FileAudioExtensions: Array<string> = Object.values(FileAudioExtension);
 export const FileDocumentExtensions: Array<string> = Object.values(FileDocumentExtension);
 export const FileExtensions = [...FileImageExtensions, ...FileDocumentExtensions, ...FileAudioExtensions];
-export type FileExtension = FileImageExtension | FileDocumentExtension | FileAudioExtension;
 
 export enum FileImageMime {
     PNG = 'image/png',

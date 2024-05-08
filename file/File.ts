@@ -50,7 +50,9 @@ export type FileExtension = FileImageExtension | FileDocumentExtension | FileAud
 export const FileImageExtensions: Array<string> = Object.values(FileImageExtension);
 export const FileAudioExtensions: Array<string> = Object.values(FileAudioExtension);
 export const FileDocumentExtensions: Array<string> = Object.values(FileDocumentExtension);
+
 export const FileExtensions = [...FileImageExtensions, ...FileDocumentExtensions, ...FileAudioExtensions];
+export const FileBinaryExtensions = [...FileImageExtensions, ...FileAudioExtensions];
 
 export enum FileImageMime {
     PNG = 'image/png',

@@ -76,6 +76,11 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return TransformUtil.toClass(User, item);
     }
 
+    public async userSearch(value: string): Promise<Array<User>> {
+        let items = await this.call<Array<User>>(`${USER_SEARCH_URL}/${!_.isNil(value) ? value : ''}`);
+        return TransformUtil.toClassMany(User, items);
+    }
+    
     // --------------------------------------------------------------------------
     //
     //  Conversation Methods
@@ -348,6 +353,8 @@ export const OAUTH_URL = PREFIX + 'oauth';
 export const LOCALE_URL = PREFIX + 'locale';
 export const AI_MODEL_URL = PREFIX + 'aimodel';
 export const CONVERSATION_URL = PREFIX + 'conversation';
+
+export const USER_SEARCH_URL = PREFIX + 'userSearch';
 
 export const FILE_URL = PREFIX + 'file';
 export const FILE_BUFFER_URL = PREFIX + 'fileBuffer';

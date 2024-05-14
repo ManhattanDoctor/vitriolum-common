@@ -17,6 +17,7 @@ export const GNOSISAI_LOCALE_PREFIXES = [
     'About.json',
     'OpenAi.json',
     'Payment.json',
+    'Management.json',
     'Conversation.json',
 ]
 

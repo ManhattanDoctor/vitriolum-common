@@ -1,5 +1,6 @@
 import { Type } from 'class-transformer';
 import * as _ from 'lodash';
+import { User } from '../user';
 
 export class File {
     id: number;
@@ -13,6 +14,7 @@ export class File {
     userId: number;
     extension: string;
 
+    user?: User;
     vectorId?: number;
     openAiId?: string;
 

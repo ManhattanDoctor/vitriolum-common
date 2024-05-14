@@ -1,7 +1,7 @@
 
 import { TransformUtil, TransportHttp, ITransportHttpSettings, TraceUtil, ILogger, LoggerLevel, TransportCryptoManager } from '@ts-core/common';
 import { IInitDto, IInitDtoResponse, ILoginDto, ILoginDtoResponse } from './login';
-import { IUserGetDtoResponse, IUserEditDto, IUserEditDtoResponse, UserUID } from './user';
+import { IUserGetDtoResponse, IUserEditDto, IUserEditDtoResponse, UserUID, IUserListDto, IUserListDtoResponse } from './user';
 import { User } from '../user';
 import { LocaleProject } from './locale';
 import { IOAuthPopUpDto } from '@ts-core/oauth';
@@ -80,7 +80,7 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         let items = await this.call<Array<User>>(`${USER_SEARCH_URL}/${!_.isNil(value) ? value : ''}`);
         return TransformUtil.toClassMany(User, items);
     }
-    
+
     // --------------------------------------------------------------------------
     //
     //  Conversation Methods
@@ -129,7 +129,7 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return TransformUtil.toClass(ConversationMessage, item);
     }
 
-    public async conversationMessageList(data: IConversationMessageListDto): Promise<IConversationMessageListDtoResponse> {
+    public async conversationMessageList(data?: IConversationMessageListDto): Promise<IConversationMessageListDtoResponse> {
         let item = await this.call<IConversationMessageListDtoResponse, IConversationMessageListDto>(`${CONVERSATION_URL}/${data.conditions.conversationId}/message`, { data: TraceUtil.addIfNeed(data) });
         item.items = TransformUtil.toClassMany(ConversationMessage, item.items);
         return item;
@@ -312,6 +312,30 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
 
     // --------------------------------------------------------------------------
     //
+    //  Management Methods
+    //
+    // --------------------------------------------------------------------------
+
+    public async managementUserList(data?: IUserListDto): Promise<IUserListDtoResponse> {
+        let item = await this.call<IUserListDtoResponse, IUserListDto>(`${MANAGEMENT_USER_URL}`, { data: TraceUtil.addIfNeed(data) });
+        item.items = TransformUtil.toClassMany(User, item.items);
+        return item;
+    }
+
+    public async managementFileList(data?: IFileListDto): Promise<IFileListDtoResponse> {
+        let item = await this.call<IFileListDtoResponse, IFileListDto>(`${MANAGEMENT_FILE_URL}`, { data: TraceUtil.addIfNeed(data) });
+        item.items = TransformUtil.toClassMany(File, item.items);
+        return item;
+    }
+
+    public async managementConversationList(data?: IConversationListDto): Promise<IConversationListDtoResponse> {
+        let item = await this.call<IConversationListDtoResponse, IConversationListDto>(MANAGEMENT_CONVERSATION_URL, { data: TraceUtil.addIfNeed(data) });
+        item.items = TransformUtil.toClassMany(Conversation, item.items);
+        return item;
+    }
+
+    // --------------------------------------------------------------------------
+    //
     //  Other Methods
     //
     // --------------------------------------------------------------------------
@@ -370,4 +394,8 @@ export const PAYMENT_TRANSACTION_URL = PREFIX + 'paymentTransaction';
 export const INIT_URL = PREFIX + 'init';
 export const LOGIN_URL = PREFIX + 'login';
 export const LOGOUT_URL = PREFIX + 'logout';
+
+export const MANAGEMENT_USER_URL = PREFIX + 'management/user';
+export const MANAGEMENT_FILE_URL = PREFIX + 'management/file';
+export const MANAGEMENT_CONVERSATION_URL = PREFIX + 'management/conversation';
 

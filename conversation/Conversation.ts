@@ -4,6 +4,7 @@ import { AiConversationModel, AiModelConversationOptions } from '../ai';
 import { Color } from '../color';
 import { ConversationMessage } from './ConversationMessage';
 import { File, IFileContentSearchOptions } from '../file';
+import { User } from '../user';
 
 export class Conversation {
     id: number;
@@ -14,6 +15,7 @@ export class Conversation {
     picture: string;
     isConsiderHistory: boolean;
 
+    user?: User;
     color?: Color;
     system?: string;
     messages?: Array<ConversationMessage>;

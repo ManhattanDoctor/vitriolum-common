@@ -1,5 +1,4 @@
 import { TransportEvent } from "@ts-core/common";
-import { File } from "../../file";
 import { IFileEventDto } from "./IFileEventDto";
 
 export class FileVectorErroredEvent extends TransportEvent<IFileVectorErroredEventDto> {
@@ -22,5 +21,5 @@ export class FileVectorErroredEvent extends TransportEvent<IFileVectorErroredEve
     }
 }
 export interface IFileVectorErroredEventDto extends IFileEventDto {
-    error: Error;
+    error: string;
 }

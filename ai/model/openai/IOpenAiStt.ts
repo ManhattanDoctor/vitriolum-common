@@ -13,6 +13,12 @@ export enum OpenAiSttModel {
 
 export interface IOpenAiSttModelDetails extends IOpenAiModelDetails<OpenAiSttModel> { }
 
+export type IOpenAiSttProgress = void;
+
+export type IOpenAiSttResponse = string;
+
+export type IOpenAiSttConsumption = number;
+
 export const OPEN_AI_STT_OPTIONS_PROMPT_MIN_LENGTH = 3;
 export const OPEN_AI_STT_OPTIONS_PROMPT_MAX_LENGTH = 1024;
 

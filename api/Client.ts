@@ -14,7 +14,7 @@ import { Conversation, ConversationMessage } from '../conversation';
 import { IPaymentListDto, IPaymentListDtoResponse, IPaymentTransactionListDto, IPaymentTransactionListDtoResponse } from './payment';
 import { Payment, PaymentTransaction } from '../payment';
 import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICoinStatusGetDto } from './coin';
-import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse } from './file';
+import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileGetDto } from './file';
 import { File } from '../file';
 import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiAgentListDto, IOpenAiAgentListDtoResponse, IOpenAiAgentMessageAddDto, IOpenAiAgentMessageAddDtoResponse, IOpenAiAgentMessageListDto, IOpenAiAgentMessageListDtoResponse, IOpenAiAgentStatusDtoResponse, IOpenAiFileAddDto } from './openai';
 import { OpenAiAgent, OpenAiAgentMessage } from '../ai/model/openai';
@@ -192,6 +192,11 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         let item = await this.call<IFileListDtoResponse, IFileListDto>(`${FILE_URL}`, { data: TraceUtil.addIfNeed(data) });
         item.items = TransformUtil.toClassMany(File, item.items);
         return item;
+    }
+
+    public async fileGet(id: number): Promise<IFileGetDto> {
+        let item = await this.call<IFileGetDto, number>(`${FILE_URL}/${id}`);
+        return TransformUtil.toClass(File, item);
     }
 
     public async fileRemove(id: number): Promise<void> {

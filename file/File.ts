@@ -27,6 +27,7 @@ export const FILE_VECTOR_ID_LOADING = 0;
 export enum FileType {
     IMAGE = 'IMAGE',
     AUDIO = 'AUDIO',
+    VIDEO = 'VIDEO',
     DOCUMENT = 'DOCUMENT',
 }
 
@@ -40,6 +41,11 @@ export enum FileAudioExtension {
     AAC = 'aac',
     OPUS = 'opus',
     FLAC = 'flac',
+    MPGA = 'mpga',
+}
+export enum FileVideoExtension {
+    MP4 = 'mp4',
+    MPEG = 'mpeg',
 }
 export enum FileDocumentExtension {
     TXT = 'txt',
@@ -51,20 +57,25 @@ export enum FileDocumentExtension {
 export type FileExtension = FileImageExtension | FileDocumentExtension | FileAudioExtension;
 export const FileImageExtensions: Array<string> = Object.values(FileImageExtension);
 export const FileAudioExtensions: Array<string> = Object.values(FileAudioExtension);
+export const FileVideoExtensions: Array<string> = Object.values(FileVideoExtension);
 export const FileDocumentExtensions: Array<string> = Object.values(FileDocumentExtension);
 
-export const FileExtensions = [...FileImageExtensions, ...FileDocumentExtensions, ...FileAudioExtensions];
-export const FileBinaryExtensions = [...FileImageExtensions, ...FileAudioExtensions];
+export const FileExtensions = [...FileImageExtensions, ...FileDocumentExtensions, ...FileAudioExtensions, ...FileVideoExtensions];
+export const FileBinaryExtensions = [...FileImageExtensions, ...FileAudioExtensions, ...FileVideoExtensions];
 
 export enum FileImageMime {
     PNG = 'image/png',
     JPEG = 'image/jpeg',
 }
 export enum FileAudioMime {
-    MP3 = 'audio/mpeg',
     AAC = 'audio/aac',
     OPUS = 'audio/opus',
     FLAC = 'audio/x-flac',
+    MPEG = 'audio/mpeg',
+}
+export enum FileVideoMime {
+    MP4 = 'video/mp4',
+    MPEG = 'video/mpeg',
 }
 export enum FileDocumentMime {
     TXT = 'text/plain',
@@ -75,9 +86,10 @@ export enum FileDocumentMime {
 }
 export const FileImageMimes: Array<string> = Object.values(FileImageMime);
 export const FileAudioMimes: Array<string> = Object.values(FileAudioMime);
+export const FileVideoMimes: Array<string> = Object.values(FileVideoMime);
 export const FileDocumentMimes: Array<string> = Object.values(FileDocumentMime);
-export const FileMimes = [...FileImageMimes, ...FileDocumentMimes, ...FileAudioMimes];
-export type FileMime = FileImageMime | FileDocumentMime | FileAudioMime;
+export const FileMimes = [...FileImageMimes, ...FileDocumentMimes, ...FileAudioMimes, ...FileVideoMimes];
+export type FileMime = FileImageMime | FileDocumentMime | FileAudioMime | FileVideoMime;
 
 export const FILE_SIZE_MAX = 10485760; // 10mb
 export const FILE_AMOUNT_MAX = 50;

@@ -1,5 +1,5 @@
 import { Sha512, TraceUtil, UnreachableStatementError } from "@ts-core/common";
-import { FileAudioExtension, FileAudioExtensions, FileAudioMime, FileAudioMimes, FileDocumentExtension, FileDocumentExtensions, FileDocumentMime, FileDocumentMimes, FileExtensions, FileImageExtension, FileImageExtensions, FileImageMime, FileImageMimes, FileMime, FileMimes, FileType, FileVideoExtensions, FileVideoMimes } from "../file";
+import { FileAudioExtension, FileAudioExtensions, FileAudioMime, FileAudioMimes, FileDocumentExtension, FileDocumentExtensions, FileDocumentMime, FileDocumentMimes, FileExtensions, FileImageExtension, FileImageExtensions, FileImageMime, FileImageMimes, FileMime, FileMimes, FileType, FileVideoExtension, FileVideoExtensions, FileVideoMime, FileVideoMimes } from "../file";
 import * as _ from 'lodash';
 import { File } from "../file";
 
@@ -33,6 +33,9 @@ export class FileUtil {
         }
         if (FileAudioMimes.includes(mime)) {
             return FileType.AUDIO;
+        }
+        if (FileVideoMimes.includes(mime)) {
+            return FileType.VIDEO;
         }
         if (FileDocumentMimes.includes(mime)) {
             return FileType.DOCUMENT;
@@ -124,6 +127,7 @@ export class FileUtil {
             let item = this._mimeToExtension = {};
             for (let [key, value] of Object.entries(FileImageMime)) item[value] = FileImageExtension[key];
             for (let [key, value] of Object.entries(FileAudioMime)) item[value] = FileAudioExtension[key];
+            for (let [key, value] of Object.entries(FileVideoMime)) item[value] = FileVideoExtension[key];
             for (let [key, value] of Object.entries(FileDocumentMime)) item[value] = FileDocumentExtension[key];
             item[FileAudioMime.MPEG] = FileAudioExtension.MP3;
             item[FileImageMime.JPEG] = FileImageExtension.JPG;

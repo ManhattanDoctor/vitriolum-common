@@ -15,9 +15,9 @@ export interface IOpenAiTextOptions {
 }
 
 export enum OpenAiTextModel {
+    GPT_4_O = 'gpt-4o',
     GPT_35_TURBO = 'gpt-3.5-turbo',
     GPT_4 = 'gpt-4',
-    GPT_4_O = 'gpt-4o',
     GPT_4_32K = 'gpt-4-32k',
     GPT_4_TURBO = 'gpt-4-turbo',
     GPT_4_TURBO_PREVIEW = 'gpt-4-turbo-preview',

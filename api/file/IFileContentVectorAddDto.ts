@@ -1,15 +1,8 @@
-import { ITraceable } from '@ts-core/common';
 import { FileContentSplitterType, FileContentSplitterOptions } from '../../file';
+import { IFileContentVectorTestDto } from './IFileContentVectorTestDto';
 
-export interface IFileContentVectorAddDto extends ITraceable {
-    id: number;
-    splitter?: IFileContentSplitter;
+export interface IFileContentVectorAddDto extends IFileContentVectorTestDto {
     isRecognizeImages?: boolean;
-}
-
-export interface IFileContentVectorTestDtoResponse extends ITraceable {
-    chunks: number;
-    symbols: number;
 }
 
 export interface IFileContentSplitter {

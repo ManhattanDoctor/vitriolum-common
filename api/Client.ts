@@ -18,7 +18,7 @@ import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoRespo
 import { File } from '../file';
 import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiAgentListDto, IOpenAiAgentListDtoResponse, IOpenAiAgentMessageAddDto, IOpenAiAgentMessageAddDtoResponse, IOpenAiAgentMessageListDto, IOpenAiAgentMessageListDtoResponse, IOpenAiAgentStatusDtoResponse, IOpenAiFileAddDto } from './openai';
 import { OpenAiAgent, OpenAiAgentMessage } from '../ai/model/openai';
-import { IFileContentVectorAddDto, IFileContentVectorAddTestDtoResponse } from './file';
+import { IFileContentVectorAddDto, IFileContentVectorTestDtoResponse } from './file';
 import * as _ from 'lodash';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
@@ -207,8 +207,8 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return this.call<void, IFileContentVectorAddDto>(`${FILE_CONTENT_VECTOR_URL}`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
     }
 
-    public async fileContentVectorAddTest(data: IFileContentVectorAddDto): Promise<IFileContentVectorAddTestDtoResponse> {
-        return this.call<IFileContentVectorAddTestDtoResponse, IFileContentVectorAddDto>(`${FILE_CONTENT_VECTOR_URL}/test`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
+    public async fileContentVectorTest(data: IFileContentVectorAddDto): Promise<IFileContentVectorTestDtoResponse> {
+        return this.call<IFileContentVectorTestDtoResponse, IFileContentVectorAddDto>(`${FILE_CONTENT_VECTOR_URL}/test`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
     }
 
     public async fileContentVectorRemove(id: number): Promise<void> {

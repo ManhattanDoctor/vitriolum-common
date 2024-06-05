@@ -7,7 +7,7 @@ export interface IFileContentVectorAddDto extends ITraceable {
     isRecognizeImages?: boolean;
 }
 
-export interface IFileContentVectorAddTestDtoResponse extends ITraceable {
+export interface IFileContentVectorTestDtoResponse extends ITraceable {
     chunks: number;
     symbols: number;
 }

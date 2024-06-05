@@ -14,6 +14,7 @@ export interface FileContentSplitResult {
     chunks: number;
     symbols: number;
     vectorId: number;
+    contents: Array<string>;
 }
 
 export type FileContentSplitterOptions = IFileContentCharacterSplitterOptions;

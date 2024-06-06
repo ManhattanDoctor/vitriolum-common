@@ -212,7 +212,7 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     }
 
     public async fileContentVectorSearch(data: IFileContentVectorSearchDto): Promise<IFileContentVectorSearchDtoResponse> {
-        return this.call<IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto>(`${FILE_CONTENT_VECTOR_URL}/search`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
+        return this.call<IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto>(`${FILE_CONTENT_VECTOR_URL}/search`, { data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
     }
 
     public async fileContentVectorRemove(id: number): Promise<void> {

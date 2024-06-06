@@ -3,3 +3,4 @@ export * from './IFileGetDto';
 export * from './IFileListDto'
 export * from './IFileContentVectorAddDto'
 export * from './IFileContentVectorTestDto';
+export * from './IFileContentVectorSearchDto';

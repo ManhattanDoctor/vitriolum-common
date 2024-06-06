@@ -14,7 +14,7 @@ import { Conversation, ConversationMessage } from '../conversation';
 import { IPaymentListDto, IPaymentListDtoResponse, IPaymentTransactionListDto, IPaymentTransactionListDtoResponse } from './payment';
 import { Payment, PaymentTransaction } from '../payment';
 import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICoinStatusGetDto } from './coin';
-import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileGetDto } from './file';
+import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileGetDto, IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto } from './file';
 import { File } from '../file';
 import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiAgentListDto, IOpenAiAgentListDtoResponse, IOpenAiAgentMessageAddDto, IOpenAiAgentMessageAddDtoResponse, IOpenAiAgentMessageListDto, IOpenAiAgentMessageListDtoResponse, IOpenAiAgentStatusDtoResponse, IOpenAiFileAddDto } from './openai';
 import { OpenAiAgent, OpenAiAgentMessage } from '../ai/model/openai';
@@ -209,6 +209,10 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
 
     public async fileContentVectorTest(data: IFileContentVectorAddDto): Promise<IFileContentVectorTestDtoResponse> {
         return this.call<IFileContentVectorTestDtoResponse, IFileContentVectorAddDto>(`${FILE_CONTENT_VECTOR_URL}/test`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
+    }
+
+    public async fileContentVectorSearch(data: IFileContentVectorSearchDto): Promise<IFileContentVectorSearchDtoResponse> {
+        return this.call<IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto>(`${FILE_CONTENT_VECTOR_URL}/search`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
     }
 
     public async fileContentVectorRemove(id: number): Promise<void> {

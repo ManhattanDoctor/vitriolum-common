@@ -1,7 +1,7 @@
 import { FileContentSplitterType, FileContentSplitterOptions } from '../../file';
-import { IFileContentVectorTestDto } from './IFileContentVectorTestDto';
+import { IFileContentVectorSplitDto } from './IFileContentVectorSplitDto';
 
-export interface IFileContentVectorAddDto extends IFileContentVectorTestDto {
+export interface IFileContentVectorAddDto extends IFileContentVectorSplitDto {
     isRecognizeImages?: boolean;
 }
 

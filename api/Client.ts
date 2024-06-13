@@ -14,11 +14,11 @@ import { Conversation, ConversationMessage } from '../conversation';
 import { IPaymentListDto, IPaymentListDtoResponse, IPaymentTransactionListDto, IPaymentTransactionListDtoResponse } from './payment';
 import { Payment, PaymentTransaction } from '../payment';
 import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICoinStatusGetDto } from './coin';
-import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileGetDto, IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto } from './file';
+import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileGetDto, IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto, IFileContentVectorSplitDtoResponse, IFileContentVectorGetDtoResponse } from './file';
 import { File } from '../file';
 import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiAgentListDto, IOpenAiAgentListDtoResponse, IOpenAiAgentMessageAddDto, IOpenAiAgentMessageAddDtoResponse, IOpenAiAgentMessageListDto, IOpenAiAgentMessageListDtoResponse, IOpenAiAgentStatusDtoResponse, IOpenAiFileAddDto } from './openai';
 import { OpenAiAgent, OpenAiAgentMessage } from '../ai/model/openai';
-import { IFileContentVectorAddDto, IFileContentVectorTestDtoResponse } from './file';
+import { IFileContentVectorAddDto, IFileContentVectorSplitDto } from './file';
 import * as _ from 'lodash';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
@@ -207,8 +207,12 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return this.call<void, IFileContentVectorAddDto>(`${FILE_CONTENT_VECTOR_URL}`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
     }
 
-    public async fileContentVectorTest(data: IFileContentVectorAddDto): Promise<IFileContentVectorTestDtoResponse> {
-        return this.call<IFileContentVectorTestDtoResponse, IFileContentVectorAddDto>(`${FILE_CONTENT_VECTOR_URL}/test`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
+    public async fileContentVectorGet(id: number): Promise<IFileContentVectorGetDtoResponse> {
+        return this.call<IFileContentVectorGetDtoResponse, number>(`${FILE_CONTENT_VECTOR_URL}/${id}/content`, { method: 'get', timeout: AI_MODEL_TIMEOUT });
+    }
+
+    public async fileContentVectorSplit(data: IFileContentVectorSplitDto): Promise<IFileContentVectorSplitDtoResponse> {
+        return this.call<IFileContentVectorSplitDtoResponse, IFileContentVectorSplitDto>(`${FILE_CONTENT_VECTOR_URL}/split`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
     }
 
     public async fileContentVectorSearch(data: IFileContentVectorSearchDto): Promise<IFileContentVectorSearchDtoResponse> {

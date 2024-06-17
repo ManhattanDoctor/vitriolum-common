@@ -1,3 +1,5 @@
+import { IFileContentSplitter } from "../api/file";
+
 export enum FileContentSplitterType {
     AI = 'AI',
     CHARACTER = 'CHARACTER'
@@ -18,3 +20,5 @@ export interface IFileContentCharacterSplitterOptions {
 }
 
 export type FileContentSplitterOptions = IFileContentCharacterSplitterOptions;
+
+export const FILE_CONTENT_SPLITTER_DEFAULT: IFileContentSplitter = { type: FileContentSplitterType.CHARACTER, options: { chunkSize: 1, chunkOverlap: 0, separator: '\n\n', keepSeparator: false } };

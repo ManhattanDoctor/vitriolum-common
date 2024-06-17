@@ -143,11 +143,11 @@ export class PermissionUtil {
     }
 
     public static fileIsCanContentVectorGet(item: File, user: User): boolean {
-        return !_.isNil(item.vectorId) && item.vectorId !== FILE_VECTOR_ID_LOADING && PermissionUtil.fileIsCanOpen(item, user);
+        return FileUtil.isContentVectorized(item) && PermissionUtil.fileIsCanOpen(item, user);
     }
 
     public static fileIsCanContentVectorRemove(item: File, user: User): boolean {
-        return !_.isNil(item.vectorId) && item.vectorId !== FILE_VECTOR_ID_LOADING && PermissionUtil.fileIsCanOpen(item, user);
+        return FileUtil.isContentVectorized(item) && PermissionUtil.fileIsCanOpen(item, user);
     }
 
     //--------------------------------------------------------------------------

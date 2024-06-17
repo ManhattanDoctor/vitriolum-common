@@ -1,5 +1,5 @@
 import { Sha512, TraceUtil, UnreachableStatementError } from "@ts-core/common";
-import { FileAudioExtension, FileAudioExtensions, FileAudioMime, FileAudioMimes, FileDocumentExtension, FileDocumentExtensions, FileDocumentMime, FileDocumentMimes, FileExtensions, FileImageExtension, FileImageExtensions, FileImageMime, FileImageMimes, FileMime, FileMimes, FileType, FileVideoExtension, FileVideoExtensions, FileVideoMime, FileVideoMimes } from "../file";
+import { FILE_VECTOR_ID_LOADING, FileAudioExtension, FileAudioExtensions, FileAudioMime, FileAudioMimes, FileDocumentExtension, FileDocumentExtensions, FileDocumentMime, FileDocumentMimes, FileExtensions, FileImageExtension, FileImageExtensions, FileImageMime, FileImageMimes, FileMime, FileMimes, FileType, FileVideoExtension, FileVideoExtensions, FileVideoMime, FileVideoMimes } from "../file";
 import * as _ from 'lodash';
 import { File } from "../file";
 
@@ -85,6 +85,14 @@ export class FileUtil {
             default:
                 throw new UnreachableStatementError(type);
         }
+    }
+
+    public static isContentVectorized(item: File): boolean {
+        return !_.isNil(item.vectorId) && item.vectorId !== FILE_VECTOR_ID_LOADING;
+    }
+
+    public static isContentVectorizing(item: File): boolean {
+        return !_.isNil(item.vectorId) && item.vectorId === FILE_VECTOR_ID_LOADING;
     }
 
     public static isCanContentVectorize(item: string): boolean {

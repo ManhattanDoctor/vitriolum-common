@@ -1,5 +1,6 @@
 import { ITraceable } from '@ts-core/common';
 import { LoginResource } from './LoginResource';
+import { TgUser } from '@ts-core/oauth';
 
 export interface IOAuthDto {
     codeOrToken: string;
@@ -20,4 +21,4 @@ export interface ILoginDtoResponse {
     sid: string;
 }
 
-export type LoginData = IOAuthDto | IEthSignatureDto;
+export type LoginData = IOAuthDto | TgUser | IEthSignatureDto;

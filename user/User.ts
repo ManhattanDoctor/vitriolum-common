@@ -31,6 +31,7 @@ export enum UserResource {
     MAIL = 'MAIL',
     YANDEX = 'YANDEX',
     GOOGLE = 'GOOGLE',
+    TELEGRAM = 'TELEGRAM',
 }
 
 export enum UserStatus {

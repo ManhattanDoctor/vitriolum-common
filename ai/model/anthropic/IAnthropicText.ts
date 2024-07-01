@@ -24,7 +24,9 @@ export type IAnthropicTextResponse = IAiTextResponse;
 
 export type IAnthropicTextConsumption = IAiTextConsumption;
 
-export interface IAnthropicTextModelDetails extends IAnthropicModelDetails<AnthropicTextModel> { }
+export interface IAnthropicTextModelDetails extends IAnthropicModelDetails<AnthropicTextModel> {
+    tools: Array<AiToolType>;
+}
 
 export const ANTHROPIC_TEXT_OPTIONS_TEMPERATURE_MIN = 0;
 export const ANTHROPIC_TEXT_OPTIONS_TEMPERATURE_MAX = 2;

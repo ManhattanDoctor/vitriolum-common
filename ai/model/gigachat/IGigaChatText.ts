@@ -8,6 +8,7 @@ import { IAiTextResponse } from "../IAiTextResponse";
 export interface IGigaChatTextOptions {
     model: GigaChatTextModel;
     topP?: number;
+    tools?: Array<AiToolType>;
     maxTokens?: number;
     temperature?: number;
     repetitionPenalty?: number;

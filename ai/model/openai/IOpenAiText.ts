@@ -16,6 +16,7 @@ export interface IOpenAiTextOptions {
 
 export enum OpenAiTextModel {
     GPT_4_O = 'gpt-4o',
+    GPT_4_O_MINI = 'gpt-4o-mini',
     GPT_35_TURBO = 'gpt-3.5-turbo',
     GPT_4 = 'gpt-4',
     GPT_4_32K = 'gpt-4-32k',
@@ -55,6 +56,7 @@ export function getMaxTokens(model: OpenAiTextModel): number {
         case OpenAiTextModel.GPT_35_TURBO:
             return 16385;
         case OpenAiTextModel.GPT_4_O:
+        case OpenAiTextModel.GPT_4_O_MINI:
         case OpenAiTextModel.GPT_4_TURBO:
         case OpenAiTextModel.GPT_4_TURBO_PREVIEW:
         case OpenAiTextModel.GPT_4_VISION_PREVIEW:

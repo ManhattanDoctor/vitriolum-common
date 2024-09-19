@@ -23,6 +23,9 @@ export enum OpenAiTextModel {
     GPT_4_TURBO = 'gpt-4-turbo',
     GPT_4_TURBO_PREVIEW = 'gpt-4-turbo-preview',
     GPT_4_VISION_PREVIEW = 'gpt-4-vision-preview',
+
+    O1_MINI = 'o1-mini',
+    O1_PREVIEW = 'o1-preview',
 }
 
 export type IOpenAiTextProgress = IAiTextProgress;
@@ -55,6 +58,8 @@ export function getMaxTokens(model: OpenAiTextModel): number {
             return 32768;
         case OpenAiTextModel.GPT_35_TURBO:
             return 16385;
+        case OpenAiTextModel.O1_MINI:
+        case OpenAiTextModel.O1_PREVIEW:
         case OpenAiTextModel.GPT_4_O:
         case OpenAiTextModel.GPT_4_O_MINI:
         case OpenAiTextModel.GPT_4_TURBO:

@@ -15,6 +15,7 @@ export class Conversation {
     picture: string;
     isConsiderHistory: boolean;
 
+    tags?: Array<string>;
     user?: User;
     color?: Color;
     system?: string;

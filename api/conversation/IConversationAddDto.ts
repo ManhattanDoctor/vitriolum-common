@@ -12,6 +12,7 @@ export interface IConversationAddDto extends ITraceable {
 
     userId?: number;
 
+    tags?: Array<string>;
     color?: Color;
     files?: Array<number>;
     system?: string;

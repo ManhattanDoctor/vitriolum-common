@@ -1,6 +1,6 @@
 import { ILanguageProjectSettings } from '@ts-core/language';
 
-export let LocaleProjects: Array<ILanguageProjectSettings> = [
+export let LanguageProjects: Array<ILanguageProjectSettings> = [
     {
         name: 'gnosisai',
         locales: ['en', 'ru'],

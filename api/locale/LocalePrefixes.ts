@@ -1,52 +1,56 @@
+import { ILanguageProjectSettings } from '@ts-core/language';
 
-export enum LocaleProject {
-    GNOSISAI = 'gnosisai',
-    GNOSISAI_LITE = 'gnosisai-lite',
-    GNOSISAI_SACCUS = 'gnosisai-saccus',
-}
+export let LocaleProjects: Array<ILanguageProjectSettings> = [
+    {
+        name: 'gnosisai',
+        locales: ['en', 'ru'],
+        prefixes: [
+            '.json',
+            'Custom.json',
 
-export const GNOSISAI_LOCALES = ['en', 'ru'];
+            'Ai.json',
+            'User.json',
+            'Coin.json',
+            'File.json',
+            'About.json',
+            'Payment.json',
+            'Management.json',
+            'Conversation.json',
 
-export const GNOSISAI_LOCALE_PREFIXES = [
-    '.json',
-    'Custom.json',
+            'Gnosisai.json',
+            'Server.json'
+        ]
+    },
+    {
+        name: 'gnosisai-lite',
+        locales: ['en', 'ru'],
+        prefixes: [
+            '.json',
+            'Custom.json',
 
-    'Ai.json',
-    'User.json',
-    'Coin.json',
-    'File.json',
-    'About.json',
-    'Payment.json',
-    'Management.json',
-    'Conversation.json',
+            'Ai.json',
+            'User.json',
+            'File.json',
+            'About.json',
+            'Conversation.json',
 
-    'Gnosisai.json',
-];
+            'Lite.json'
+        ]
+    },
+    {
+        name: 'gnosisai-saccus',
+        locales: ['en', 'ru'],
+        prefixes: [
+            '.json',
+            'Custom.json',
 
-export const GNOSISAI_LITE_LOCALE_PREFIXES = [
-    '.json',
-    'Custom.json',
+            'Ai.json',
+            'User.json',
+            'File.json',
+            'About.json',
+            'Conversation.json',
 
-    'Ai.json',
-    'User.json',
-    'File.json',
-    'Main.json',
-    'About.json',
-    'Conversation.json',
-
-    'Lite.json'
-];
-
-export const GNOSISAI_SACCUS_LOCALE_PREFIXES = [
-    '.json',
-    'Custom.json',
-
-    'Ai.json',
-    'User.json',
-    'File.json',
-    'Main.json',
-    'About.json',
-    'Conversation.json',
-
-    'Saccus.json'
-];
+            'Saccus.json'
+        ]
+    }
+]

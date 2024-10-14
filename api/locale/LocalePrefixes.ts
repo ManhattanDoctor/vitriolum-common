@@ -20,7 +20,7 @@ export const GNOSISAI_LOCALE_PREFIXES = [
     'Management.json',
     'Conversation.json',
 
-    'Gnosis.json',
+    'Gnosisai.json',
 ];
 
 export const GNOSISAI_LITE_LOCALE_PREFIXES = [

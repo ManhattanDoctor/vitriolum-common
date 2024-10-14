@@ -3,7 +3,6 @@ import { TransformUtil, TransportHttp, ITransportHttpSettings, TraceUtil, ILogge
 import { IInitDto, IInitDtoResponse, ILoginDto, ILoginDtoResponse } from './login';
 import { IUserGetDtoResponse, IUserEditDto, IUserEditDtoResponse, UserUID, IUserListDto, IUserListDtoResponse } from './user';
 import { User } from '../user';
-import { LocaleProject } from './locale';
 import { IOAuthPopUpDto } from '@ts-core/oauth';
 import { ITaskDto, ITaskDtoResponse, ITaskProgress, } from './task';
 import { IAiModelGetDtoResponse, IAiModelGetDto } from './ai'
@@ -357,7 +356,7 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return this.call<IOAuthPopUpDto>(`${OAUTH_URL}/${state}`, { data: TraceUtil.addIfNeed({}) });
     }
 
-    public async locale(project: LocaleProject, locale: string, version?: string): Promise<any> {
+    public async locale(project: string, locale: string, version?: string): Promise<any> {
         return this.call<any>(`${LOCALE_URL}/${project}/${locale}`, { data: { version } });
     }
 

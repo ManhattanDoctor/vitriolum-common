@@ -3,7 +3,7 @@ import { ILanguageProjectSettings } from '@ts-core/language';
 export let LanguageProjects: Array<ILanguageProjectSettings> = [
     {
         name: 'gnosisai',
-        locales: ['en', 'ru'],
+        locales: ['ru', 'en'],
         prefixes: [
             '.json',
             'Custom.json',
@@ -23,7 +23,7 @@ export let LanguageProjects: Array<ILanguageProjectSettings> = [
     },
     {
         name: 'gnosisai-lite',
-        locales: ['en', 'ru'],
+        locales: ['ru', 'en'],
         prefixes: [
             '.json',
             'Custom.json',
@@ -39,7 +39,7 @@ export let LanguageProjects: Array<ILanguageProjectSettings> = [
     },
     {
         name: 'gnosisai-saccus',
-        locales: ['en', 'ru'],
+        locales: ['ru', 'en'],
         prefixes: [
             '.json',
             'Custom.json',

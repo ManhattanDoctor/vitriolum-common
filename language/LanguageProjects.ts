@@ -30,6 +30,7 @@ export let LanguageProjects: Array<ILanguageProjectSettings> = [
 
             'Ai.json',
             'User.json',
+            'Coin.json',
             'File.json',
             'About.json',
             'Conversation.json',
@@ -46,6 +47,7 @@ export let LanguageProjects: Array<ILanguageProjectSettings> = [
 
             'Ai.json',
             'User.json',
+            'Coin.json',
             'File.json',
             'About.json',
             'Conversation.json',

@@ -3,7 +3,7 @@ import { IAnthropicModelDetails } from "./IAnthropicModel";
 import { IAiTextConsumption } from "../IAiTextConsumption";
 import { IAiTextProgress } from "../IAiTextProgress";
 import { IAiTextResponse } from "../IAiTextResponse";
-import { AiToolType } from "@project/common/ai";
+import { AiToolType } from "../../AiTool";
 
 export interface IAnthropicTextOptions {
     model: AnthropicTextModel;

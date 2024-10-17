@@ -19,6 +19,7 @@ import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IO
 import { OpenAiAgent, OpenAiAgentMessage } from '../ai/model/openai';
 import { IFileContentVectorAddDto, IFileContentVectorSplitDto } from './file';
 import * as _ from 'lodash';
+import { IContentGetDto } from './content';
 
 export class Client extends TransportHttp<ITransportHttpSettings> {
 
@@ -360,6 +361,10 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return this.call<any>(`${LOCALE_URL}/${project}/${locale}`, { data: { version } });
     }
 
+    public async content(url: string): Promise<string> {
+        return this.call<string, IContentGetDto>(`${CONTENT_URL}`, { data: { url } });
+    }
+
     //--------------------------------------------------------------------------
     //
     // 	Public Properties
@@ -369,6 +374,7 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     public get sid(): string {
         return !_.isNil(this.authorization) ? this.authorization.substring(7) : null;
     }
+
     public set sid(value: string) {
         this.headers.Authorization = `Bearer ${value}`;
     }
@@ -376,6 +382,7 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
     public get authorization(): string {
         return !_.isNil(this.headers.Authorization) ? this.headers.Authorization : null;
     }
+
     public get oauthRedirectUrl(): string {
         return `${this.url}${OAUTH_URL}`;
     }
@@ -387,6 +394,7 @@ export const TASK_URL = PREFIX + 'task';
 export const USER_URL = PREFIX + 'user';
 export const OAUTH_URL = PREFIX + 'oauth';
 export const LOCALE_URL = PREFIX + 'locale';
+export const CONTENT_URL = PREFIX + 'content';
 export const AI_MODEL_URL = PREFIX + 'aimodel';
 export const CONVERSATION_URL = PREFIX + 'conversation';
 

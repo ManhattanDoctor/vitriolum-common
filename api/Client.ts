@@ -361,7 +361,7 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         return this.call<any>(`${LOCALE_URL}/${project}/${locale}`, { data: { version } });
     }
 
-    public async content(idOrUrl: string | number): Promise<string> {
+    public async contentGet(idOrUrl: string | number): Promise<string> {
         return this.call<string, IContentGetDto>(`${CONTENT_URL}`, { data: { idOrUrl } });
     }
 

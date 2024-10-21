@@ -1,3 +1,3 @@
 export interface IContentGetDto {
-    url: string;
+    idOrUrl: string | number;
 }

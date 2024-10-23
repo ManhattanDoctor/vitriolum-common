@@ -3,6 +3,7 @@ import { File } from "./File";
 export interface IFileContentSearchOptions {
     files?: Array<FileSearchInfo>;
     scope?: FileContentSearchScope;
+    divider?: string;
     isUseChunks?: boolean;
     isOnlyNotEmpty?: boolean;
 

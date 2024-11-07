@@ -50,6 +50,15 @@ export const OPEN_AI_TEXT_OPTIONS_FREQUENCY_PENALTY_MAX = 2;
 export const OPEN_AI_TEXT_OPTIONS_PRESENCE_PENALTY_MIN = -2;
 export const OPEN_AI_TEXT_OPTIONS_PRESENCE_PENALTY_MAX = 2;
 
+export function isSupportStreaming(model: OpenAiTextModel): boolean {
+    switch (model) {
+        case OpenAiTextModel.O1_MINI:
+        case OpenAiTextModel.O1_PREVIEW:
+            return false;
+        default:
+            return true;
+    }
+}
 export function getMaxTokens(model: OpenAiTextModel): number {
     switch (model) {
         case OpenAiTextModel.GPT_4:

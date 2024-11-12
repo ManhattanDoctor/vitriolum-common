@@ -3,7 +3,7 @@ import { PaymentTransactionType } from "../payment";
 import { FilterableConditionType } from "@ts-core/common";
 
 export enum ErrorCode {
-    INVALID_REQUEST = 'INVALID_REQUEST',
+    REQUEST_INVALID = 'REQUEST_INVALID',
     INSUFFICIENT_FUNDS = 'INSUFFICIENT_FUNDS',
     LOCALE_PROJECT_NOT_FOUND = 'LOCALE_PROJECT_NOT_FOUND',
 

@@ -1,27 +1,29 @@
 
-import { TransformUtil, TransportHttp, ITransportHttpSettings, TraceUtil, ILogger, LoggerLevel, TransportCryptoManager } from '@ts-core/common';
+import { TransformUtil, TransportHttp, TraceUtil, ILogger, LoggerLevel } from '@ts-core/common';
+import { IOAuthPopUpDto } from '@ts-core/oauth';
 import { IInitDto, IInitDtoResponse, ILoginDto, ILoginDtoResponse } from './login';
 import { IUserGetDtoResponse, IUserEditDto, IUserEditDtoResponse, UserUID, IUserListDto, IUserListDtoResponse } from './user';
-import { User } from '../user';
-import { IOAuthPopUpDto } from '@ts-core/oauth';
 import { ITaskDto, ITaskDtoResponse, ITaskProgress, } from './task';
 import { IAiModelGetDtoResponse, IAiModelGetDto } from './ai'
-import { AI_MODEL_TIMEOUT } from '../ai';
-import { IAiTaskProgress } from '../ai/task';
 import { IConversationAddDto, IConversationAddDtoResponse, IConversationEditDto, IConversationEditDtoResponse, IConversationGetDtoResponse, IConversationListDto, IConversationListDtoResponse, IConversationMessageAddDto, IConversationMessageAddDtoResponse, IConversationMessageListDto, IConversationMessageListDtoResponse } from './conversation';
-import { Conversation, ConversationMessage } from '../conversation';
 import { IPaymentListDto, IPaymentListDtoResponse, IPaymentTransactionListDto, IPaymentTransactionListDtoResponse } from './payment';
-import { Payment, PaymentTransaction } from '../payment';
 import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICoinStatusGetDto } from './coin';
 import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileGetDto, IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto, IFileContentVectorSplitDtoResponse, IFileContentVectorGetDtoResponse } from './file';
-import { File } from '../file';
 import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiAgentListDto, IOpenAiAgentListDtoResponse, IOpenAiAgentMessageAddDto, IOpenAiAgentMessageAddDtoResponse, IOpenAiAgentMessageListDto, IOpenAiAgentMessageListDtoResponse, IOpenAiAgentStatusDtoResponse, IOpenAiFileAddDto } from './openai';
 import { OpenAiAgent, OpenAiAgentMessage } from '../ai/model/openai';
 import { IFileContentVectorAddDto, IFileContentVectorSplitDto } from './file';
-import * as _ from 'lodash';
+import { Conversation, ConversationMessage } from '../conversation';
+import { Payment, PaymentTransaction } from '../payment';
+import { AI_MODEL_TIMEOUT } from '../ai';
+import { IAiTaskProgress } from '../ai/task';
+import { File } from '../file';
+import { User } from '../user';
 import { IContentGetDto } from './content';
+import * as _ from 'lodash';
+import { IVoiceAddDto, IVoiceAddDtoResponse, IVoiceGetDto, IVoiceListDto, IVoiceListDtoResponse } from './voice';
+import { Voice } from '../voice';
 
-export class Client extends TransportHttp<ITransportHttpSettings> {
+export class Client extends TransportHttp {
 
     // --------------------------------------------------------------------------
     //
@@ -174,6 +176,33 @@ export class Client extends TransportHttp<ITransportHttpSettings> {
         let item = await this.call<IPaymentTransactionListDtoResponse, IPaymentTransactionListDto>(PAYMENT_TRANSACTION_URL, { data: TraceUtil.addIfNeed(data) });
         item.items = TransformUtil.toClassMany(PaymentTransaction, item.items);
         return item;
+    }
+
+    // --------------------------------------------------------------------------
+    //
+    //  File Methods
+    //
+    // --------------------------------------------------------------------------
+
+    public async voiceAdd(data: IVoiceAddDto): Promise<IVoiceAddDtoResponse> {
+        let item = await this.call<IVoiceAddDtoResponse, IVoiceAddDto>(`${VOICE_URL}`, { data: TraceUtil.addIfNeed(data), method: 'post' });
+        item = TransformUtil.toClass(Voice, item);
+        return item;
+    }
+
+    public async voiceList(data?: IVoiceListDto): Promise<IVoiceListDtoResponse> {
+        let item = await this.call<IVoiceListDtoResponse, IVoiceListDto>(`${VOICE_URL}`, { data: TraceUtil.addIfNeed(data) });
+        item.items = TransformUtil.toClassMany(Voice, item.items);
+        return item;
+    }
+
+    public async voiceGet(id: number): Promise<IVoiceGetDto> {
+        let item = await this.call<IVoiceGetDto, number>(`${VOICE_URL}/${id}`);
+        return TransformUtil.toClass(Voice, item);
+    }
+
+    public async voiceRemove(id: number): Promise<void> {
+        return this.call<void, number>(`${VOICE_URL}/${id}`, { method: 'delete' });
     }
 
     // --------------------------------------------------------------------------
@@ -399,6 +428,8 @@ export const AI_MODEL_URL = PREFIX + 'aimodel';
 export const CONVERSATION_URL = PREFIX + 'conversation';
 
 export const USER_SEARCH_URL = PREFIX + 'userSearch';
+
+export const VOICE_URL = PREFIX + 'voice';
 
 export const FILE_URL = PREFIX + 'file';
 export const FILE_BUFFER_URL = PREFIX + 'fileBuffer';

@@ -1,10 +1,11 @@
-import * as _ from 'lodash';
 import { User, UserAccountType } from '../user';
 import { IUserEditDto } from '../api/user';
 import { Conversation, ConversationStatus } from '../conversation';
-import { FILE_VECTOR_ID_LOADING, File } from '../file';
+import { File, FileType } from '../file';
+import { Voice } from '../voice';
 import { OpenAiAgent, OpenAiAgentStatus } from '../ai/model/openai';
 import { FileUtil } from './FileUtil';
+import * as _ from 'lodash';
 
 export class PermissionUtil {
     //--------------------------------------------------------------------------
@@ -148,6 +149,33 @@ export class PermissionUtil {
 
     public static fileIsCanContentVectorRemove(item: File, user: User): boolean {
         return FileUtil.isContentVectorized(item) && PermissionUtil.fileIsCanOpen(item, user);
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    // 	Voice Methods
+    //
+    //--------------------------------------------------------------------------
+
+    public static voiceIsCanAdd(item: File, user: User): boolean {
+        if (!PermissionUtil.fileIsCanOpen(item, user)) {
+            return false;
+        }
+        return FileUtil.getType(item.mime) === FileType.AUDIO;
+    }
+
+    public static voiceIsCanOpen(item: Voice, user: User): boolean {
+        if (_.isNil(user)) {
+            return false;
+        }
+        if (PermissionUtil.userIsAdministrator(user)) {
+            return true;
+        }
+        return item.userId === user.id;
+    }
+
+    public static voiceIsCanRemove(item: Voice, user: User): boolean {
+        return PermissionUtil.voiceIsCanOpen(item, user);
     }
 
     //--------------------------------------------------------------------------

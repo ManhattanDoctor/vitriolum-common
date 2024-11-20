@@ -1,9 +1,12 @@
+import { Voice } from "../../../voice";
+
 export interface ISpeechifyTtsOptions {
     voice: string;
     model?: SpeechifyTtsModel;
     speed?: number;
     format?: SpeechifyTtsFormat;
     language?: SpeechifyTtsLanguage;
+    isLoudnessNormalization?: boolean;
 }
 
 export enum SpeechifyTtsLanguage {
@@ -27,7 +30,7 @@ export enum SpeechifyTtsFormat {
 }
 
 export interface ISpeechifyTtsModelDetails {
-    voices: Array<string>;
+    voices: Array<Voice>;
     formats: Array<SpeechifyTtsFormat>;
     languages: Array<SpeechifyTtsLanguage>;
 }

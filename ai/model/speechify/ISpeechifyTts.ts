@@ -3,10 +3,10 @@ export interface ISpeechifyTtsOptions {
     model?: SpeechifyTtsModel;
     speed?: number;
     format?: SpeechifyTtsFormat;
-    language?: SpeechifyLanguage;
+    language?: SpeechifyTtsLanguage;
 }
 
-export enum SpeechifyLanguage {
+export enum SpeechifyTtsLanguage {
     FRENCH = 'fr-FR',
     ENGLISH = 'en-US',
     SPANISH = 'es-ES',
@@ -29,6 +29,7 @@ export enum SpeechifyTtsFormat {
 export interface ISpeechifyTtsModelDetails {
     voices: Array<string>;
     formats: Array<SpeechifyTtsFormat>;
+    languages: Array<SpeechifyTtsLanguage>;
 }
 
 export type ISpeechifyTtsProgress = void;

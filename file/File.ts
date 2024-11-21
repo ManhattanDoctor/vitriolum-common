@@ -65,6 +65,9 @@ export const FileDocumentExtensions: Array<string> = Object.values(FileDocumentE
 export const FileExtensions = [...FileImageExtensions, ...FileDocumentExtensions, ...FileAudioExtensions, ...FileVideoExtensions];
 export const FileBinaryExtensions = [...FileImageExtensions, ...FileAudioExtensions, ...FileVideoExtensions];
 
+export type FileTypes = FileType | Array<FileType>;
+export type FileExtensions = FileExtension | Array<FileExtension>;
+
 export enum FileImageMime {
     PNG = 'image/png',
     JPEG = 'image/jpeg',

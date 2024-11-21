@@ -46,15 +46,17 @@ export class FileUtil {
     public static getMime(extension: string): string {
         return FileUtil.extensionToMime[extension];
     }
+    public static getMimes(extensions: Array<string>): Array<string> {
+        let items = [];
+        _.uniq(extensions).forEach(extension => items.push(FileUtil.getMime(extension)));
+        return items;
+    }
 
     public static getExtension(mime: string): string {
         return FileUtil.mimeToExtension[mime];
     }
 
     public static getMimesByType(type: FileType): Array<string> {
-        if (_.isEmpty(type)) {
-            return FileMimes;
-        }
         switch (type) {
             case FileType.IMAGE:
                 return FileImageMimes;
@@ -68,11 +70,13 @@ export class FileUtil {
                 throw new UnreachableStatementError(type);
         }
     }
+    public static getMimesByTypes(types: Array<FileType>): Array<string> {
+        let items = [];
+        _.uniq(types).forEach(type => items.push(FileUtil.getMimesByType(type)));
+        return items;
+    }
 
     public static getExtensionByType(type: FileType): Array<string> {
-        if (_.isEmpty(type)) {
-            return FileExtensions;
-        }
         switch (type) {
             case FileType.IMAGE:
                 return FileImageExtensions;
@@ -85,6 +89,11 @@ export class FileUtil {
             default:
                 throw new UnreachableStatementError(type);
         }
+    }
+    public static getExtensionsByTypes(extensions: Array<FileType>): Array<string> {
+        let items = [];
+        _.uniq(extensions).forEach(type => items.push(FileUtil.getExtensionByType(type)));
+        return items;
     }
 
     public static isContentVectorized(item: File): boolean {

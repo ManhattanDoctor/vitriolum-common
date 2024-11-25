@@ -18,7 +18,7 @@ import { AI_MODEL_TIMEOUT } from '../ai';
 import { IAiTaskProgress } from '../ai/task';
 import { File } from '../file';
 import { User } from '../user';
-import { IContentGetDto } from './content';
+import { IContentGetDto, IContentToMp3Dto } from './content';
 import * as _ from 'lodash';
 import { IVoiceAddDto, IVoiceAddDtoResponse, IVoiceGetDto, IVoiceListDto, IVoiceListDtoResponse } from './voice';
 import { Voice } from '../voice';
@@ -394,6 +394,10 @@ export class Client extends TransportHttp {
         return this.call<string, IContentGetDto>(`${CONTENT_URL}`, { data: { idOrUrl } });
     }
 
+    public async contentToMp3(data: string): Promise<string> {
+        return this.call<string, IContentToMp3Dto>(`${CONTENT_URL}/toMp3`, { data: { data } });
+    }
+
     //--------------------------------------------------------------------------
     //
     // 	Public Properties
@@ -419,6 +423,7 @@ export class Client extends TransportHttp {
 
 const PREFIX = 'api/';
 
+export const TOOL_URL = PREFIX + 'tool';
 export const TASK_URL = PREFIX + 'task';
 export const USER_URL = PREFIX + 'user';
 export const OAUTH_URL = PREFIX + 'oauth';

@@ -395,7 +395,7 @@ export class Client extends TransportHttp {
     }
 
     public async contentToMp3(data: string): Promise<string> {
-        return this.call<string, IContentToMp3Dto>(`${CONTENT_URL}/toMp3`, { data: { data } });
+        return this.call<string, IContentToMp3Dto>(`${CONTENT_URL}/toMp3`, { data: { data }, method: 'post' });
     }
 
     //--------------------------------------------------------------------------

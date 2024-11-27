@@ -42,6 +42,7 @@ export enum FileAudioExtension {
     OPUS = 'opus',
     FLAC = 'flac',
     MPGA = 'mpga',
+    WAV = 'wav',
 }
 export enum FileVideoExtension {
     MP4 = 'mp4',
@@ -77,6 +78,7 @@ export enum FileAudioMime {
     OPUS = 'audio/opus',
     FLAC = 'audio/x-flac',
     MPEG = 'audio/mpeg',
+    WAV = 'audio/wav',
 }
 export enum FileVideoMime {
     MP4 = 'video/mp4',

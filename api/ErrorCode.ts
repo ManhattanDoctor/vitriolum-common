@@ -1,3 +1,4 @@
+import { FileMime } from "@project/common/file";
 import { CoinId } from "../coin";
 import { PaymentTransactionType } from "../payment";
 import { FilterableConditionType } from "@ts-core/common";
@@ -47,6 +48,8 @@ export enum ErrorCode {
     OPEN_AI_AGENT_NOT_FOUND = 'OPEN_AI_AGENT_NOT_FOUND',
     OPEN_AI_AGENT_FORBIDDEN = 'OPEN_AI_AGENT_FORBIDDEN',
     OPEN_AI_AGENT_IN_PROGRESS = 'OPEN_AI_AGENT_IN_PROGRESS',
+
+    TOOL_CONVERT_INVALID = 'TOOL_CONVERT_INVALID'
 }
 
 export interface IInvalidDto<T = any> {
@@ -54,6 +57,11 @@ export interface IInvalidDto<T = any> {
     value: T | Array<T>;
     expected?: T | Array<T>;
     condition?: FilterableConditionType;
+}
+
+export interface IToolConvertInvalidDto {
+    to: FileMime;
+    from: FileMime;
 }
 
 export interface IInsufficientFundsDto {

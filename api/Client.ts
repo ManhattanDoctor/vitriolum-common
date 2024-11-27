@@ -1,5 +1,5 @@
 
-import { TransformUtil, TransportHttp, TraceUtil, ILogger, LoggerLevel } from '@ts-core/common';
+import { TransportHttp, TransformUtil, ILogger, LoggerLevel, TraceUtil } from '@ts-core/common';
 import { IOAuthPopUpDto } from '@ts-core/oauth';
 import { IInitDto, IInitDtoResponse, ILoginDto, ILoginDtoResponse } from './login';
 import { IUserGetDtoResponse, IUserEditDto, IUserEditDtoResponse, UserUID, IUserListDto, IUserListDtoResponse } from './user';
@@ -18,10 +18,11 @@ import { AI_MODEL_TIMEOUT } from '../ai';
 import { IAiTaskProgress } from '../ai/task';
 import { File } from '../file';
 import { User } from '../user';
-import { IContentGetDto, IContentToMp3Dto } from './content';
+import { IContentGetDto } from './content';
 import * as _ from 'lodash';
 import { IVoiceAddDto, IVoiceAddDtoResponse, IVoiceGetDto, IVoiceListDto, IVoiceListDtoResponse } from './voice';
 import { Voice } from '../voice';
+import { IToolConvertDto, IToolConvertDtoResponse } from './tool';
 
 export class Client extends TransportHttp {
 
@@ -280,6 +281,16 @@ export class Client extends TransportHttp {
         return this.call<IAiModelGetDtoResponse, IAiModelGetDto>(`${AI_MODEL_URL}/${data.name}`, { data: TraceUtil.addIfNeed(data) });
     }
 
+    //--------------------------------------------------------------------------
+    //
+    // 	Tool Methods
+    //
+    //--------------------------------------------------------------------------
+
+    public async toolConvert(data: IToolConvertDto): Promise<IToolConvertDtoResponse> {
+        return this.call<IToolConvertDtoResponse, IToolConvertDto>(`${TOOL_URL}/convert`, { data, method: 'post' });
+    }
+
     // --------------------------------------------------------------------------
     //
     //  OpenAi File
@@ -394,10 +405,6 @@ export class Client extends TransportHttp {
         return this.call<string, IContentGetDto>(`${CONTENT_URL}`, { data: { idOrUrl } });
     }
 
-    public async contentToMp3(data: string): Promise<string> {
-        return this.call<string, IContentToMp3Dto>(`${CONTENT_URL}/toMp3`, { data: { data }, method: 'post' });
-    }
-
     //--------------------------------------------------------------------------
     //
     // 	Public Properties
@@ -427,14 +434,13 @@ export const TOOL_URL = PREFIX + 'tool';
 export const TASK_URL = PREFIX + 'task';
 export const USER_URL = PREFIX + 'user';
 export const OAUTH_URL = PREFIX + 'oauth';
+export const VOICE_URL = PREFIX + 'voice';
 export const LOCALE_URL = PREFIX + 'locale';
 export const CONTENT_URL = PREFIX + 'content';
 export const AI_MODEL_URL = PREFIX + 'aimodel';
 export const CONVERSATION_URL = PREFIX + 'conversation';
 
 export const USER_SEARCH_URL = PREFIX + 'userSearch';
-
-export const VOICE_URL = PREFIX + 'voice';
 
 export const FILE_URL = PREFIX + 'file';
 export const FILE_BUFFER_URL = PREFIX + 'fileBuffer';

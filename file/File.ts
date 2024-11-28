@@ -22,6 +22,11 @@ export class File {
     createdDate: Date;
 }
 
+export interface IFileInput {
+    mime?: FileMime;
+    source: string;
+}
+
 export const FILE_VECTOR_ID_LOADING = 0;
 
 export enum FileType {

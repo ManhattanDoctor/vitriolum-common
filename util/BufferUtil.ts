@@ -41,6 +41,10 @@ export class BufferUtil {
     //
     // --------------------------------------------------------------------------
 
+    public static toBlob(item: Buffer, type: string): Blob {
+        return new Blob([item], { type });
+    }
+    
     public static toString(item: Buffer): string {
         return item.toString('base64');
     }

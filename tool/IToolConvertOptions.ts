@@ -3,7 +3,7 @@ export interface IToolConvertToOptions {
 }
 
 export interface IToolConvertToMpegOptions extends IToolConvertToOptions {
-    bitrate: number;
+    bitrate?: number;
 }
 
 export type ToolConvertOptions = IToolConvertToMpegOptions;

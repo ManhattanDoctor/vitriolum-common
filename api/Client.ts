@@ -287,8 +287,9 @@ export class Client extends TransportHttp {
     //
     //--------------------------------------------------------------------------
 
-    public async toolConvert(data: IToolConvertDto): Promise<IToolConvertDtoResponse> {
-        return this.call<IToolConvertDtoResponse, IToolConvertDto>(`${TOOL_URL}/convert`, { data, method: 'post' });
+    public async toolConvert<T = File | string>(data: IToolConvertDto): Promise<T> {
+        let { output } = await this.call<IToolConvertDtoResponse<T>, IToolConvertDto>(`${TOOL_URL}/convert`, { data, method: 'post' });
+        return !_.isString(output) ? TransformUtil.toClass(File, output) as T : output;
     }
 
     // --------------------------------------------------------------------------

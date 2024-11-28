@@ -1,7 +1,8 @@
 import { Sha512, TraceUtil, UnreachableStatementError } from "@ts-core/common";
 import { FILE_VECTOR_ID_LOADING, FileAudioExtension, FileAudioExtensions, FileAudioMime, FileAudioMimes, FileDocumentExtension, FileDocumentExtensions, FileDocumentMime, FileDocumentMimes, FileExtensions, FileImageExtension, FileImageExtensions, FileImageMime, FileImageMimes, FileMime, FileMimes, FileType, FileVideoExtension, FileVideoExtensions, FileVideoMime, FileVideoMimes } from "../file";
-import * as _ from 'lodash';
 import { File } from "../file";
+import * as _ from 'lodash';
+import { FileExtension } from "../file";
 
 export class FileUtil {
 
@@ -11,8 +12,8 @@ export class FileUtil {
     //
     // --------------------------------------------------------------------------
 
-    private static _extensionToMime: Record<string, string>;
-    private static _mimeToExtension: Record<string, string>;
+    private static _extensionToMime: Record<FileExtension, FileMime>;
+    private static _mimeToExtension: Record<FileMime, FileExtension>;
 
     // --------------------------------------------------------------------------
     //
@@ -43,17 +44,14 @@ export class FileUtil {
         return null;
     }
 
-    public static getMime(extension: string): string {
+    public static getMime(extension: string): FileMime {
         return FileUtil.extensionToMime[extension];
     }
+
     public static getMimes(extensions: Array<string>): Array<string> {
         let items = [];
         _.uniq(extensions).forEach(extension => items.push(FileUtil.getMime(extension)));
         return items;
-    }
-
-    public static getExtension(mime: string): string {
-        return FileUtil.mimeToExtension[mime];
     }
 
     public static getMimesByType(type: FileType): Array<string> {
@@ -76,6 +74,10 @@ export class FileUtil {
         return items;
     }
 
+    public static getExtension(mime: string): FileExtension {
+        return FileUtil.mimeToExtension[mime];
+    }
+    
     public static getExtensionByType(type: FileType): Array<string> {
         switch (type) {
             case FileType.IMAGE:
@@ -90,6 +92,12 @@ export class FileUtil {
                 throw new UnreachableStatementError(type);
         }
     }
+
+    public static getExtensionByUrl(item: string): string {
+        let array = item.split('.');
+        return array.length > 1 ? _.last(array) : null;
+    }
+
     public static getExtensionsByTypes(extensions: Array<FileType>): Array<string> {
         let items = [];
         _.uniq(extensions).forEach(type => items.push(FileUtil.getExtensionByType(type)));
@@ -139,9 +147,9 @@ export class FileUtil {
     //
     // --------------------------------------------------------------------------
 
-    private static get mimeToExtension(): Record<string, string> {
+    private static get mimeToExtension(): Record<FileMime, FileExtension> {
         if (_.isNil(this._mimeToExtension)) {
-            let item = this._mimeToExtension = {};
+            let item = this._mimeToExtension = {} as Record<FileMime, FileExtension>;
             for (let [key, value] of Object.entries(FileImageMime)) item[value] = FileImageExtension[key];
             for (let [key, value] of Object.entries(FileAudioMime)) item[value] = FileAudioExtension[key];
             for (let [key, value] of Object.entries(FileVideoMime)) item[value] = FileVideoExtension[key];
@@ -152,10 +160,10 @@ export class FileUtil {
         return this._mimeToExtension;
     }
 
-    private static get extensionToMime(): Record<string, string> {
+    private static get extensionToMime(): Record<FileExtension, FileMime> {
         if (_.isNil(this._extensionToMime)) {
-            let item = this._extensionToMime = {};
-            for (let [key, value] of Object.entries(this.mimeToExtension)) item[value] = key;
+            let item = this._extensionToMime = {} as Record<FileExtension, FileMime>;
+            for (let [key, value] of Object.entries(this.mimeToExtension)) item[value as FileExtension] = key as FileMime;
             item[FileAudioExtension.MP3] = FileAudioMime.MPEG;
             item[FileImageExtension.JPEG] = FileImageMime.JPEG;
         }

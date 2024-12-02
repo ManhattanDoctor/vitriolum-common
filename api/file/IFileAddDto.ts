@@ -1,9 +1,7 @@
 import { ITraceable } from '@ts-core/common';
 import { File, IFileInput } from '../../file';
 
-export interface IFileAddDto extends ITraceable {
-    description?: string;
-}
+export interface IFileAddDto extends ITraceable { }
 
 export interface IFileBufferAddDto extends IFileAddDto {
     name: string;

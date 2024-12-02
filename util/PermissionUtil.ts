@@ -151,6 +151,10 @@ export class PermissionUtil {
         return FileUtil.isContentVectorized(item) && PermissionUtil.fileIsCanOpen(item, user);
     }
 
+    public static fileIsCanConvertSoundExtract(item: File, user: User): boolean {
+        return PermissionUtil.fileIsCanOpen(item, user) && item.type === FileType.VIDEO;
+    }
+
     //--------------------------------------------------------------------------
     //
     // 	Voice Methods

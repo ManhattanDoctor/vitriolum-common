@@ -1,7 +1,7 @@
-import { FileMime } from "@project/common/file";
+import { FilterableConditionType } from "@ts-core/common";
+import { FileMime } from "../file";
 import { CoinId } from "../coin";
 import { PaymentTransactionType } from "../payment";
-import { FilterableConditionType } from "@ts-core/common";
 
 export enum ErrorCode {
     REQUEST_INVALID = 'REQUEST_INVALID',

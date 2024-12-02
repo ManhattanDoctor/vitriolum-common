@@ -51,6 +51,7 @@ export enum FileAudioExtension {
 }
 export enum FileVideoExtension {
     MP4 = 'mp4',
+    AVI = 'avi',
     WEBM = 'webm',
     MPEG = 'mpeg',
 }
@@ -87,9 +88,11 @@ export enum FileAudioMime {
 }
 export enum FileVideoMime {
     MP4 = 'video/mp4',
+    AVI = 'video/avi',
     WEBM = 'video/webm',
     MPEG = 'video/mpeg',
 }
+
 export enum FileDocumentMime {
     TXT = 'text/plain',
     PDF = 'application/pdf',

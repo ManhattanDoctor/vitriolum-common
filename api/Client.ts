@@ -20,7 +20,7 @@ import { File } from '../file';
 import { User } from '../user';
 import { IContentGetDto } from './content';
 import * as _ from 'lodash';
-import { IVoiceAddDto, IVoiceAddDtoResponse, IVoiceGetDto, IVoiceListDto, IVoiceListDtoResponse } from './voice';
+import { IVoiceAddDto, IVoiceAddDtoResponse, IVoiceEditDto, IVoiceEditDtoResponse, IVoiceGetDto, IVoiceListDto, IVoiceListDtoResponse } from './voice';
 import { Voice } from '../voice';
 import { IToolConvertDto, IToolConvertDtoResponse } from './tool';
 
@@ -189,6 +189,11 @@ export class Client extends TransportHttp {
         let item = await this.call<IVoiceAddDtoResponse, IVoiceAddDto>(`${VOICE_URL}`, { data: TraceUtil.addIfNeed(data), method: 'post' });
         item = TransformUtil.toClass(Voice, item);
         return item;
+    }
+
+    public async voiceEdit(data: IVoiceEditDto): Promise<IVoiceEditDtoResponse> {
+        let item = await this.call<IVoiceEditDtoResponse, IVoiceEditDto>(`${VOICE_URL}/${data.id}`, { method: 'put', data: TraceUtil.addIfNeed(data) });
+        return TransformUtil.toClass(Voice, item);
     }
 
     public async voiceList(data?: IVoiceListDto): Promise<IVoiceListDtoResponse> {

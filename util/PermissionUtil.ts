@@ -174,6 +174,10 @@ export class PermissionUtil {
         return item.userId === user.id;
     }
 
+    public static voiceIsCanEdit(item: Voice, user: User): boolean {
+        return PermissionUtil.voiceIsCanOpen(item, user);
+    }
+
     public static voiceIsCanRemove(item: Voice, user: User): boolean {
         return PermissionUtil.voiceIsCanOpen(item, user);
     }

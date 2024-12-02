@@ -107,4 +107,6 @@ export type FileMime = FileImageMime | FileDocumentMime | FileAudioMime | FileVi
 
 export const FILE_SIZE_MAX = 104857600; // 100 Mb
 export const FILE_AMOUNT_MAX = 50;
+
+export const FILE_NAME_MIN_LENGTH = 3;
 export const FILE_NAME_MAX_LENGTH = 124;

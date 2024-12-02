@@ -1,6 +1,6 @@
 import { File } from '../../file';
 
-export interface IFileEditDto {
+export interface IFileEditDto extends Partial<File> {
     id: number;
     name?: string;
 }

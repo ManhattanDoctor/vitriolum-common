@@ -1,4 +1,7 @@
 import { AI_MODEL_TIMEOUT } from '../ai';
+import { FileMime, IFileInput } from '../file';
+import { UrlUtil } from '@ts-core/common';
+import { FileUtil } from './FileUtil';
 import * as _ from 'lodash';
 
 export class BufferUtil {
@@ -35,6 +38,18 @@ export class BufferUtil {
         return index > -1 ? BufferUtil.fromString(item.substr(index + BufferUtil.BASE64_PREFIX.length)) : null;
     }
 
+    public static async fromFileInput(item: IFileInput): Promise<{ buffer: Buffer, mime: FileMime }> {
+        let { source, mime } = item;
+        let buffer = BufferUtil.fromString(source);
+        if (UrlUtil.isAbsoluteUrl(source)) {
+            buffer = await BufferUtil.fromUrl(source);
+            if (_.isEmpty(mime)) {
+                mime = FileUtil.getMime(FileUtil.getExtensionByUrl(source));
+            }
+        }
+        return { buffer, mime };
+    }
+
     // --------------------------------------------------------------------------
     //
     //  To Methods
@@ -44,7 +59,7 @@ export class BufferUtil {
     public static toBlob(item: Buffer, type: string): Blob {
         return new Blob([item], { type });
     }
-    
+
     public static toString(item: Buffer): string {
         return item.toString('base64');
     }

@@ -9,7 +9,7 @@ export class File {
     name: string;
     path: string;
     size: number;
-    mime: string;
+    mime: FileMime;
     hash: string;
     userId: number;
     extension: string;
@@ -108,6 +108,6 @@ export const FileDocumentMimes: Array<string> = Object.values(FileDocumentMime);
 export const FileMimes = [...FileImageMimes, ...FileDocumentMimes, ...FileAudioMimes, ...FileVideoMimes];
 export type FileMime = FileImageMime | FileDocumentMime | FileAudioMime | FileVideoMime;
 
-export const FILE_SIZE_MAX = 10485760; // 10mb
+export const FILE_SIZE_MAX = 104857600; // 100 Mb
 export const FILE_AMOUNT_MAX = 50;
 export const FILE_NAME_MAX_LENGTH = 124;

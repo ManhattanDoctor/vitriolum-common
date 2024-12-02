@@ -8,7 +8,7 @@ import { IAiModelGetDtoResponse, IAiModelGetDto } from './ai'
 import { IConversationAddDto, IConversationAddDtoResponse, IConversationEditDto, IConversationEditDtoResponse, IConversationGetDtoResponse, IConversationListDto, IConversationListDtoResponse, IConversationMessageAddDto, IConversationMessageAddDtoResponse, IConversationMessageListDto, IConversationMessageListDtoResponse } from './conversation';
 import { IPaymentListDto, IPaymentListDtoResponse, IPaymentTransactionListDto, IPaymentTransactionListDtoResponse } from './payment';
 import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICoinStatusGetDto } from './coin';
-import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileGetDto, IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto, IFileContentVectorSplitDtoResponse, IFileContentVectorGetDtoResponse } from './file';
+import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileGetDto, IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto, IFileContentVectorSplitDtoResponse, IFileContentVectorGetDtoResponse, IFileEditDto, IFileEditDtoResponse } from './file';
 import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiAgentListDto, IOpenAiAgentListDtoResponse, IOpenAiAgentMessageAddDto, IOpenAiAgentMessageAddDtoResponse, IOpenAiAgentMessageListDto, IOpenAiAgentMessageListDtoResponse, IOpenAiAgentStatusDtoResponse, IOpenAiFileAddDto } from './openai';
 import { OpenAiAgent, OpenAiAgentMessage } from '../ai/model/openai';
 import { IFileContentVectorAddDto, IFileContentVectorSplitDto } from './file';
@@ -229,6 +229,11 @@ export class Client extends TransportHttp {
         return TransformUtil.toClass(File, item);
     }
 
+    public async fileEdit(data: IFileEditDto): Promise<IFileEditDtoResponse> {
+        let item = await this.call<IFileEditDtoResponse, IFileEditDto>(`${FILE_URL}/${data.id}`, { method: 'put', data: TraceUtil.addIfNeed(data) });
+        return TransformUtil.toClass(File, item);
+    }
+
     public async fileRemove(id: number): Promise<void> {
         return this.call<void, number>(`${FILE_URL}/${id}`, { method: 'delete' });
     }
@@ -288,7 +293,7 @@ export class Client extends TransportHttp {
     //--------------------------------------------------------------------------
 
     public async toolConvert<T = File | string>(data: IToolConvertDto): Promise<T> {
-        let { output } = await this.call<IToolConvertDtoResponse<T>, IToolConvertDto>(`${TOOL_URL}/convert`, { data, method: 'post' });
+        let { output } = await this.call<IToolConvertDtoResponse<T>, IToolConvertDto>(`${TOOL_URL}/convert`, { data, method: 'post', timeout: AI_MODEL_TIMEOUT });
         return !_.isString(output) ? TransformUtil.toClass(File, output) as T : output;
     }
 

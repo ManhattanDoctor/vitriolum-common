@@ -1,8 +1,8 @@
 import { Sha512, TraceUtil, UnreachableStatementError } from "@ts-core/common";
 import { FILE_VECTOR_ID_LOADING, FileAudioExtension, FileAudioExtensions, FileAudioMime, FileAudioMimes, FileDocumentExtension, FileDocumentExtensions, FileDocumentMime, FileDocumentMimes, FileExtensions, FileImageExtension, FileImageExtensions, FileImageMime, FileImageMimes, FileMime, FileMimes, FileType, FileVideoExtension, FileVideoExtensions, FileVideoMime, FileVideoMimes } from "../file";
 import { File } from "../file";
-import * as _ from 'lodash';
 import { FileExtension } from "../file";
+import * as _ from 'lodash';
 
 export class FileUtil {
 

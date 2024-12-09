@@ -1,6 +1,6 @@
 import { AI_MODEL_TIMEOUT } from '../ai';
 import { FileMime, IFileInput } from '../file';
-import { UrlUtil } from '@ts-core/common';
+import { DateUtil, UrlUtil } from '@ts-core/common';
 import { FileUtil } from './FileUtil';
 import * as _ from 'lodash';
 
@@ -20,7 +20,10 @@ export class BufferUtil {
     //
     // --------------------------------------------------------------------------
 
-    public static async fromUrl(url: string, timeout: number = AI_MODEL_TIMEOUT): Promise<Buffer> {
+    public static async fromUrl(url: string, timeout?: number): Promise<Buffer> {
+        if (_.isNil(timeout)) {
+            timeout = 5 * DateUtil.MILLISECONDS_MINUTE;
+        }
         let item = await fetch(url, { signal: AbortSignal.timeout(timeout) });
         return BufferUtil.fromBinary(item);
     }
@@ -29,8 +32,11 @@ export class BufferUtil {
         return Buffer.from(await item.arrayBuffer())
     }
 
-    public static fromString(item: string): Buffer {
-        return Buffer.from(item, 'base64');
+    public static fromString(item: string, encoding?: BufferEncoding): Buffer {
+        if (_.isNil(encoding)) {
+            encoding = 'base64';
+        }
+        return Buffer.from(item, encoding);
     }
 
     public static fromBase64Data(item: string): Buffer {
@@ -60,8 +66,11 @@ export class BufferUtil {
         return new Blob([item], { type });
     }
 
-    public static toString(item: Buffer): string {
-        return item.toString('base64');
+    public static toString(item: Buffer, encoding?: BufferEncoding): string {
+        if (_.isNil(encoding)) {
+            encoding = 'base64';
+        }
+        return item.toString(encoding);
     }
 
     public static toBase64Data(item: Buffer | string, mime: string): string {

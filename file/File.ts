@@ -16,7 +16,6 @@ export class File {
 
     user?: User;
     vectorId?: number;
-    openAiId?: string;
 
     @Type(() => Date)
     createdDate: Date;

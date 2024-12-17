@@ -3,7 +3,6 @@ import { IUserEditDto } from '../api/user';
 import { Conversation, ConversationStatus } from '../conversation';
 import { File, FileType } from '../file';
 import { Voice } from '../voice';
-import { OpenAiAgent, OpenAiAgentStatus } from '../ai/model/openai';
 import { FileUtil } from './FileUtil';
 import * as _ from 'lodash';
 
@@ -184,89 +183,5 @@ export class PermissionUtil {
 
     public static voiceIsCanRemove(item: Voice, user: User): boolean {
         return PermissionUtil.voiceIsCanOpen(item, user);
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    // 	OpenAi Agent Methods
-    //
-    //--------------------------------------------------------------------------
-
-    public static openAiAgentIsCanOpen(item: OpenAiAgent, user: User): boolean {
-        if (_.isNil(user)) {
-            return false;
-        }
-        if (PermissionUtil.userIsAdministrator(user)) {
-            return true;
-        }
-        return item.userId === user.id;
-    }
-
-    public static openAiAgentIsCanCheck(item: OpenAiAgent, user: User): boolean {
-        if (!PermissionUtil.openAiAgentIsCanOpen(item, user)) {
-            return false;
-        }
-        switch (item.status) {
-            case OpenAiAgentStatus.ERROR:
-            case OpenAiAgentStatus.EXPIRED:
-            case OpenAiAgentStatus.CANCELED:
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    public static openAiAgentIsCanEdit(item: OpenAiAgent, user: User): boolean {
-        return PermissionUtil.openAiAgentIsCanOpen(item, user);
-    }
-
-    public static openAiAgentIsCanClear(item: OpenAiAgent, user: User): boolean {
-        return PermissionUtil.openAiAgentIsCanMessageRemove(item, user);
-    }
-
-    public static openAiAgentIsCanStatus(item: OpenAiAgent, user: User): boolean {
-        if (!PermissionUtil.openAiAgentIsCanOpen(item, user)) {
-            return false;
-        }
-        switch (item.status) {
-            case OpenAiAgentStatus.LOADING:
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    public static openAiAgentIsCanCancel(item: OpenAiAgent, user: User): boolean {
-        if (!PermissionUtil.openAiAgentIsCanOpen(item, user)) {
-            return false;
-        }
-        switch (item.status) {
-            case OpenAiAgentStatus.LOADING:
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    public static openAiAgentIsCanRemove(item: OpenAiAgent, user: User): boolean {
-        return PermissionUtil.openAiAgentIsCanOpen(item, user);
-    }
-
-    public static openAiAgentIsCanMessageAdd(item: OpenAiAgent, user: User): boolean {
-        if (!PermissionUtil.openAiAgentIsCanOpen(item, user)) {
-            return false;
-        }
-        return !PermissionUtil.openAiAgentIsCanCheck(item, user);
-    }
-
-    public static openAiAgentIsCanMessageRemove(item: OpenAiAgent, user: User): boolean {
-        if (!PermissionUtil.openAiAgentIsCanOpen(item, user)) {
-            return false;
-        }
-        return true;
-    }
-
-    public static openAiAgentIsCanExport(item: OpenAiAgent, user: User): boolean {
-        return PermissionUtil.openAiAgentIsCanOpen(item, user) && !_.isEmpty(item.messages);
     }
 }

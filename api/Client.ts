@@ -9,8 +9,6 @@ import { IConversationAddDto, IConversationAddDtoResponse, IConversationEditDto,
 import { IPaymentListDto, IPaymentListDtoResponse, IPaymentTransactionListDto, IPaymentTransactionListDtoResponse } from './payment';
 import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICoinStatusGetDto } from './coin';
 import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileGetDto, IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto, IFileContentVectorSplitDtoResponse, IFileContentVectorGetDtoResponse, IFileEditDto, IFileEditDtoResponse } from './file';
-import { IOpenAiAgentAddDto, IOpenAiAgentAddDtoResponse, IOpenAiAgentEditDto, IOpenAiAgentEditDtoResponse, IOpenAiAgentGetDtoResponse, IOpenAiAgentListDto, IOpenAiAgentListDtoResponse, IOpenAiAgentMessageAddDto, IOpenAiAgentMessageAddDtoResponse, IOpenAiAgentMessageListDto, IOpenAiAgentMessageListDtoResponse, IOpenAiAgentStatusDtoResponse, IOpenAiFileAddDto } from './openai';
-import { OpenAiAgent, OpenAiAgentMessage } from '../ai/model/openai';
 import { IFileContentVectorAddDto, IFileContentVectorSplitDto } from './file';
 import { Conversation, ConversationMessage } from '../conversation';
 import { Payment, PaymentTransaction } from '../payment';
@@ -300,78 +298,6 @@ export class Client extends TransportHttp {
     public async toolConvert<T = File | string>(data: IToolConvertDto): Promise<T> {
         let { output } = await this.call<IToolConvertDtoResponse<T>, IToolConvertDto>(`${TOOL_URL}/convert`, { data, method: 'post', timeout: AI_MODEL_TIMEOUT });
         return !_.isString(output) ? TransformUtil.toClass(File, output) as T : output;
-    }
-
-    // --------------------------------------------------------------------------
-    //
-    //  OpenAi File
-    //
-    // --------------------------------------------------------------------------
-
-    public async openAiFileAdd(data: IOpenAiFileAddDto): Promise<void> {
-        return this.call<void, IOpenAiFileAddDto>(`${OPEN_AI_FILE_URL}/${data.id}`, { data: TraceUtil.addIfNeed(data), method: 'post', timeout: AI_MODEL_TIMEOUT });
-    }
-
-    public async openAiFileRemove(id: number): Promise<void> {
-        return this.call<void, number>(`${OPEN_AI_FILE_URL}/${id}`, { method: 'delete', timeout: AI_MODEL_TIMEOUT });
-    }
-
-    // --------------------------------------------------------------------------
-    //
-    //  OpenAi Agent
-    //
-    // --------------------------------------------------------------------------
-
-    public async openAiAgentAdd(data: IOpenAiAgentAddDto): Promise<IOpenAiAgentAddDtoResponse> {
-        let item = await this.call<IOpenAiAgentAddDtoResponse, IOpenAiAgentAddDto>(OPEN_AI_AGENT_URL, { method: 'post', data: TraceUtil.addIfNeed(data) });
-        return TransformUtil.toClass(OpenAiAgent, item);
-    }
-
-    public async openAiAgentGet(id: number): Promise<IOpenAiAgentGetDtoResponse> {
-        let item = await this.call<IOpenAiAgentGetDtoResponse>(`${OPEN_AI_AGENT_URL}/${id}`);
-        return TransformUtil.toClass(OpenAiAgent, item);
-    }
-
-    public async openAiAgentEdit(data: IOpenAiAgentEditDto): Promise<IOpenAiAgentEditDtoResponse> {
-        let item = await this.call<IOpenAiAgentEditDtoResponse, IOpenAiAgentEditDto>(`${OPEN_AI_AGENT_URL}/${data.id}`, { method: 'put', data: TraceUtil.addIfNeed(data) });
-        return TransformUtil.toClass(OpenAiAgent, item);
-    }
-
-    public async openAiAgentStatus(id: number, timeout: number): Promise<IOpenAiAgentStatusDtoResponse> {
-        return this.call<any, void>(`${OPEN_AI_AGENT_URL}/${id}/status`, { isHandleError: false, isHandleLoading: false });
-    }
-
-    public async openAiAgentRemove(id: number): Promise<void> {
-        return this.call<void, void>(`${OPEN_AI_AGENT_URL}/${id}`, { method: 'delete' });
-    }
-
-    public async openAiAgentCheck(id: number): Promise<void> {
-        return this.call<void, void>(`${OPEN_AI_AGENT_URL}/${id}/check`, { method: 'post' });
-    }
-
-    public async openAiAgentClear(id: number): Promise<void> {
-        return this.call<void, void>(`${OPEN_AI_AGENT_URL}/${id}/clear`, { method: 'post' });
-    }
-
-    public async openAiAgentCancel(id: number): Promise<void> {
-        return this.call<void, void>(`${OPEN_AI_AGENT_URL}/${id}/cancel`, { method: 'post' });
-    }
-
-    public async openAiAgentList(data: IOpenAiAgentListDto): Promise<IOpenAiAgentListDtoResponse> {
-        let item = await this.call<IOpenAiAgentListDtoResponse, IOpenAiAgentListDto>(OPEN_AI_AGENT_URL, { data: TraceUtil.addIfNeed(data) });
-        item.items = TransformUtil.toClassMany(OpenAiAgent, item.items);
-        return item;
-    }
-
-    public async openAiAgentMessageAdd(id: number, data: IOpenAiAgentMessageAddDto): Promise<IOpenAiAgentMessageAddDtoResponse> {
-        let item = await this.call<IOpenAiAgentMessageAddDtoResponse, IOpenAiAgentMessageAddDto>(`${OPEN_AI_AGENT_URL}/${id}/message`, { method: 'post', data: TraceUtil.addIfNeed(data) });
-        return TransformUtil.toClass(OpenAiAgentMessage, item);
-    }
-
-    public async openAiAgentMessageList(data: IOpenAiAgentMessageListDto): Promise<IOpenAiAgentMessageListDtoResponse> {
-        let item = await this.call<IOpenAiAgentMessageListDtoResponse, IOpenAiAgentMessageListDto>(`${OPEN_AI_AGENT_URL}/${data.conditions.openAiAgentId}/message`, { data: TraceUtil.addIfNeed(data) });
-        item.items = TransformUtil.toClassMany(OpenAiAgentMessage, item.items);
-        return item;
     }
 
     // --------------------------------------------------------------------------

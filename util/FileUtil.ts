@@ -25,7 +25,7 @@ export class FileUtil {
         if (_.isEmpty(name)) {
             name = Sha512.hex(TraceUtil.generate());
         }
-        return `${_.truncate(name, { length: 16, omission: null })}_${Date.now()}.${FileUtil.getExtension(mime)}`;
+        return `${_.truncate(name, { length: 16, omission: '' })}_${Date.now()}.${FileUtil.getExtension(mime)}`;
     }
 
     public static getType(mime: string): FileType {

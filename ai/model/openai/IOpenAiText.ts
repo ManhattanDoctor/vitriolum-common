@@ -69,6 +69,7 @@ export function getMaxTokens(model: OpenAiTextModel): number {
         case OpenAiTextModel.GPT_35_TURBO:
             return 16385;
         case OpenAiTextModel.O1_MINI:
+        case OpenAiTextModel.O3_MINI:
         case OpenAiTextModel.O1_PREVIEW:
         case OpenAiTextModel.GPT_4_O:
         case OpenAiTextModel.GPT_4_O_MINI:

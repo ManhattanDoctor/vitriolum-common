@@ -107,8 +107,8 @@ export const FileDocumentMimes: Array<string> = Object.values(FileDocumentMime);
 export const FileMimes = [...FileImageMimes, ...FileDocumentMimes, ...FileAudioMimes, ...FileVideoMimes];
 export type FileMime = FileImageMime | FileDocumentMime | FileAudioMime | FileVideoMime;
 
-export const FILE_SIZE_MAX = 104857600; // 100 Mb
-export const FILE_AMOUNT_MAX = 50;
+export const FILE_SIZE_MAX = 1073741824; // 1000 Mb
+export const FILE_AMOUNT_MAX = 100;
 
 export const FILE_NAME_MIN_LENGTH = 3;
 export const FILE_NAME_MAX_LENGTH = 124;

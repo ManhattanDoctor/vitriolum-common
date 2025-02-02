@@ -25,6 +25,7 @@ export enum OpenAiTextModel {
     GPT_4_VISION_PREVIEW = 'gpt-4-vision-preview',
 
     O1_MINI = 'o1-mini',
+    O3_MINI = 'o3-mini',
     O1_PREVIEW = 'o1-preview',
 }
 

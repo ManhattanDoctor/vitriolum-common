@@ -57,10 +57,6 @@ export class Client extends TransportHttp {
         return item;
     }
 
-    public async logout(traceId?: string): Promise<void> {
-        // return this.call<void, ITraceable>(LOGOUT_URL, { data: TraceUtil.addIfNeed({ traceId }), method: 'post' });
-    }
-
     // --------------------------------------------------------------------------
     //
     //  User Methods

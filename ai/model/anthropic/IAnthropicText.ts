@@ -15,7 +15,8 @@ export interface IAnthropicTextOptions {
 }
 
 export enum AnthropicTextModel {
-    CLAUDE_35_SONNET = 'claude-3-5-sonnet-20240620'
+    CLAUDE_37_SONNET = 'claude-3-7-sonnet-20250219',
+    CLAUDE_35_SONNET = 'claude-3-5-sonnet-20241022'
 }
 
 export type IAnthropicTextProgress = IAiTextProgress;
@@ -44,6 +45,8 @@ export function getMaxTokens(model: AnthropicTextModel): number {
     switch (model) {
         case AnthropicTextModel.CLAUDE_35_SONNET:
             return 200_000;
+        case AnthropicTextModel.CLAUDE_37_SONNET:
+            return 1_000_000;
         default:
             throw new UnreachableStatementError(model);
     }

@@ -19,7 +19,7 @@ export class File {
     public vectorId?: number;
 
     @Type(() => Date)
-    public created: Date;
+    public createdDate: Date;
 }
 
 export interface IFileInput {

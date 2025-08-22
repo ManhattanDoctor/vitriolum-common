@@ -7,31 +7,31 @@ import { File, IFileContentSearchOptions } from '../file';
 import { User } from '../user';
 
 export class Conversation {
-    id: number;
-    name: string;
-    status: ConversationStatus;
-    userId: number;
-    history: number;
-    picture: string;
-    isConsiderHistory: boolean;
+    public id: number;
+    public name: string;
+    public status: ConversationStatus;
+    public userId: number;
+    public history: number;
+    public picture: string;
+    public isConsiderHistory: boolean;
 
-    tags?: Array<string>;
-    user?: User;
-    color?: Color;
-    system?: string;
-    messages?: Array<ConversationMessage>;
-    lastMessageDate?: Date;
-    historyResetDate?: Date;
-    fileSearchOptions?: IFileContentSearchOptions;
+    public tags?: Array<string>;
+    public user?: User;
+    public color?: Color;
+    public system?: string;
+    public messages?: Array<ConversationMessage>;
+    public lastMessageDate?: Date;
+    public historyResetDate?: Date;
+    public fileSearchOptions?: IFileContentSearchOptions;
 
     @Type(() => File)
-    files?: Array<File>;
+    public files?: Array<File>;
 
-    model: AiConversationModel;
-    options: AiModelConversationOptions;
+    public model: AiConversationModel;
+    public options: AiModelConversationOptions;
 
     @Type(() => Date)
-    createdDate: Date;
+    public createdDate: Date;
 }
 
 export enum ConversationStatus {

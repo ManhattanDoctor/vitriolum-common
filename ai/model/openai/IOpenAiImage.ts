@@ -11,6 +11,3 @@ export type IOpenAiImageProgress = void;
 export type IOpenAiImageResponse = Array<IAiImage>;
 
 export type IOpenAiImageConsumption = number;
-
-export const OPEN_AI_IMAGE_OPTIONS_N_MIN = 1;
-export const OPEN_AI_IMAGE_OPTIONS_N_MAX = 4;

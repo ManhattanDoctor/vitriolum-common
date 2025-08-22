@@ -3,22 +3,23 @@ import { User } from '../user';
 import * as _ from 'lodash';
 
 export class File {
-    id: number;
-    uid: string;
-    type: FileType;
-    name: string;
-    path: string;
-    size: number;
-    mime: FileMime;
-    hash: string;
-    userId: number;
-    extension: string;
+    public id: number;
+    public uid: string;
+    public type: FileType;
+    public name: string;
+    public path: string;
+    public size: number;
+    public mime: FileMime;
+    public hash: string;
+    public userId: number;
+    public extension: string;
 
-    user?: User;
-    vectorId?: number;
+    public user?: User;
+    public tags?: Array<string>;
+    public vectorId?: number;
 
     @Type(() => Date)
-    createdDate: Date;
+    public created: Date;
 }
 
 export interface IFileInput {
@@ -43,10 +44,10 @@ export enum FileImageExtension {
 export enum FileAudioExtension {
     MP3 = 'mp3',
     AAC = 'aac',
+    WAV = 'wav',
     OPUS = 'opus',
     FLAC = 'flac',
     MPGA = 'mpga',
-    WAV = 'wav',
 }
 export enum FileVideoExtension {
     MP4 = 'mp4',

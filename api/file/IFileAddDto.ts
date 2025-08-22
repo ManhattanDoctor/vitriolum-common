@@ -6,6 +6,7 @@ export interface IFileAddDto extends ITraceable { }
 export interface IFileBufferAddDto extends IFileAddDto {
     name: string;
     input: IFileInput;
+    tags?: Array<string>;
     userId?: number;
 }
 

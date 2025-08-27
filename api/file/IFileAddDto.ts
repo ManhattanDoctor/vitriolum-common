@@ -1,13 +1,21 @@
 import { ITraceable } from '@ts-core/common';
 import { File, IFileInput } from '../../file';
 
-export interface IFileAddDto extends ITraceable { }
+interface IFileAddDto extends ITraceable {
+    name: string;
+    userId?: number;
+    directory?: string;
+}
+
+export interface IFileLinkAddDto extends IFileAddDto {
+    linkTo: number;
+}
+
+export interface IFileDirectoryAddDto extends IFileAddDto { }
 
 export interface IFileBufferAddDto extends IFileAddDto {
-    name: string;
     input: IFileInput;
     tags?: Array<string>;
-    userId?: number;
 }
 
 export type IFileAddDtoResponse = File;

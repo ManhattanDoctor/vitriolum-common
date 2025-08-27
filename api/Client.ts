@@ -8,7 +8,7 @@ import { IAiModelGetDtoResponse, IAiModelGetDto } from './ai'
 import { IConversationAddDto, IConversationAddDtoResponse, IConversationEditDto, IConversationEditDtoResponse, IConversationGetDtoResponse, IConversationListDto, IConversationListDtoResponse, IConversationMessageAddDto, IConversationMessageAddDtoResponse, IConversationMessageListDto, IConversationMessageListDtoResponse } from './conversation';
 import { IPaymentListDto, IPaymentListDtoResponse, IPaymentTransactionListDto, IPaymentTransactionListDtoResponse } from './payment';
 import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICoinStatusGetDto } from './coin';
-import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileGetDto, IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto, IFileContentVectorSplitDtoResponse, IFileContentVectorGetDtoResponse, IFileEditDto, IFileEditDtoResponse } from './file';
+import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileGetDto, IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto, IFileContentVectorSplitDtoResponse, IFileContentVectorGetDtoResponse, IFileEditDto, IFileEditDtoResponse, IFileLinkAddDto, IFileDirectoryAddDto } from './file';
 import { IFileContentVectorAddDto, IFileContentVectorSplitDto } from './file';
 import { Conversation, ConversationMessage } from '../conversation';
 import { Payment, PaymentTransaction } from '../payment';
@@ -211,8 +211,21 @@ export class Client extends TransportHttp {
     //
     // --------------------------------------------------------------------------
 
+
+    public async fileLinkAdd(data: IFileLinkAddDto): Promise<IFileAddDtoResponse> {
+        let item = await this.call<IFileAddDtoResponse, IFileLinkAddDto>(`${FILE_LINK_URL}`, { data: TraceUtil.addIfNeed(data), method: 'post' });
+        item = TransformUtil.toClass(File, item);
+        return item;
+    }
+
     public async fileBufferAdd(data: IFileBufferAddDto): Promise<IFileAddDtoResponse> {
         let item = await this.call<IFileAddDtoResponse, IFileBufferAddDto>(`${FILE_BUFFER_URL}`, { data: TraceUtil.addIfNeed(data), method: 'post' });
+        item = TransformUtil.toClass(File, item);
+        return item;
+    }
+
+    public async fileDirectoryAdd(data: IFileDirectoryAddDto): Promise<IFileAddDtoResponse> {
+        let item = await this.call<IFileAddDtoResponse, IFileDirectoryAddDto>(`${FILE_DIRECTORY_URL}`, { data: TraceUtil.addIfNeed(data), method: 'post' });
         item = TransformUtil.toClass(File, item);
         return item;
     }
@@ -376,7 +389,9 @@ export const CONVERSATION_URL = PREFIX + 'conversation';
 export const USER_SEARCH_URL = PREFIX + 'userSearch';
 
 export const FILE_URL = PREFIX + 'file';
+export const FILE_LINK_URL = PREFIX + 'fileLink';
 export const FILE_BUFFER_URL = PREFIX + 'fileBuffer';
+export const FILE_DIRECTORY_URL = PREFIX + 'fileDirectory';
 export const FILE_CONTENT_VECTOR_URL = PREFIX + 'fileContentVector';
 
 export const OPEN_AI_FILE_URL = PREFIX + 'openAi/file';

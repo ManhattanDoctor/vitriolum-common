@@ -14,6 +14,10 @@ export class File {
     public userId: number;
     public extension: string;
 
+    public kind?: FileKind;
+    public linkTo?: number;
+    public directory?: string;
+
     public user?: User;
     public tags?: Array<string>;
     public vectorId?: number;
@@ -34,8 +38,12 @@ export enum FileType {
     AUDIO = 'AUDIO',
     VIDEO = 'VIDEO',
     DOCUMENT = 'DOCUMENT',
+    DIRECTORY = 'DIRECTORY',
 }
-
+export enum FileKind {
+    LINK = 'LINK',
+    DIRECTORY = 'DIRECTORY',
+}
 export enum FileImageExtension {
     PNG = 'png',
     JPG = 'jpg',
@@ -101,12 +109,16 @@ export enum FileDocumentMime {
     XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     DOCX = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 }
+export enum FileSystemMime {
+    LINK = 'link/link',
+    DIRECTORY = 'directory/directory',
+}
 export const FileImageMimes: Array<string> = Object.values(FileImageMime);
 export const FileAudioMimes: Array<string> = Object.values(FileAudioMime);
 export const FileVideoMimes: Array<string> = Object.values(FileVideoMime);
 export const FileDocumentMimes: Array<string> = Object.values(FileDocumentMime);
 export const FileMimes = [...FileImageMimes, ...FileDocumentMimes, ...FileAudioMimes, ...FileVideoMimes];
-export type FileMime = FileImageMime | FileDocumentMime | FileAudioMime | FileVideoMime;
+export type FileMime = FileImageMime | FileDocumentMime | FileAudioMime | FileVideoMime | FileSystemMime;
 
 export const FILE_SIZE_MAX = 1073741824; // 1000 Mb
 export const FILE_AMOUNT_MAX = 100;

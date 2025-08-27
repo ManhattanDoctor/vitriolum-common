@@ -116,8 +116,9 @@ export enum FileSystemMime {
 export const FileImageMimes: Array<string> = Object.values(FileImageMime);
 export const FileAudioMimes: Array<string> = Object.values(FileAudioMime);
 export const FileVideoMimes: Array<string> = Object.values(FileVideoMime);
+export const FileSystemMimes: Array<string> = Object.values(FileSystemMime);
 export const FileDocumentMimes: Array<string> = Object.values(FileDocumentMime);
-export const FileMimes = [...FileImageMimes, ...FileDocumentMimes, ...FileAudioMimes, ...FileVideoMimes];
+export const FileMimes = [...FileImageMimes, ...FileDocumentMimes, ...FileAudioMimes, ...FileVideoMimes, ...FileSystemMimes];
 export type FileMime = FileImageMime | FileDocumentMime | FileAudioMime | FileVideoMime | FileSystemMime;
 
 export const FILE_SIZE_MAX = 1073741824; // 1000 Mb

@@ -14,7 +14,6 @@ export class File {
     public userId: number;
     public extension: string;
 
-    public kind?: FileKind;
     public linkTo?: number;
     public directory?: string;
 
@@ -72,11 +71,11 @@ export enum FileDocumentExtension {
     JSON = 'json',
 }
 export type FileExtension = FileImageExtension | FileDocumentExtension | FileAudioExtension;
+export const FileSystemExtensions: Array<string> = new Array<string>();
 export const FileImageExtensions: Array<string> = Object.values(FileImageExtension);
 export const FileAudioExtensions: Array<string> = Object.values(FileAudioExtension);
 export const FileVideoExtensions: Array<string> = Object.values(FileVideoExtension);
 export const FileDocumentExtensions: Array<string> = Object.values(FileDocumentExtension);
-
 export const FileExtensions = [...FileImageExtensions, ...FileDocumentExtensions, ...FileAudioExtensions, ...FileVideoExtensions];
 export const FileBinaryExtensions = [...FileImageExtensions, ...FileAudioExtensions, ...FileVideoExtensions];
 

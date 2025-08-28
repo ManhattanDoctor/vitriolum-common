@@ -145,6 +145,13 @@ export class FileUtil {
         return items;
     }
 
+    public static getDirectory(item: File): string {
+        if (item.type !== FileType.DIRECTORY) {
+            return ``;
+        }
+        let { directory, uid } = item;
+        return !_.isEmpty(directory) ? `${directory}/${uid}` : uid;
+    }
 
     // --------------------------------------------------------------------------
     //

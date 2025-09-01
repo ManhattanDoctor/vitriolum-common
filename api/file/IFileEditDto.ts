@@ -4,6 +4,7 @@ export interface IFileEditDto extends Partial<File> {
     id: number;
     name?: string;
     tags?: Array<string>;
+    directory?: string;
 }
 
 export type IFileEditDtoResponse = File;

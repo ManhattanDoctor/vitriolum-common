@@ -64,6 +64,7 @@ export class FileUtil {
                 return FileVideoMimes;
             case FileType.DOCUMENT:
                 return FileDocumentMimes;
+            case FileType.LINK:
             case FileType.DIRECTORY:
                 return FileSystemMimes;
             default:
@@ -90,6 +91,7 @@ export class FileUtil {
                 return FileVideoExtensions;
             case FileType.DOCUMENT:
                 return FileDocumentExtensions;
+            case FileType.LINK:
             case FileType.DIRECTORY:
                 return FileSystemExtensions;
             default:

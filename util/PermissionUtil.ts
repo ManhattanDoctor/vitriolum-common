@@ -137,7 +137,7 @@ export class PermissionUtil {
     public static fileIsCanMove(item: File, user: User): boolean {
         return PermissionUtil.fileIsCanOpen(item, user);
     }
-    
+
     public static fileIsCanRemove(item: File, user: User): boolean {
         return PermissionUtil.fileIsCanOpen(item, user);
     }
@@ -156,6 +156,10 @@ export class PermissionUtil {
 
     public static fileIsCanConvertSoundExtract(item: File, user: User): boolean {
         return PermissionUtil.fileIsCanOpen(item, user) && item.type === FileType.VIDEO;
+    }
+
+    public static fileIsCanLinkAdd(item: File, user: User): boolean {
+        return PermissionUtil.fileIsCanOpen(item, user) && item.type !== FileType.LINK && item.type !== FileType.DIRECTORY;
     }
 
     //--------------------------------------------------------------------------

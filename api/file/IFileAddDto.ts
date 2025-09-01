@@ -7,8 +7,10 @@ interface IFileAddDto extends ITraceable {
     directory?: string;
 }
 
-export interface IFileLinkAddDto extends IFileAddDto {
-    linkTo: number;
+export interface IFileLinkAddDto extends ITraceable {
+    to: number;
+    userId?: number;
+    directory?: string;
 }
 
 export interface IFileDirectoryAddDto extends IFileAddDto { }

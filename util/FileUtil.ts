@@ -153,6 +153,14 @@ export class FileUtil {
         return !_.isEmpty(directory) ? `${directory}/${uid}` : uid;
     }
 
+    public static getParentDirectory(item: string): string {
+        if (_.isEmpty(item)) {
+            return null;
+        }
+        let array = item.split('/');
+        return array.length > 1 ? array.slice(0, -1).join('/') : null;
+    }
+
     // --------------------------------------------------------------------------
     //
     //  Private Properties

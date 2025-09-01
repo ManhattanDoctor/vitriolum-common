@@ -211,7 +211,6 @@ export class Client extends TransportHttp {
     //
     // --------------------------------------------------------------------------
 
-
     public async fileLinkAdd(data: IFileLinkAddDto): Promise<IFileAddDtoResponse> {
         let item = await this.call<IFileAddDtoResponse, IFileLinkAddDto>(`${FILE_LINK_URL}`, { data: TraceUtil.addIfNeed(data), method: 'post' });
         item = TransformUtil.toClass(File, item);

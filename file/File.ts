@@ -31,6 +31,11 @@ export interface IFileInput {
 }
 
 export const FILE_VECTOR_ID_LOADING = 0;
+export const FILE_PARENT_DIRECTORY_ID = Number.MAX_SAFE_INTEGER;
+
+export function IsParentDirectory(item: File): boolean {
+    return item?.id === FILE_PARENT_DIRECTORY_ID;
+}
 
 export enum FileType {
     IMAGE = 'IMAGE',

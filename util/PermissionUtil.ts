@@ -1,7 +1,7 @@
 import { User, UserAccountType } from '../user';
 import { IUserEditDto } from '../api/user';
 import { Conversation, ConversationStatus } from '../conversation';
-import { File, FileType } from '../file';
+import { File, FILE_PARENT_DIRECTORY_ID, FileType } from '../file';
 import { Voice } from '../voice';
 import { FileUtil } from './FileUtil';
 import * as _ from 'lodash';
@@ -121,7 +121,7 @@ export class PermissionUtil {
     //--------------------------------------------------------------------------
 
     public static fileIsCanOpen(item: File, user: User): boolean {
-        if (_.isNil(user)) {
+        if (_.isNil(user) || item.id === FILE_PARENT_DIRECTORY_ID) {
             return false;
         }
         if (PermissionUtil.userIsAdministrator(user)) {
@@ -134,6 +134,10 @@ export class PermissionUtil {
         return PermissionUtil.fileIsCanOpen(item, user);
     }
 
+    public static fileIsCanMove(item: File, user: User): boolean {
+        return PermissionUtil.fileIsCanOpen(item, user);
+    }
+    
     public static fileIsCanRemove(item: File, user: User): boolean {
         return PermissionUtil.fileIsCanOpen(item, user);
     }

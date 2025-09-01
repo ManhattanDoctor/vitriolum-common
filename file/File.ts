@@ -36,11 +36,8 @@ export enum FileType {
     IMAGE = 'IMAGE',
     AUDIO = 'AUDIO',
     VIDEO = 'VIDEO',
-    DOCUMENT = 'DOCUMENT',
-    DIRECTORY = 'DIRECTORY',
-}
-export enum FileKind {
     LINK = 'LINK',
+    DOCUMENT = 'DOCUMENT',
     DIRECTORY = 'DIRECTORY',
 }
 export enum FileImageExtension {

@@ -147,6 +147,10 @@ export class FileUtil {
         return items;
     }
 
+    public static getIds(items: Array<File>): Array<number> {
+        return !_.isEmpty(items) ? items.map(item => item.type === FileType.LINK ? item.linkTo : item.id) : null;
+    }
+
     public static getDirectory(item: File): string {
         if (item.type !== FileType.DIRECTORY) {
             return ``;

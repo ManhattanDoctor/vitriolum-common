@@ -1,10 +1,9 @@
 export enum AiToolType {
     TEST = 'TEST',
-    // BING = 'BING',
-    // AMAZON = 'AMAZON',
-    // YOU_TUBE = 'YOU_TUBE',
-    // GOOGLE_NEWS = 'GOOGLE_NEWS',
-    //
+
+    TNVED = 'TNVED',
+    OCCULTIST = 'OCCULTIST',
+
     TAVILY = 'TAVILY',
     GOOGLE = 'GOOGLE',
     YANDEX = 'YANDEX',
@@ -14,11 +13,9 @@ export enum AiToolType {
     IMAGE_DRAWING_DALLE_2 = 'IMAGE_DRAWING_DALLE_2',
     IMAGE_DRAWING_DALLE_3 = 'IMAGE_DRAWING_DALLE_3',
     CONTENT_SUMMARIZATION = 'CONTENT_SUMMARIZATION',
-
-    DOCUMENT_GENIUSES = 'DOCUMENT_GENIUSES',
 }
 
 export interface IAiToolConsumption {
-    type: AiToolType;
+    type: string;
     value: string;
 }

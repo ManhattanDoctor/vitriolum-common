@@ -63,7 +63,7 @@ export class BufferUtil {
     // --------------------------------------------------------------------------
 
     public static toBlob(item: Buffer, type: string): Blob {
-        return new Blob([item], { type });
+        return new Blob([item as BlobPart], { type });
     }
 
     public static toString(item: Buffer, encoding?: BufferEncoding): string {

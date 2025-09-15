@@ -15,6 +15,11 @@ export interface IOpenAiTextOptions {
 }
 
 export enum OpenAiTextModel {
+    /*
+    GPT_5 = 'gpt-5',
+    GPT_5_MINI = 'gpt-5-mini',
+    */
+
     GPT_4_O = 'gpt-4o',
     GPT_4_1 = 'gpt-4.1',
     GPT_4_O_MINI = 'gpt-4o-mini',
@@ -80,6 +85,8 @@ export function getMaxTokens(model: OpenAiTextModel): number {
         case OpenAiTextModel.O3_MINI:
         case OpenAiTextModel.O4_MINI:
         case OpenAiTextModel.O1_PREVIEW:
+        //case OpenAiTextModel.GPT_5:
+        //case OpenAiTextModel.GPT_5_MINI:
         case OpenAiTextModel.GPT_4_O:
         case OpenAiTextModel.GPT_4_1:
         case OpenAiTextModel.GPT_4_O_MINI:

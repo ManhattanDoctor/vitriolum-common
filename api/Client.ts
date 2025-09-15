@@ -103,8 +103,8 @@ export class Client extends TransportHttp {
         return this.call<void, void>(`${CONVERSATION_URL}/${id}`, { method: 'delete' });
     }
 
-    public async conversationCheck(id: number): Promise<void> {
-        return this.call<void, void>(`${CONVERSATION_URL}/${id}/check`, { method: 'post' });
+    public async conversationCheck(id: number, isHandleError?: boolean): Promise<void> {
+        return this.call<void, void>(`${CONVERSATION_URL}/${id}/check`, { method: 'post', isHandleError });
     }
 
     public async conversationClear(id: number): Promise<void> {

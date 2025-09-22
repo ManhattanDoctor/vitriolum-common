@@ -15,7 +15,7 @@ export enum AiTextOutputFormat {
 }
 
 export interface IAiTextOptions {
-    outputFormat?: AiTextOutputFormat;
+    outputFormat?: string;
 }
 
 export type AiModelTextOptions = IOpenAiTextOptions | IGigaChatTextOptions | IAnthropicTextOptions;

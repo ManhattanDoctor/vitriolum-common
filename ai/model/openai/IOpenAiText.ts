@@ -1,11 +1,11 @@
 import { UnreachableStatementError } from "@ts-core/common";
 import { IOpenAiModelDetails } from "./IOpenAiModel";
-import { AiToolType } from "../../../ai";
+import { AiToolType, IAiTextOptions } from "../../../ai";
 import { IAiTextConsumption } from "../IAiTextConsumption";
 import { IAiTextProgress } from "../IAiTextProgress";
 import { IAiTextResponse } from "../IAiTextResponse";
 
-export interface IOpenAiTextOptions {
+export interface IOpenAiTextOptions extends IAiTextOptions {
     model: OpenAiTextModel;
     tools?: Array<AiToolType>;
     maxTokens?: number;
@@ -19,7 +19,6 @@ export enum OpenAiTextModel {
     GPT_5 = 'gpt-5',
     GPT_5_MINI = 'gpt-5-mini',
     */
-
     GPT_4_O = 'gpt-4o',
     GPT_4_1 = 'gpt-4.1',
     GPT_4_O_MINI = 'gpt-4o-mini',
@@ -36,7 +35,7 @@ export enum OpenAiTextModel {
     O3 = 'o3',
     O3_MINI = 'o3-mini',
     O4_MINI = 'o4-mini',
-    
+
     O1_PREVIEW = 'o1-preview',
 }
 

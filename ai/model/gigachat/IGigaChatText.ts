@@ -1,11 +1,11 @@
 import { UnreachableStatementError } from "@ts-core/common";
 import { IGigaChatModelDetails } from "./IGigaChatModel";
-import { AiToolType } from "../../AiTool";
+import { AiToolType, IAiTextOptions } from "../../../ai";
 import { IAiTextConsumption } from "../IAiTextConsumption";
 import { IAiTextProgress } from "../IAiTextProgress";
 import { IAiTextResponse } from "../IAiTextResponse";
 
-export interface IGigaChatTextOptions {
+export interface IGigaChatTextOptions extends IAiTextOptions {
     model: GigaChatTextModel;
     topP?: number;
     tools?: Array<AiToolType>;

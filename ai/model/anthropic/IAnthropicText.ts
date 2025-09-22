@@ -1,11 +1,11 @@
 import { UnreachableStatementError } from "@ts-core/common";
 import { IAnthropicModelDetails } from "./IAnthropicModel";
 import { IAiTextConsumption } from "../IAiTextConsumption";
+import { AiToolType, IAiTextOptions } from "../../../ai";
 import { IAiTextProgress } from "../IAiTextProgress";
 import { IAiTextResponse } from "../IAiTextResponse";
-import { AiToolType } from "../../AiTool";
 
-export interface IAnthropicTextOptions {
+export interface IAnthropicTextOptions extends IAiTextOptions {
     model: AnthropicTextModel;
     tools?: Array<AiToolType>;
     topP?: number;

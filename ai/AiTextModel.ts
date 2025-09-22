@@ -8,6 +8,16 @@ export enum AiTextModel {
     ANTHROPIC = 'ANTHROPIC_TEXT',
 }
 
+export enum AiTextOutputFormat {
+    PLAIN_EXTENDED = 'PLAIN_EXTENDED',
+    PLAIN = 'PLAIN',
+    HTML = 'HTML',
+}
+
+export interface IAiTextOptions {
+    outputFormat?: AiTextOutputFormat;
+}
+
 export type AiModelTextOptions = IOpenAiTextOptions | IGigaChatTextOptions | IAnthropicTextOptions;
 export type AiModelTextDetails = IOpenAiTextModelDetails | IGigaChatTextModelDetails | IAnthropicTextModelDetails;
 export type AiModelTextProgress = IOpenAiTextProgress | IGigaChatTextProgress | IAnthropicTextProgress;

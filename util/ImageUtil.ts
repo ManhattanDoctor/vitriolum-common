@@ -13,8 +13,8 @@ export class ImageUtil {
         if (_.isNil(extension)) {
             extension = 'svg';
         }
-        name = Sha512.hex(name).substring(0, 32);
-        return `https://api.multiavatar.com/${name}.${extension}`;
+        let seed = Sha512.hex(name).substring(0, 32);
+        return `https://api.dicebear.com/9.x/avataaars/${extension}?seed=${seed}`
     }
 
     public static getSize(size: string): IImageSize {

@@ -2,6 +2,7 @@ export enum AiToolType {
     TEST = 'TEST',
 
     TNVED = 'TNVED',
+    COMMON = 'COMMON',
     OCCULTIST = 'OCCULTIST',
 
     TAVILY = 'TAVILY',

@@ -13,7 +13,7 @@ import { IFileContentVectorAddDto, IFileContentVectorSplitDto } from './file';
 import { Conversation, ConversationMessage } from '../conversation';
 import { Payment, PaymentTransaction } from '../payment';
 import { AI_MODEL_TIMEOUT } from '../ai';
-import { IAiTaskProgress } from '../ai/task';
+import { AiConversationTaskResponse, IAiTaskProgress } from '../ai/task';
 import { File } from '../file';
 import { User } from '../user';
 import { IContentGetDto } from './content';
@@ -103,8 +103,8 @@ export class Client extends TransportHttp {
         return this.call<void, void>(`${CONVERSATION_URL}/${id}`, { method: 'delete' });
     }
 
-    public async conversationCheck(id: number, isHandleError?: boolean): Promise<void> {
-        return this.call<void, void>(`${CONVERSATION_URL}/${id}/check`, { method: 'post', isHandleError });
+    public async conversationCheck(id: number, isHandleError?: boolean): Promise<AiConversationTaskResponse> {
+        return this.call<AiConversationTaskResponse, void>(`${CONVERSATION_URL}/${id}/check`, { method: 'post', isHandleError });
     }
 
     public async conversationClear(id: number): Promise<void> {
@@ -122,7 +122,7 @@ export class Client extends TransportHttp {
     }
 
     public async conversationMessageAdd(id: number, data: IConversationMessageAddDto): Promise<IConversationMessageAddDtoResponse> {
-        let item = await this.call<IConversationMessageAddDtoResponse, IConversationMessageAddDto>(`${CONVERSATION_URL}/${id}/message`, { method: 'post', data: TraceUtil.addIfNeed(data) });
+        let item = await this.call<IConversationMessageAddDtoResponse, IConversationMessageAddDto>(`${CONVERSATION_URL}/${id}/message`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
         return TransformUtil.toClass(ConversationMessage, item);
     }
 

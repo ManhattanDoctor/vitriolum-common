@@ -122,7 +122,7 @@ export class Client extends TransportHttp {
     }
 
     public async conversationMessageAdd(id: number, data: IConversationMessageAddDto): Promise<IConversationMessageAddDtoResponse> {
-        let item = await this.call<IConversationMessageAddDtoResponse, IConversationMessageAddDto>(`${CONVERSATION_URL}/${id}/message`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
+        let item = await this.call<IConversationMessageAddDtoResponse, IConversationMessageAddDto>(`${CONVERSATION_URL}/${id}/message`, { method: 'post', data: TraceUtil.addIfNeed(data) }, { timeout: AI_MODEL_TIMEOUT });
         return TransformUtil.toClass(ConversationMessage, item);
     }
 
@@ -250,23 +250,23 @@ export class Client extends TransportHttp {
     }
 
     public async fileContentVectorAdd(data: IFileContentVectorAddDto): Promise<void> {
-        return this.call<void, IFileContentVectorAddDto>(`${FILE_CONTENT_VECTOR_URL}`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
+        return this.call<void, IFileContentVectorAddDto>(`${FILE_CONTENT_VECTOR_URL}`, { method: 'post', data: TraceUtil.addIfNeed(data) }, { timeout: AI_MODEL_TIMEOUT });
     }
 
     public async fileContentVectorGet(id: number): Promise<IFileContentVectorGetDtoResponse> {
-        return this.call<IFileContentVectorGetDtoResponse, number>(`${FILE_CONTENT_VECTOR_URL}/${id}/content`, { method: 'get', timeout: AI_MODEL_TIMEOUT });
+        return this.call<IFileContentVectorGetDtoResponse, number>(`${FILE_CONTENT_VECTOR_URL}/${id}/content`, { method: 'get' }, { timeout: AI_MODEL_TIMEOUT });
     }
 
     public async fileContentVectorSplit(data: IFileContentVectorSplitDto): Promise<IFileContentVectorSplitDtoResponse> {
-        return this.call<IFileContentVectorSplitDtoResponse, IFileContentVectorSplitDto>(`${FILE_CONTENT_VECTOR_URL}/split`, { method: 'post', data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
+        return this.call<IFileContentVectorSplitDtoResponse, IFileContentVectorSplitDto>(`${FILE_CONTENT_VECTOR_URL}/split`, { method: 'post', data: TraceUtil.addIfNeed(data) }, { timeout: AI_MODEL_TIMEOUT });
     }
 
     public async fileContentVectorSearch(data: IFileContentVectorSearchDto): Promise<IFileContentVectorSearchDtoResponse> {
-        return this.call<IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto>(`${FILE_CONTENT_VECTOR_URL}/search`, { data: TraceUtil.addIfNeed(data), timeout: AI_MODEL_TIMEOUT });
+        return this.call<IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto>(`${FILE_CONTENT_VECTOR_URL}/search`, { data: TraceUtil.addIfNeed(data) }, { timeout: AI_MODEL_TIMEOUT });
     }
 
     public async fileContentVectorRemove(id: number): Promise<void> {
-        return this.call<void, number>(`${FILE_CONTENT_VECTOR_URL}/${id}`, { method: 'delete', timeout: AI_MODEL_TIMEOUT });
+        return this.call<void, number>(`${FILE_CONTENT_VECTOR_URL}/${id}`, { method: 'delete' }, { timeout: AI_MODEL_TIMEOUT });
     }
 
     // --------------------------------------------------------------------------
@@ -304,7 +304,7 @@ export class Client extends TransportHttp {
     //--------------------------------------------------------------------------
 
     public async toolConvert<T = File | string>(data: IToolConvertDto): Promise<T> {
-        let { output } = await this.call<IToolConvertDtoResponse<T>, IToolConvertDto>(`${TOOL_URL}/convert`, { data, method: 'post', timeout: AI_MODEL_TIMEOUT });
+        let { output } = await this.call<IToolConvertDtoResponse<T>, IToolConvertDto>(`${TOOL_URL}/convert`, { data, method: 'post' }, { timeout: AI_MODEL_TIMEOUT });
         return !_.isString(output) ? TransformUtil.toClass(File, output) as T : output;
     }
 

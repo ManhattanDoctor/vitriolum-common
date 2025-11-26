@@ -123,7 +123,7 @@ export const FileMimes = [...FileImageMimes, ...FileDocumentMimes, ...FileAudioM
 export type FileMime = FileImageMime | FileDocumentMime | FileAudioMime | FileVideoMime | FileSystemMime;
 
 export const FILE_SIZE_MAX = 1073741824; // 1000 Mb
-export const FILE_AMOUNT_MAX = 100;
+export const FILE_AMOUNT_MAX = 500;
 
 export const FILE_NAME_MIN_LENGTH = 3;
 export const FILE_NAME_MAX_LENGTH = 124;

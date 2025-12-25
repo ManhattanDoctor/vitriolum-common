@@ -13,14 +13,12 @@ export enum OpenAiImageGptModel {
 }
 
 export enum OpenAiImageGptSize {
-    AUTO = 'auto',
     SIZE_1024 = '1024x1024',
     SIZE_1536_1024 = '1536x1024',
     SIZE_1024_1536 = '1024x1536',
 }
 
 export enum OpenAiImageGptQuality {
-    AUTO = 'auto',
     LOW = 'low',
     MEDIUM = 'medium',
     HIGH = 'high',
@@ -34,6 +32,7 @@ export enum OpenAiImageGptBackground {
 
 export interface IOpenAiImageGptModelDetails {
     sizes: Array<OpenAiImageGptSize>;
+    models: Array<OpenAiImageGptModel>;
     qualities: Array<OpenAiImageGptQuality>;
     backgrounds: Array<OpenAiImageGptBackground>;
 }

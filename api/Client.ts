@@ -103,6 +103,12 @@ export class Client extends TransportHttp {
         return this.call<void, void>(`${CONVERSATION_URL}/${id}`, { method: 'delete' });
     }
 
+    public async conversationList(data: IConversationListDto): Promise<IConversationListDtoResponse> {
+        let item = await this.call<IConversationListDtoResponse, IConversationListDto>(CONVERSATION_URL, { data: TraceUtil.addIfNeed(data) });
+        item.items = TransformUtil.toClassMany(Conversation, item.items);
+        return item;
+    }
+
     public async conversationCheck(id: number, isHandleError?: boolean): Promise<AiConversationTaskResponse> {
         return this.call<AiConversationTaskResponse, void>(`${CONVERSATION_URL}/${id}/check`, { method: 'post', isHandleError });
     }
@@ -113,12 +119,6 @@ export class Client extends TransportHttp {
 
     public async conversationCancel(id: number): Promise<void> {
         return this.call<void, void>(`${CONVERSATION_URL}/${id}/cancel`, { method: 'post' });
-    }
-
-    public async conversationList(data: IConversationListDto): Promise<IConversationListDtoResponse> {
-        let item = await this.call<IConversationListDtoResponse, IConversationListDto>(CONVERSATION_URL, { data: TraceUtil.addIfNeed(data) });
-        item.items = TransformUtil.toClassMany(Conversation, item.items);
-        return item;
     }
 
     public async conversationMessageAdd(id: number, data: IConversationMessageAddDto): Promise<IConversationMessageAddDtoResponse> {

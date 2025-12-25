@@ -1,9 +1,15 @@
 export interface IOpenAiImageGptOptions {
-    size: OpenAiImageGptSize;
-    quality: OpenAiImageGptQuality;
-    files?: Array<number>;
-    background?: boolean;
+    model: OpenAiImageGptModel;
+    size?: OpenAiImageGptSize;
+    quality?: OpenAiImageGptQuality;
+    background?: OpenAiImageGptBackground;
     compression?: number;
+}
+
+export enum OpenAiImageGptModel {
+    GPT_IMAGE_1 = 'gpt-image-1',
+    GPT_IMAGE_5 = 'gpt-image-1.5',
+    GPT_IMAGE_1_MINI = 'gpt-image-1-mini',
 }
 
 export enum OpenAiImageGptSize {
@@ -20,7 +26,14 @@ export enum OpenAiImageGptQuality {
     HIGH = 'high',
 }
 
+export enum OpenAiImageGptBackground {
+    AUTO = 'auto',
+    TRANSPARENT = 'transparent',
+    OPAQUE = 'opaque',
+}
+
 export interface IOpenAiImageGptModelDetails {
     sizes: Array<OpenAiImageGptSize>;
     qualities: Array<OpenAiImageGptQuality>;
+    backgrounds: Array<OpenAiImageGptBackground>;
 }

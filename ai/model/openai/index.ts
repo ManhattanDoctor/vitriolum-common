@@ -5,5 +5,6 @@ export * from './IOpenAiStt';
 export * from './IOpenAiTts';
 export * from './IOpenAiText';
 export * from './IOpenAiImage';
+export * from './IOpenAiImageGpt';
 export * from './IOpenAiImageDalle2';
 export * from './IOpenAiImageDalle3';

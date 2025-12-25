@@ -15,10 +15,11 @@ export interface IOpenAiTextOptions extends IAiTextOptions {
 }
 
 export enum OpenAiTextModel {
-    /*
-    GPT_5 = 'gpt-5',
+    GPT_5_NANO = 'gpt-5-nano',
     GPT_5_MINI = 'gpt-5-mini',
-    */
+
+    GPT_5_2 = 'gpt-5.2',
+
     GPT_4_O = 'gpt-4o',
     GPT_4_1 = 'gpt-4.1',
     GPT_4_O_MINI = 'gpt-4o-mini',
@@ -73,26 +74,27 @@ export function isSupportStreaming(model: OpenAiTextModel): boolean {
 export function getMaxTokens(model: OpenAiTextModel): number {
     switch (model) {
         case OpenAiTextModel.GPT_4:
-            return 8192;
+            return 8_192;
         case OpenAiTextModel.GPT_4_32K:
-            return 32768;
+            return 32_768;
         case OpenAiTextModel.GPT_35_TURBO:
-            return 16385;
+            return 16_385;
         case OpenAiTextModel.O1:
         case OpenAiTextModel.O1_MINI:
         case OpenAiTextModel.O3:
         case OpenAiTextModel.O3_MINI:
         case OpenAiTextModel.O4_MINI:
         case OpenAiTextModel.O1_PREVIEW:
-        //case OpenAiTextModel.GPT_5:
-        //case OpenAiTextModel.GPT_5_MINI:
+        case OpenAiTextModel.GPT_5_2:
+        case OpenAiTextModel.GPT_5_NANO:
+        case OpenAiTextModel.GPT_5_MINI:
         case OpenAiTextModel.GPT_4_O:
         case OpenAiTextModel.GPT_4_1:
         case OpenAiTextModel.GPT_4_O_MINI:
         case OpenAiTextModel.GPT_4_TURBO:
         case OpenAiTextModel.GPT_4_TURBO_PREVIEW:
         case OpenAiTextModel.GPT_4_VISION_PREVIEW:
-            return 128000;
+            return 128_000;
         default:
             throw new UnreachableStatementError(model);
     }

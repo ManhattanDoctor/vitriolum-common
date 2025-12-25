@@ -5,6 +5,7 @@ import { IGigaChatImageOptions, IGigaChatImageModelDetails, IGigaChatImageConsum
 export enum AiImageModel {
     STABLE = 'STABLE_IMAGE',
     GIGA_CHAT = 'GIGA_CHAT_IMAGE',
+    OPEN_AI_GPT = 'OPEN_AI_IMAGE_GPT',
     OPEN_AI_DALLE_2 = 'OPEN_AI_IMAGE_DALLE_2',
     OPEN_AI_DALLE_3 = 'OPEN_AI_IMAGE_DALLE_3',
 }

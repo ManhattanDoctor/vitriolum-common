@@ -20,9 +20,7 @@ export enum AnthropicTextModel {
     CLAUDE_45_SONNET = 'claude-sonnet-4-5',
 
     /** @deprecated Deprecated since October 28, 2025. Use CLAUDE_45_SONNET instead. */
-    CLAUDE_37_SONNET = 'claude-3-7-sonnet-20250219',
-    /** @deprecated Deprecated since August 13, 2025, retired October 28, 2025. Use CLAUDE_45_SONNET instead. */
-    CLAUDE_35_SONNET = 'claude-3-5-sonnet-20241022',
+    CLAUDE_37_SONNET = 'claude-3-7-sonnet-20250219'
 }
 
 export type IAnthropicTextProgress = IAiTextProgress;
@@ -52,7 +50,6 @@ export function getMaxTokens(model: AnthropicTextModel): number {
         case AnthropicTextModel.CLAUDE_45_OPUS:
         case AnthropicTextModel.CLAUDE_45_HAIKU:
         case AnthropicTextModel.CLAUDE_37_SONNET:
-        case AnthropicTextModel.CLAUDE_35_SONNET:
             return 200_000;
         case AnthropicTextModel.CLAUDE_45_SONNET:
             // Claude Sonnet 4.5 supports 200k standard or 1M (beta) context window

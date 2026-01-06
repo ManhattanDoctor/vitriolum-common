@@ -25,7 +25,6 @@ export enum OpenAiImageGptQuality {
 }
 
 export enum OpenAiImageGptBackground {
-    AUTO = 'auto',
     TRANSPARENT = 'transparent',
     OPAQUE = 'opaque',
 }

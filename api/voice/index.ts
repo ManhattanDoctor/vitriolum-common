@@ -1,4 +1,4 @@
 export * from './IVoiceAddDto';
-export * from './IVoiceGetDto';
+export * from './IVoiceGetDtoResponse';
 export * from './IVoiceEditDto';
 export * from './IVoiceListDto';

@@ -1,14 +1,5 @@
 import * as _ from 'lodash';
-
-export class UserPreferences {
-    uid: string;
-    name: string;
-    theme?: UserPreferencesTheme;
-    phone?: string;
-    email?: string;
-    locale?: UserPreferencesLocale;
-    picture?: string;
-}
+import { ApiProperty, ApiPropertyOptional } from '@ts-core/swagger';
 
 export enum UserPreferencesTheme {
     DARK = 'DARK',
@@ -20,6 +11,28 @@ export enum UserPreferencesLocale {
     EN = 'en',
 }
 
+export class UserPreferences {
+    @ApiProperty({ description: 'Unique identifier' })
+    uid: string;
+
+    @ApiProperty({ description: 'Display name' })
+    name: string;
+
+    @ApiPropertyOptional({ description: 'UI theme', enum: UserPreferencesTheme })
+    theme?: UserPreferencesTheme;
+
+    @ApiPropertyOptional({ description: 'Phone number' })
+    phone?: string;
+
+    @ApiPropertyOptional({ description: 'Email address' })
+    email?: string;
+
+    @ApiPropertyOptional({ description: 'Preferred locale', enum: UserPreferencesLocale })
+    locale?: UserPreferencesLocale;
+
+    @ApiPropertyOptional({ description: 'Profile picture URL' })
+    picture?: string;
+}
 
 export const USER_PREFERENCES_NAME_MIN_LENGTH = 1;
 export const USER_PREFERENCES_NAME_MAX_LENGTH = 50;

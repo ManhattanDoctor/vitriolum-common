@@ -1,5 +1,5 @@
 export * from './IFileAddDto';
-export * from './IFileGetDto';
+export * from './IFileGetDtoResponse';
 export * from './IFileListDto'
 export * from './IFileEditDto'
 export * from './IFileContentVectorAddDto';

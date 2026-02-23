@@ -1,26 +1,63 @@
 import { Type } from 'class-transformer';
 import { User } from '../user';
+import { ApiProperty, ApiPropertyOptional } from '@ts-core/swagger';
 import * as _ from 'lodash';
 
+export enum FileType {
+    IMAGE = 'IMAGE',
+    AUDIO = 'AUDIO',
+    VIDEO = 'VIDEO',
+    LINK = 'LINK',
+    DOCUMENT = 'DOCUMENT',
+    DIRECTORY = 'DIRECTORY',
+}
+
 export class File {
+    @ApiProperty({ description: 'File ID' })
     public id: number;
+
+    @ApiProperty({ description: 'File unique identifier' })
     public uid: string;
+
+    @ApiProperty({ description: 'File type', enum: FileType })
     public type: FileType;
+
+    @ApiProperty({ description: 'File name' })
     public name: string;
+
+    @ApiProperty({ description: 'File path' })
     public path: string;
+
+    @ApiProperty({ description: 'File size in bytes' })
     public size: number;
+
+    @ApiProperty({ description: 'File MIME type', type: 'string' })
     public mime: FileMime;
+
+    @ApiProperty({ description: 'File hash' })
     public hash: string;
+
+    @ApiProperty({ description: 'Owner user ID' })
     public userId: number;
+
+    @ApiProperty({ description: 'File extension' })
     public extension: string;
 
+    @ApiPropertyOptional({ description: 'Link target file ID' })
     public linkTo?: number;
+
+    @ApiPropertyOptional({ description: 'Directory path' })
     public directory?: string;
 
     public user?: User;
+
+    @ApiPropertyOptional({ description: 'File tags', type: [String] })
     public tags?: Array<string>;
+
+    @ApiPropertyOptional({ description: 'Vector store ID' })
     public vectorId?: number;
 
+    @ApiProperty({ description: 'Creation date', type: Date })
     @Type(() => Date)
     public createdDate: Date;
 }
@@ -37,14 +74,6 @@ export function IsParentDirectory(item: File): boolean {
     return item?.id === FILE_PARENT_DIRECTORY_ID;
 }
 
-export enum FileType {
-    IMAGE = 'IMAGE',
-    AUDIO = 'AUDIO',
-    VIDEO = 'VIDEO',
-    LINK = 'LINK',
-    DOCUMENT = 'DOCUMENT',
-    DIRECTORY = 'DIRECTORY',
-}
 export enum FileImageExtension {
     PNG = 'png',
     JPG = 'jpg',

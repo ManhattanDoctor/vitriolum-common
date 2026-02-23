@@ -5,34 +5,7 @@ import { Color } from '../color';
 import { ConversationMessage } from './ConversationMessage';
 import { File, IFileContentSearchOptions } from '../file';
 import { User } from '../user';
-
-export class Conversation {
-    public id: number;
-    public name: string;
-    public status: ConversationStatus;
-    public userId: number;
-    public history: number;
-    public picture: string;
-    public isConsiderHistory: boolean;
-
-    public tags?: Array<string>;
-    public user?: User;
-    public color?: Color;
-    public system?: string;
-    public messages?: Array<ConversationMessage>;
-    public lastMessageDate?: Date;
-    public historyResetDate?: Date;
-    public fileSearchOptions?: IFileContentSearchOptions;
-
-    @Type(() => File)
-    public files?: Array<File>;
-
-    public model: AiConversationModel;
-    public options: AiModelConversationOptions;
-
-    @Type(() => Date)
-    public createdDate: Date;
-}
+import { ApiProperty, ApiPropertyOptional } from '@ts-core/swagger';
 
 export enum ConversationStatus {
     ERROR = "ERROR",
@@ -42,6 +15,65 @@ export enum ConversationStatus {
 
 export enum ConversationCommand {
     HISTORY_RESET = 'HISTORY_RESET'
+}
+
+export class Conversation {
+    @ApiProperty({ description: 'Conversation ID' })
+    public id: number;
+
+    @ApiProperty({ description: 'Conversation name' })
+    public name: string;
+
+    @ApiProperty({ description: 'Conversation status', enum: ConversationStatus })
+    public status: ConversationStatus;
+
+    @ApiProperty({ description: 'Owner user ID' })
+    public userId: number;
+
+    @ApiProperty({ description: 'History message count' })
+    public history: number;
+
+    @ApiProperty({ description: 'Conversation picture URL' })
+    public picture: string;
+
+    @ApiProperty({ description: 'Whether to consider history in responses' })
+    public isConsiderHistory: boolean;
+
+    @ApiPropertyOptional({ description: 'Conversation tags', type: [String] })
+    public tags?: Array<string>;
+
+    public user?: User;
+
+    @ApiPropertyOptional({ description: 'Conversation color', enum: Color })
+    public color?: Color;
+
+    @ApiPropertyOptional({ description: 'System prompt' })
+    public system?: string;
+
+    public messages?: Array<ConversationMessage>;
+
+    @ApiPropertyOptional({ description: 'Last message date', type: Date })
+    public lastMessageDate?: Date;
+
+    @ApiPropertyOptional({ description: 'History reset date', type: Date })
+    public historyResetDate?: Date;
+
+    @ApiPropertyOptional({ description: 'File search options', type: 'object' })
+    public fileSearchOptions?: IFileContentSearchOptions;
+
+    @ApiPropertyOptional({ description: 'Attached files', type: [File] })
+    @Type(() => File)
+    public files?: Array<File>;
+
+    @ApiProperty({ description: 'AI model used', enum: AiConversationModel })
+    public model: AiConversationModel;
+
+    @ApiProperty({ description: 'Model-specific options', type: 'object' })
+    public options: AiModelConversationOptions;
+
+    @ApiProperty({ description: 'Creation date', type: Date })
+    @Type(() => Date)
+    public createdDate: Date;
 }
 
 export const CONVERSATION_NAME_MIN_LENGTH = 2;

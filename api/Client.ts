@@ -7,8 +7,8 @@ import { ITaskDto, ITaskDtoResponse, ITaskProgress, } from './task';
 import { IAiModelGetDtoResponse, IAiModelGetDto } from './ai'
 import { IConversationAddDto, IConversationAddDtoResponse, IConversationEditDto, IConversationEditDtoResponse, IConversationGetDtoResponse, IConversationListDto, IConversationListDtoResponse, IConversationMessageAddDto, IConversationMessageAddDtoResponse, IConversationMessageListDto, IConversationMessageListDtoResponse } from './conversation';
 import { IPaymentListDto, IPaymentListDtoResponse, IPaymentTransactionListDto, IPaymentTransactionListDtoResponse } from './payment';
-import { CoinStatusGetDtoResponse, ICoinAccountsGetDto, ICoinBalanceEditDto, ICoinStatusGetDto } from './coin';
-import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileGetDto, IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto, IFileContentVectorSplitDtoResponse, IFileContentVectorGetDtoResponse, IFileEditDto, IFileEditDtoResponse, IFileLinkAddDto, IFileDirectoryAddDto } from './file';
+import { CoinStatusGetDtoResponse, ICoinAccountsGetDtoResponse, ICoinBalanceEditDto, ICoinStatusGetDto } from './coin';
+import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileGetDtoResponse, IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto, IFileContentVectorSplitDtoResponse, IFileContentVectorGetDtoResponse, IFileEditDto, IFileEditDtoResponse, IFileLinkAddDto, IFileDirectoryAddDto } from './file';
 import { IFileContentVectorAddDto, IFileContentVectorSplitDto } from './file';
 import { Conversation, ConversationMessage } from '../conversation';
 import { Payment, PaymentTransaction } from '../payment';
@@ -18,7 +18,7 @@ import { File } from '../file';
 import { User } from '../user';
 import { IContentGetDto } from './content';
 import * as _ from 'lodash';
-import { IVoiceAddDto, IVoiceAddDtoResponse, IVoiceEditDto, IVoiceEditDtoResponse, IVoiceGetDto, IVoiceListDto, IVoiceListDtoResponse } from './voice';
+import { IVoiceAddDto, IVoiceAddDtoResponse, IVoiceEditDto, IVoiceEditDtoResponse, IVoiceGetDtoResponse, IVoiceListDto, IVoiceListDtoResponse } from './voice';
 import { Voice } from '../voice';
 import { IToolConvertDto, IToolConvertDtoResponse } from './tool';
 
@@ -147,8 +147,8 @@ export class Client extends TransportHttp {
         return TransformUtil.toClass(CoinStatusGetDtoResponse, item);
     }
 
-    public async coinAccountsGet(uid: UserUID): Promise<ICoinAccountsGetDto> {
-        return this.call<ICoinAccountsGetDto>(`${COIN_URL}/${uid}/accounts`);
+    public async coinAccountsGet(uid: UserUID): Promise<ICoinAccountsGetDtoResponse> {
+        return this.call<ICoinAccountsGetDtoResponse>(`${COIN_URL}/${uid}/accounts`);
     }
 
     public async coinBalanceEdit(data: ICoinBalanceEditDto): Promise<void> {
@@ -196,8 +196,8 @@ export class Client extends TransportHttp {
         return item;
     }
 
-    public async voiceGet(id: number): Promise<IVoiceGetDto> {
-        let item = await this.call<IVoiceGetDto, number>(`${VOICE_URL}/${id}`);
+    public async voiceGet(id: number): Promise<IVoiceGetDtoResponse> {
+        let item = await this.call<IVoiceGetDtoResponse, number>(`${VOICE_URL}/${id}`);
         return TransformUtil.toClass(Voice, item);
     }
 
@@ -235,8 +235,8 @@ export class Client extends TransportHttp {
         return item;
     }
 
-    public async fileGet(id: number): Promise<IFileGetDto> {
-        let item = await this.call<IFileGetDto, number>(`${FILE_URL}/${id}`);
+    public async fileGet(id: number): Promise<IFileGetDtoResponse> {
+        let item = await this.call<IFileGetDtoResponse, number>(`${FILE_URL}/${id}`);
         return TransformUtil.toClass(File, item);
     }
 

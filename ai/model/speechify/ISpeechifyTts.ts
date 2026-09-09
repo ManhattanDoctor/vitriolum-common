@@ -15,11 +15,24 @@ export enum SpeechifyTtsLanguage {
 }
 
 export enum SpeechifyTtsModel {
-    SIMBA_BASE = 'simba-base',
-    SIMBA_TURBO = 'simba-turbo',
+    SIMBA_30 = 'simba-3.0',
+    SIMBA_32 = 'simba-3.2',
+
+    /** @deprecated Retired from API version 2026-09-21, switched off on 2026-11-21. Use SIMBA_30 instead. */
+    SIMBA_MULTILINGUAL = 'simba-multilingual',
+    /** @deprecated Retired from API version 2026-09-21, switched off on 2026-11-21. Use SIMBA_32 instead. */
     SIMBA_ENGLISH = 'simba-english',
-    SIMBA_MULTILINGUAL = 'simba-multilingual'
+    /** @deprecated Legacy model. Use SIMBA_30 instead. */
+    SIMBA_BASE = 'simba-base',
+    /** @deprecated Legacy model. Use SIMBA_32 instead. */
+    SIMBA_TURBO = 'simba-turbo',
 }
+
+/** Models offered for a new selection, the first one is used as the default */
+export const SPEECHIFY_TTS_MODELS_ACTUAL: Array<SpeechifyTtsModel> = [
+    SpeechifyTtsModel.SIMBA_30,
+    SpeechifyTtsModel.SIMBA_32,
+];
 
 export enum SpeechifyTtsFormat {
     MP3 = 'mp3',

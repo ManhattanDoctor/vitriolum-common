@@ -7,10 +7,20 @@ export interface IOpenAiImageGptOptions {
 }
 
 export enum OpenAiImageGptModel {
-    GPT_IMAGE_1 = 'gpt-image-1',
+    GPT_IMAGE_2 = 'gpt-image-2',
     GPT_IMAGE_5 = 'gpt-image-1.5',
     GPT_IMAGE_1_MINI = 'gpt-image-1-mini',
+
+    /** @deprecated Superseded by GPT_IMAGE_2. */
+    GPT_IMAGE_1 = 'gpt-image-1',
 }
+
+/** Models offered for a new selection, the first one is used as the default */
+export const OPEN_AI_IMAGE_GPT_MODELS_ACTUAL: Array<OpenAiImageGptModel> = [
+    OpenAiImageGptModel.GPT_IMAGE_2,
+    OpenAiImageGptModel.GPT_IMAGE_5,
+    OpenAiImageGptModel.GPT_IMAGE_1_MINI,
+];
 
 export enum OpenAiImageGptSize {
     SIZE_1024 = '1024x1024',

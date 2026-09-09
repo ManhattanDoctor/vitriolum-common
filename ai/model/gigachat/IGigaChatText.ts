@@ -15,9 +15,24 @@ export interface IGigaChatTextOptions extends IAiTextOptions {
 }
 
 export enum GigaChatTextModel {
-    LITE = 'GigaChat',
-    PRO = 'GigaChat-Pro'
+    LITE = 'GigaChat-2',
+    PRO = 'GigaChat-2-Pro',
+    MAX = 'GigaChat-2-Max',
+
+    /** @deprecated First generation, requests are redirected to GigaChat-2. */
+    LITE_LEGACY = 'GigaChat',
+    /** @deprecated First generation, requests are redirected to GigaChat-2-Pro. */
+    PRO_LEGACY = 'GigaChat-Pro',
+    /** @deprecated First generation, requests are redirected to GigaChat-2-Max. */
+    MAX_LEGACY = 'GigaChat-Max',
 }
+
+/** Models offered for a new selection, the first one is used as the default */
+export const GIGA_CHAT_TEXT_MODELS_ACTUAL: Array<GigaChatTextModel> = [
+    GigaChatTextModel.LITE,
+    GigaChatTextModel.PRO,
+    GigaChatTextModel.MAX,
+];
 
 export type IGigaChatTextProgress = IAiTextProgress;
 
@@ -43,9 +58,14 @@ export const GIGA_CHAT_TEXT_OPTIONS_REPETITION_PENALTY_MAX = 2;
 
 export function getMaxTokens(model: GigaChatTextModel): number {
     switch (model) {
+        // GigaChat 2 models share a 128k context window
         case GigaChatTextModel.LITE:
-            return 4096;
         case GigaChatTextModel.PRO:
+        case GigaChatTextModel.MAX:
+            return 128_000;
+        case GigaChatTextModel.LITE_LEGACY:
+        case GigaChatTextModel.PRO_LEGACY:
+        case GigaChatTextModel.MAX_LEGACY:
             return 4096;
         default:
             throw new UnreachableStatementError(model);

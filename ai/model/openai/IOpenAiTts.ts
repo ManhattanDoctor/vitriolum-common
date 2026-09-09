@@ -8,9 +8,18 @@ export interface IOpenAiTtsOptions {
 }
 
 export enum OpenAiTtsModel {
+    GPT_4_O_MINI_TTS = 'gpt-4o-mini-tts',
+
+    /** @deprecated Legacy model. Use GPT_4_O_MINI_TTS instead. */
     TTS_1 = 'tts-1',
+    /** @deprecated Legacy model. Use GPT_4_O_MINI_TTS instead. */
     TTS_1_HD = 'tts-1-hd',
 }
+
+/** Models offered for a new selection, the first one is used as the default */
+export const OPEN_AI_TTS_MODELS_ACTUAL: Array<OpenAiTtsModel> = [
+    OpenAiTtsModel.GPT_4_O_MINI_TTS,
+];
 
 export enum OpenAiTtsVoice {
     ECHO = 'echo',

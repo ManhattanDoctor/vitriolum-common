@@ -8,8 +8,20 @@ export interface IOpenAiSttOptions {
 }
 
 export enum OpenAiSttModel {
-    WHISPER_1 = 'whisper-1'
+    GPT_TRANSCRIBE = 'gpt-transcribe',
+    GPT_4_O_TRANSCRIBE = 'gpt-4o-transcribe',
+    GPT_4_O_MINI_TRANSCRIBE = 'gpt-4o-mini-transcribe',
+
+    /** @deprecated Legacy model. Use GPT_TRANSCRIBE instead. */
+    WHISPER_1 = 'whisper-1',
 }
+
+/** Models offered for a new selection, the first one is used as the default */
+export const OPEN_AI_STT_MODELS_ACTUAL: Array<OpenAiSttModel> = [
+    OpenAiSttModel.GPT_TRANSCRIBE,
+    OpenAiSttModel.GPT_4_O_TRANSCRIBE,
+    OpenAiSttModel.GPT_4_O_MINI_TRANSCRIBE,
+];
 
 export interface IOpenAiSttModelDetails extends IOpenAiModelDetails<OpenAiSttModel> { }
 

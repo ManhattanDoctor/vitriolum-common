@@ -9,6 +9,7 @@ export let LanguageProjects: Array<ILanguageProjectSettings> = [
             'Custom.json',
 
             'Ai.json',
+            'Mcp.json',
             'User.json',
             'Coin.json',
             'File.json',

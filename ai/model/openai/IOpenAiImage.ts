@@ -13,5 +13,16 @@ export type IOpenAiImageResponse = Array<IAiImage>;
 
 export type IOpenAiImageConsumption = number;
 
+/**
+ * GPT image models are billed per token, not per image: the amount of the drawn pictures
+ * is not enough to calculate the price, so the token usage is reported instead
+ */
+export interface IOpenAiImageGptConsumption {
+    amount: number;
+
+    input?: number;
+    output?: number;
+}
+
 export const OPEN_AI_IMAGE_OPTIONS_N_MIN = 1;
 export const OPEN_AI_IMAGE_OPTIONS_N_MAX = 4;

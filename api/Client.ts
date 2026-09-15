@@ -19,6 +19,12 @@ import { User } from '../user';
 import { IContentGetDto } from './content';
 import * as _ from 'lodash';
 import { IVoiceAddDto, IVoiceAddDtoResponse, IVoiceEditDto, IVoiceEditDtoResponse, IVoiceGetDtoResponse, IVoiceListDto, IVoiceListDtoResponse } from './voice';
+import { IAgentAddDto, IAgentAddDtoResponse, IAgentEditDto, IAgentEditDtoResponse, IAgentGetDtoResponse, IAgentListDto, IAgentListDtoResponse } from './agent';
+import { IAgentGraphAddDto, IAgentGraphAddDtoResponse, IAgentGraphEditDto, IAgentGraphEditDtoResponse, IAgentGraphGetDtoResponse, IAgentGraphListDto, IAgentGraphListDtoResponse } from './agentGraph';
+import { IAgentGraphRunDto, IAgentGraphRunDtoResponse, IAgentGraphResumeDto, IAgentGraphResumeDtoResponse, IAgentGraphRunGetDtoResponse, IAgentGraphRunListDto, IAgentGraphRunListDtoResponse } from './agentGraph';
+import { Agent, AgentGraph, AgentGraphRun } from '../agent';
+import { IMcpServerAddDto, IMcpServerAddDtoResponse, IMcpServerEditDto, IMcpServerEditDtoResponse, IMcpServerGetDtoResponse, IMcpServerListDto, IMcpServerListDtoResponse } from './mcpServer';
+import { McpServer } from '../mcp';
 import { Voice } from '../voice';
 import { IToolConvertDto, IToolConvertDtoResponse } from './tool';
 
@@ -207,6 +213,130 @@ export class Client extends TransportHttp {
 
     // --------------------------------------------------------------------------
     //
+    //  Agent Methods
+    //
+    // --------------------------------------------------------------------------
+
+    public async agentAdd(data: IAgentAddDto): Promise<IAgentAddDtoResponse> {
+        let item = await this.call<IAgentAddDtoResponse, IAgentAddDto>(`${AGENT_URL}`, { data: TraceUtil.addIfNeed(data), method: 'post' });
+        return TransformUtil.toClass(Agent, item);
+    }
+
+    public async agentEdit(data: IAgentEditDto): Promise<IAgentEditDtoResponse> {
+        let item = await this.call<IAgentEditDtoResponse, IAgentEditDto>(`${AGENT_URL}/${data.id}`, { method: 'put', data: TraceUtil.addIfNeed(data) });
+        return TransformUtil.toClass(Agent, item);
+    }
+
+    public async agentList(data?: IAgentListDto): Promise<IAgentListDtoResponse> {
+        let item = await this.call<IAgentListDtoResponse, IAgentListDto>(`${AGENT_URL}`, { data: TraceUtil.addIfNeed(data) });
+        item.items = TransformUtil.toClassMany(Agent, item.items);
+        return item;
+    }
+
+    public async agentGet(id: number): Promise<IAgentGetDtoResponse> {
+        let item = await this.call<IAgentGetDtoResponse, number>(`${AGENT_URL}/${id}`);
+        return TransformUtil.toClass(Agent, item);
+    }
+
+    public async agentRemove(id: number): Promise<void> {
+        return this.call<void, number>(`${AGENT_URL}/${id}`, { method: 'delete' });
+    }
+
+    // --------------------------------------------------------------------------
+    //
+    //  Mcp Server Methods
+    //
+    // --------------------------------------------------------------------------
+
+    public async mcpServerAdd(data: IMcpServerAddDto): Promise<IMcpServerAddDtoResponse> {
+        let item = await this.call<IMcpServerAddDtoResponse, IMcpServerAddDto>(`${MCP_SERVER_URL}`, { data: TraceUtil.addIfNeed(data), method: 'post' });
+        return TransformUtil.toClass(McpServer, item);
+    }
+
+    public async mcpServerEdit(data: IMcpServerEditDto): Promise<IMcpServerEditDtoResponse> {
+        let item = await this.call<IMcpServerEditDtoResponse, IMcpServerEditDto>(`${MCP_SERVER_URL}/${data.id}`, { method: 'put', data: TraceUtil.addIfNeed(data) });
+        return TransformUtil.toClass(McpServer, item);
+    }
+
+    public async mcpServerList(data?: IMcpServerListDto): Promise<IMcpServerListDtoResponse> {
+        let item = await this.call<IMcpServerListDtoResponse, IMcpServerListDto>(`${MCP_SERVER_URL}`, { data: TraceUtil.addIfNeed(data) });
+        item.items = TransformUtil.toClassMany(McpServer, item.items);
+        return item;
+    }
+
+    public async mcpServerGet(id: number): Promise<IMcpServerGetDtoResponse> {
+        let item = await this.call<IMcpServerGetDtoResponse, number>(`${MCP_SERVER_URL}/${id}`);
+        return TransformUtil.toClass(McpServer, item);
+    }
+
+    public async mcpServerRemove(id: number): Promise<void> {
+        return this.call<void, number>(`${MCP_SERVER_URL}/${id}`, { method: 'delete' });
+    }
+
+    // --------------------------------------------------------------------------
+    //
+    //  Agent Graph Methods
+    //
+    // --------------------------------------------------------------------------
+
+    public async agentGraphAdd(data: IAgentGraphAddDto): Promise<IAgentGraphAddDtoResponse> {
+        let item = await this.call<IAgentGraphAddDtoResponse, IAgentGraphAddDto>(`${AGENT_GRAPH_URL}`, { data: TraceUtil.addIfNeed(data), method: 'post' });
+        return TransformUtil.toClass(AgentGraph, item);
+    }
+
+    public async agentGraphEdit(data: IAgentGraphEditDto): Promise<IAgentGraphEditDtoResponse> {
+        let item = await this.call<IAgentGraphEditDtoResponse, IAgentGraphEditDto>(`${AGENT_GRAPH_URL}/${data.id}`, { method: 'put', data: TraceUtil.addIfNeed(data) });
+        return TransformUtil.toClass(AgentGraph, item);
+    }
+
+    public async agentGraphList(data?: IAgentGraphListDto): Promise<IAgentGraphListDtoResponse> {
+        let item = await this.call<IAgentGraphListDtoResponse, IAgentGraphListDto>(`${AGENT_GRAPH_URL}`, { data: TraceUtil.addIfNeed(data) });
+        item.items = TransformUtil.toClassMany(AgentGraph, item.items);
+        return item;
+    }
+
+    public async agentGraphGet(id: number): Promise<IAgentGraphGetDtoResponse> {
+        let item = await this.call<IAgentGraphGetDtoResponse, number>(`${AGENT_GRAPH_URL}/${id}`);
+        return TransformUtil.toClass(AgentGraph, item);
+    }
+
+    public async agentGraphRemove(id: number): Promise<void> {
+        return this.call<void, number>(`${AGENT_GRAPH_URL}/${id}`, { method: 'delete' });
+    }
+
+    // --------------------------------------------------------------------------
+    //
+    //  Agent Graph Run Methods
+    //
+    // --------------------------------------------------------------------------
+
+    public async agentGraphRun(id: number, data: IAgentGraphRunDto): Promise<IAgentGraphRunDtoResponse> {
+        let item = await this.call<IAgentGraphRunDtoResponse, IAgentGraphRunDto>(`${AGENT_GRAPH_URL}/${id}/run`, { method: 'post', data: TraceUtil.addIfNeed(data) });
+        return TransformUtil.toClass(AgentGraphRun, item);
+    }
+
+    public async agentGraphRunResume(session: string, data: IAgentGraphResumeDto): Promise<IAgentGraphResumeDtoResponse> {
+        let item = await this.call<IAgentGraphResumeDtoResponse, IAgentGraphResumeDto>(`${AGENT_GRAPH_RUN_URL}/${session}/resume`, { method: 'post', data: TraceUtil.addIfNeed(data) });
+        return TransformUtil.toClass(AgentGraphRun, item);
+    }
+
+    public async agentGraphRunGet(session: string): Promise<IAgentGraphRunGetDtoResponse> {
+        let item = await this.call<IAgentGraphRunGetDtoResponse, string>(`${AGENT_GRAPH_RUN_URL}/${session}`);
+        return TransformUtil.toClass(AgentGraphRun, item);
+    }
+
+    public async agentGraphRunList(data?: IAgentGraphRunListDto): Promise<IAgentGraphRunListDtoResponse> {
+        let item = await this.call<IAgentGraphRunListDtoResponse, IAgentGraphRunListDto>(`${AGENT_GRAPH_RUN_URL}`, { data: TraceUtil.addIfNeed(data) });
+        item.items = TransformUtil.toClassMany(AgentGraphRun, item.items);
+        return item;
+    }
+
+    public async agentGraphRunCancel(session: string): Promise<void> {
+        return this.call<void, string>(`${AGENT_GRAPH_RUN_URL}/${session}`, { method: 'delete' });
+    }
+
+    // --------------------------------------------------------------------------
+    //
     //  File Methods
     //
     // --------------------------------------------------------------------------
@@ -380,6 +510,10 @@ export const TASK_URL = PREFIX + 'task';
 export const USER_URL = PREFIX + 'user';
 export const OAUTH_URL = PREFIX + 'oauth';
 export const VOICE_URL = PREFIX + 'voice';
+export const AGENT_URL = PREFIX + 'agent';
+export const MCP_SERVER_URL = PREFIX + 'mcpServer';
+export const AGENT_GRAPH_URL = PREFIX + 'agentGraph';
+export const AGENT_GRAPH_RUN_URL = PREFIX + 'agentGraphRun';
 export const LOCALE_URL = PREFIX + 'locale';
 export const CONTENT_URL = PREFIX + 'content';
 export const AI_MODEL_URL = PREFIX + 'aimodel';

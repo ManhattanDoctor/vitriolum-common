@@ -3,6 +3,8 @@ import { IUserEditDto } from '../api/user';
 import { Conversation, ConversationStatus } from '../conversation';
 import { File, FILE_PARENT_DIRECTORY_ID, FileType } from '../file';
 import { Voice } from '../voice';
+import { Agent, AgentGraph, AgentGraphRun, AgentGraphRunStatus } from '../agent';
+import { McpServer } from '../mcp';
 import { FileUtil } from './FileUtil';
 import * as _ from 'lodash';
 
@@ -160,6 +162,117 @@ export class PermissionUtil {
 
     public static fileIsCanLinkAdd(item: File, user: User): boolean {
         return PermissionUtil.fileIsCanOpen(item, user) && item.type !== FileType.LINK && item.type !== FileType.DIRECTORY;
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    // 	Mcp Server Methods
+    //
+    //--------------------------------------------------------------------------
+
+    public static mcpServerIsCanOpen(item: McpServer, user: User): boolean {
+        if (_.isNil(user)) {
+            return false;
+        }
+        if (PermissionUtil.userIsAdministrator(user)) {
+            return true;
+        }
+        // the built in servers have no owner and are available to everyone
+        return _.isNil(item.userId) || item.userId === user.id;
+    }
+
+    public static mcpServerIsCanEdit(item: McpServer, user: User): boolean {
+        if (_.isNil(user)) {
+            return false;
+        }
+        if (PermissionUtil.userIsAdministrator(user)) {
+            return true;
+        }
+        // the built in servers are managed by the administrators only
+        return !_.isNil(item.userId) && item.userId === user.id;
+    }
+
+    public static mcpServerIsCanRemove(item: McpServer, user: User): boolean {
+        return PermissionUtil.mcpServerIsCanEdit(item, user);
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    // 	Agent Methods
+    //
+    //--------------------------------------------------------------------------
+
+    public static agentIsCanOpen(item: Agent, user: User): boolean {
+        if (_.isNil(user)) {
+            return false;
+        }
+        if (PermissionUtil.userIsAdministrator(user)) {
+            return true;
+        }
+        return item.userId === user.id;
+    }
+
+    public static agentIsCanEdit(item: Agent, user: User): boolean {
+        return PermissionUtil.agentIsCanOpen(item, user);
+    }
+
+    public static agentIsCanRemove(item: Agent, user: User): boolean {
+        return PermissionUtil.agentIsCanOpen(item, user);
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    // 	Agent Graph Methods
+    //
+    //--------------------------------------------------------------------------
+
+    public static agentGraphIsCanOpen(item: AgentGraph, user: User): boolean {
+        if (_.isNil(user)) {
+            return false;
+        }
+        if (PermissionUtil.userIsAdministrator(user)) {
+            return true;
+        }
+        return item.userId === user.id;
+    }
+
+    public static agentGraphIsCanEdit(item: AgentGraph, user: User): boolean {
+        return PermissionUtil.agentGraphIsCanOpen(item, user);
+    }
+
+    public static agentGraphIsCanRemove(item: AgentGraph, user: User): boolean {
+        return PermissionUtil.agentGraphIsCanOpen(item, user);
+    }
+
+    public static agentGraphIsCanRun(item: AgentGraph, user: User): boolean {
+        if (!PermissionUtil.agentGraphIsCanOpen(item, user)) {
+            return false;
+        }
+        return !_.isEmpty(item.nodes);
+    }
+
+    public static agentGraphRunIsCanOpen(item: AgentGraphRun, user: User): boolean {
+        if (_.isNil(user)) {
+            return false;
+        }
+        if (PermissionUtil.userIsAdministrator(user)) {
+            return true;
+        }
+        return item.userId === user.id;
+    }
+
+    public static agentGraphRunIsCanResume(item: AgentGraphRun, user: User): boolean {
+        if (!PermissionUtil.agentGraphRunIsCanOpen(item, user)) {
+            return false;
+        }
+        return item.status === AgentGraphRunStatus.AWAITING;
+    }
+
+    public static agentGraphRunIsCanCancel(item: AgentGraphRun, user: User): boolean {
+        if (!PermissionUtil.agentGraphRunIsCanOpen(item, user)) {
+            return false;
+        }
+        return item.status === AgentGraphRunStatus.IN_PROGRESS || item.status === AgentGraphRunStatus.AWAITING;
     }
 
     //--------------------------------------------------------------------------

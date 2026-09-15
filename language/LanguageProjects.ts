@@ -22,39 +22,5 @@ export let LanguageProjects: Array<ILanguageProjectSettings> = [
             'Gnosisai.json',
             'Server.json'
         ]
-    },
-    {
-        name: 'gnosisai-lite',
-        locales: ['ru', 'en'],
-        prefixes: [
-            '.json',
-            'Custom.json',
-
-            'Ai.json',
-            'User.json',
-            'Coin.json',
-            'File.json',
-            'About.json',
-            'Conversation.json',
-
-            'Lite.json'
-        ]
-    },
-    {
-        name: 'gnosisai-saccus',
-        locales: ['ru', 'en'],
-        prefixes: [
-            '.json',
-            'Custom.json',
-
-            'Ai.json',
-            'User.json',
-            'Coin.json',
-            'File.json',
-            'About.json',
-            'Conversation.json',
-
-            'Saccus.json'
-        ]
     }
-]
+];

@@ -112,6 +112,11 @@ export class AgentGraphUtil {
         return items;
     }
 
+    /** Беды, мешающие сохранению: незаполненные поля сюда не попадают, их доводят позже */
+    public static validateSave(item: AgentGraph): Array<IAgentGraphProblem> {
+        return AgentGraphUtil.validate(item).filter(value => value.isRunOnly !== true);
+    }
+
     private static validateNode(node: AgentGraphNode, uids: Array<string>, items: Array<IAgentGraphProblem>): void {
         let { uid, type, options } = node;
 
@@ -130,14 +135,16 @@ export class AgentGraphUtil {
             items.push({ code: AgentGraphProblem.TYPE_EMPTY, uid });
             return;
         }
+        // незаполненность мешает работе, но не сохранению: граф собирают постепенно,
+        // и новый начинается с пустого узла, которому агента ещё не выбрали
         if (type === AgentGraphNodeType.AGENT && _.isNil(node.agentId)) {
-            items.push({ code: AgentGraphProblem.AGENT_MISSING, uid });
+            items.push({ code: AgentGraphProblem.AGENT_MISSING, uid, isRunOnly: true });
         }
         if (type === AgentGraphNodeType.FILE && (_.isNil(options) || _.isEmpty(options.fileMime))) {
-            items.push({ code: AgentGraphProblem.FILE_MIME_MISSING, uid });
+            items.push({ code: AgentGraphProblem.FILE_MIME_MISSING, uid, isRunOnly: true });
         }
         if (type === AgentGraphNodeType.FILE && (_.isNil(options) || _.isEmpty(options.fileContent))) {
-            items.push({ code: AgentGraphProblem.FILE_CONTENT_MISSING, uid });
+            items.push({ code: AgentGraphProblem.FILE_CONTENT_MISSING, uid, isRunOnly: true });
         }
         // ссылка на узел, которого нет: опечатка в uid оставляла пустое место вместо ответа
         if (!_.isNil(options) && !_.isEmpty(options.prompt)) {
@@ -177,4 +184,6 @@ export interface IAgentGraphProblem {
     uid?: string;
     /** Подробность беды, например имя узла, которого нет в подстановке */
     value?: string;
+    /** Беда мешает работе графа, но не его сохранению: поле просто ещё не заполнили */
+    isRunOnly?: boolean;
 }

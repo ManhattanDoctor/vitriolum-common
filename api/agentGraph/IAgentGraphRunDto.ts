@@ -4,6 +4,8 @@ import { AgentGraphRun } from '../../agent';
 export interface IAgentGraphRunDto extends ITraceable {
     input: string;
     session?: string;
+    /** Файлы, с которыми начинается прогон: макет, бриф, образец — их увидят узлы с самого начала */
+    fileIds?: Array<number>;
 }
 
 export type IAgentGraphRunDtoResponse = AgentGraphRun;

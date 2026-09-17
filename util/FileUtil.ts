@@ -21,7 +21,21 @@ export class FileUtil {
     //
     // --------------------------------------------------------------------------
 
+    /**
+     * Имя становится ключом в хранилище и частью ссылки, а приходит сюда сырым: в него попадает
+     * промпт целиком. «?» и «#» обрезают ссылку при запросе, «/» создаёт лишнюю вложенность
+     */
+    public static clearName(item: string): string {
+        return item
+            .replace(/[\\/:*?"<>|#%&{}$+`'=@]/g, ' ')
+            // управляющие символы в ключе недопустимы, а перевод строки ещё и ломает подпись запроса
+            .replace(/[\x00-\x1f\x7f]/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+    }
+
     public static createName(mime: string, name?: string): string {
+        name = !_.isEmpty(name) ? FileUtil.clearName(name) : null;
         if (_.isEmpty(name)) {
             name = Sha512.hex(TraceUtil.generate());
         }

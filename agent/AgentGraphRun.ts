@@ -42,6 +42,8 @@ export class AgentGraphRunStep {
 
     public uid: string;
     public value: string;
+    /** Файлы, созданные этим узлом: иначе видна лишь общая куча прогона, без того, кто её сделал */
+    public files?: Array<number>;
 
     @Type(() => Date)
     public date: Date;

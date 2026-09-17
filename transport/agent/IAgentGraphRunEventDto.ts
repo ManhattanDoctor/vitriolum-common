@@ -7,6 +7,8 @@ export interface IAgentGraphRunEventDto {
 export interface IAgentGraphRunProgressEventDto extends IAgentGraphRunEventDto {
     uid: string;
     value: string;
+    /** Файлы, созданные узлом: без них они появлялись бы только после перечитывания прогона */
+    files?: Array<number>;
 }
 
 export interface IAgentGraphRunAwaitingEventDto extends IAgentGraphRunEventDto {

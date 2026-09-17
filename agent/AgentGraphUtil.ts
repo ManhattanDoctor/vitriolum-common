@@ -146,11 +146,22 @@ export class AgentGraphUtil {
         if (type === AgentGraphNodeType.FILE && (_.isNil(options) || _.isEmpty(options.fileContent))) {
             items.push({ code: AgentGraphProblem.FILE_CONTENT_MISSING, uid, isRunOnly: true });
         }
-        // ссылка на узел, которого нет: опечатка в uid оставляла пустое место вместо ответа
-        if (!_.isNil(options) && !_.isEmpty(options.prompt)) {
+        // ссылка на узел, которого нет: опечатка в uid оставляет пустое место вместо ответа.
+        // проверяются все поля с подстановками, а не только задание: файловый узел ссылается из содержимого
+        if (_.isNil(options)) {
+            return;
+        }
+        let templates = [options.prompt, options.fileContent, options.fileName, options.fileDirectory, options.fileReadId, options.fileReadName, options.fileRemoveId];
+        if (!_.isEmpty(options.fileTags)) {
+            templates.push(...options.fileTags);
+        }
+        for (let template of templates) {
+            if (_.isEmpty(template)) {
+                continue;
+            }
             let match: RegExpExecArray;
             let expression = new RegExp(AgentGraphUtil.SCRATCHPAD.source, 'g');
-            while (!_.isNil(match = expression.exec(options.prompt))) {
+            while (!_.isNil(match = expression.exec(template))) {
                 if (!uids.includes(match[1])) {
                     items.push({ code: AgentGraphProblem.SCRATCHPAD_UNKNOWN, uid, value: match[1] });
                 }

@@ -66,9 +66,11 @@ export class AgentGraphTemplateUtil {
                         maxIterations: 8,
                         prompt: [
                             'Задание: {input}',
+                            'Приложенные файлы: {files}',
                             'Твоя предыдущая работа: {scratchpad.author}',
                             'Замечание рецензента: {output}',
                             '',
+                            'Если приложены файлы — работай с ними, а не с чистого листа.',
                             'Если предыдущей работы нет — сделай новую по заданию. Если есть — исправь её по замечанию.',
                             'Верни только саму работу, без пояснений.'
                         ].join('\n')
@@ -115,9 +117,11 @@ export class AgentGraphTemplateUtil {
                         maxIterations: 8,
                         prompt: [
                             'Задание: {input}',
+                            'Приложенные файлы: {files}',
                             'Твоя предыдущая работа: {scratchpad.author}',
                             'Замечание: {output}',
                             '',
+                            'Если приложены файлы — работай с ними, а не с чистого листа.',
                             'Если предыдущей работы нет — сделай новую по заданию. Если есть — исправь её по замечанию.'
                         ].join('\n')
                     }
@@ -143,7 +147,7 @@ export class AgentGraphTemplateUtil {
                     type: AgentGraphNodeType.AGENT,
                     name: 'Исполнитель',
                     position: { x: 200, y: 260 },
-                    options: { isOutput: true, prompt: 'Задание: {input}' }
+                    options: { isOutput: true, prompt: 'Задание: {input}\nПриложенные файлы: {files}' }
                 },
                 {
                     uid: 'saver',
@@ -174,7 +178,7 @@ export class AgentGraphTemplateUtil {
                     type: AgentGraphNodeType.AGENT,
                     name: 'Черновик',
                     position: { x: 200, y: 260 },
-                    options: { prompt: 'Задание: {input}\n\nСделай черновик.' }
+                    options: { prompt: 'Задание: {input}\nПриложенные файлы: {files}\n\nСделай черновик.' }
                 },
                 {
                     uid: 'final',

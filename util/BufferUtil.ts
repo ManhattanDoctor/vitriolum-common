@@ -2,17 +2,10 @@ import { AI_MODEL_TIMEOUT } from '../ai';
 import { FileMime, IFileInput } from '../file';
 import { DateUtil, UrlUtil } from '@ts-core/common';
 import { FileUtil } from './FileUtil';
+import { Base64Util } from './Base64Util';
 import * as _ from 'lodash';
 
 export class BufferUtil {
-
-    //--------------------------------------------------------------------------
-    //
-    //	Constants
-    //
-    //--------------------------------------------------------------------------
-
-    private static BASE64_PREFIX = 'base64,';
 
     // --------------------------------------------------------------------------
     //
@@ -39,11 +32,6 @@ export class BufferUtil {
         return Buffer.from(item, encoding);
     }
 
-    public static fromBase64Data(item: string): Buffer {
-        let index = item.indexOf(BufferUtil.BASE64_PREFIX);
-        return index > -1 ? BufferUtil.fromString(item.substr(index + BufferUtil.BASE64_PREFIX.length)) : null;
-    }
-
     public static async fromFileInput(item: IFileInput): Promise<{ buffer: Buffer, mime: FileMime }> {
         let { source, mime } = item;
         let buffer = BufferUtil.fromString(source);
@@ -51,6 +39,13 @@ export class BufferUtil {
             buffer = await BufferUtil.fromUrl(source);
             if (_.isEmpty(mime)) {
                 mime = FileUtil.getMime(FileUtil.getExtensionByUrl(source));
+            }
+        }
+        // без отрезания префикса "data:image/png;base64," он декодируется вместе с содержимым и файл выходит битым
+        else if (Base64Util.isData(source)) {
+            buffer = Base64Util.fromData(source);
+            if (_.isEmpty(mime)) {
+                mime = Base64Util.getDataMime(source);
             }
         }
         return { buffer, mime };
@@ -73,11 +68,4 @@ export class BufferUtil {
         return item.toString(encoding);
     }
 
-    public static toBase64Data(item: Buffer | string, mime: string): string {
-        if (!_.isString(item)) {
-            item = BufferUtil.toString(item);
-        }
-        item = item.replace(/(\r\n|\n|\r)/gm, '')
-        return `data:${mime};${BufferUtil.BASE64_PREFIX}${item}`;
-    }
 }

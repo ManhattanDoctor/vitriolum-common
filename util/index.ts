@@ -4,4 +4,5 @@ export * from './LoginUtil';
 export * from './ImageUtil';
 export * from './FileUtil';
 export * from './BufferUtil';
+export * from './Base64Util';
 export * from './PermissionUtil';

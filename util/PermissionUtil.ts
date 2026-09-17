@@ -275,6 +275,14 @@ export class PermissionUtil {
         return item.status === AgentGraphRunStatus.IN_PROGRESS || item.status === AgentGraphRunStatus.AWAITING;
     }
 
+    /** A run that is still going is cancelled, not removed: its task lives in the memory of the process */
+    public static agentGraphRunIsCanRemove(item: AgentGraphRun, user: User): boolean {
+        if (!PermissionUtil.agentGraphRunIsCanOpen(item, user)) {
+            return false;
+        }
+        return item.status !== AgentGraphRunStatus.IN_PROGRESS;
+    }
+
     //--------------------------------------------------------------------------
     //
     // 	Voice Methods

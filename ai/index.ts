@@ -1,5 +1,6 @@
 export * from './AiTool';
 export * from './AiModel';
+export * from './AiPrice';
 export * from './AiTtsModel';
 export * from './AiSttModel';
 export * from './AiTextModel';

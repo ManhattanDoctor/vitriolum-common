@@ -335,6 +335,10 @@ export class Client extends TransportHttp {
         return this.call<void, string>(`${AGENT_GRAPH_RUN_URL}/${session}`, { method: 'delete' });
     }
 
+    public async agentGraphRunRemove(session: string): Promise<void> {
+        return this.call<void, string>(`${AGENT_GRAPH_RUN_URL}/${session}/remove`, { method: 'delete' });
+    }
+
     // --------------------------------------------------------------------------
     //
     //  File Methods

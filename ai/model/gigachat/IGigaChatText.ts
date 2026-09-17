@@ -1,6 +1,6 @@
 import { UnreachableStatementError } from "@ts-core/common";
 import { IGigaChatModelDetails } from "./IGigaChatModel";
-import { AiToolType, IAiTextOptions } from "../../../ai";
+import { IAiTextOptions, IAiToolItem } from "../../../ai";
 import { IAiTextConsumption } from "../IAiTextConsumption";
 import { IAiTextProgress } from "../IAiTextProgress";
 import { IAiTextResponse } from "../IAiTextResponse";
@@ -8,7 +8,8 @@ import { IAiTextResponse } from "../IAiTextResponse";
 export interface IGigaChatTextOptions extends IAiTextOptions {
     model: GigaChatTextModel;
     topP?: number;
-    tools?: Array<AiToolType>;
+    /** Either an AiToolType value or an mcp server uid */
+    tools?: Array<string>;
     maxTokens?: number;
     temperature?: number;
     repetitionPenalty?: number;
@@ -41,7 +42,7 @@ export type IGigaChatTextResponse = IAiTextResponse;
 export type IGigaChatTextConsumption = IAiTextConsumption;
 
 export interface IGigaChatTextModelDetails extends IGigaChatModelDetails<GigaChatTextModel> {
-    tools: Array<AiToolType>;
+    tools: Array<IAiToolItem>;
 }
 
 export const GIGA_CHAT_TEXT_OPTIONS_TEMPERATURE_MIN = 0;

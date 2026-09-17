@@ -1,13 +1,14 @@
 import { UnreachableStatementError } from "@ts-core/common";
 import { IAnthropicModelDetails } from "./IAnthropicModel";
 import { IAiTextConsumption } from "../IAiTextConsumption";
-import { AiToolType, IAiTextOptions } from "../../../ai";
+import { IAiTextOptions, IAiToolItem } from "../../../ai";
 import { IAiTextProgress } from "../IAiTextProgress";
 import { IAiTextResponse } from "../IAiTextResponse";
 
 export interface IAnthropicTextOptions extends IAiTextOptions {
     model: AnthropicTextModel;
-    tools?: Array<AiToolType>;
+    /** Either an AiToolType value or an mcp server uid */
+    tools?: Array<string>;
     topP?: number;
     topK?: number;
     maxTokens?: number;
@@ -56,7 +57,7 @@ export type IAnthropicTextResponse = IAiTextResponse;
 export type IAnthropicTextConsumption = IAiTextConsumption;
 
 export interface IAnthropicTextModelDetails extends IAnthropicModelDetails<AnthropicTextModel> {
-    tools: Array<AiToolType>;
+    tools: Array<IAiToolItem>;
 }
 
 export const ANTHROPIC_TEXT_OPTIONS_TEMPERATURE_MIN = 0;

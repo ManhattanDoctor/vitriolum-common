@@ -11,6 +11,8 @@ export enum AiToolType {
     IMAGE_OPEN_AI = 'IMAGE_OPEN_AI',
     TTS_OPEN_AI = 'TTS_OPEN_AI',
     STT_OPEN_AI = 'STT_OPEN_AI',
+    MEDIA_CONVERT = 'MEDIA_CONVERT',
+    IMAGE_RESIZE = 'IMAGE_RESIZE',
 }
 
 /** The lifecycle of a single tool call, reported to the client while the task is running */

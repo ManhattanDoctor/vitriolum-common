@@ -20,6 +20,8 @@ export class AgentGraphRun {
     public output?: string;
     public error?: string;
     public files?: Array<number>;
+    /** Файлы, приложенные человеком при запуске: остальные создали узлы прогона */
+    public inputFiles?: Array<number>;
     public steps?: Array<AgentGraphRunStep>;
     public consumption?: IAiTextConsumption;
 

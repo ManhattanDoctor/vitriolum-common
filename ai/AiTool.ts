@@ -13,6 +13,11 @@ export enum AiToolType {
     STT_OPEN_AI = 'STT_OPEN_AI',
     MEDIA_CONVERT = 'MEDIA_CONVERT',
     IMAGE_RESIZE = 'IMAGE_RESIZE',
+    DOCUMENT_SEARCH = 'DOCUMENT_SEARCH',
+    DOCUMENT_READ = 'DOCUMENT_READ',
+    DOCUMENT_DIFF = 'DOCUMENT_DIFF',
+    TABLE_QUERY = 'TABLE_QUERY',
+    DOCUMENT_WRITE = 'DOCUMENT_WRITE',
 }
 
 /** The lifecycle of a single tool call, reported to the client while the task is running */

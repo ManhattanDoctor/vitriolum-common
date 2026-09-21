@@ -2,6 +2,8 @@ import { File } from "./File";
 
 export interface IFileContentSearchOptions {
     files?: Array<FileSearchInfo>;
+    /** Владелец записей: сужает поиск вместе со списком файлов, а не вместо него */
+    userId?: number;
     scope?: FileContentSearchScope;
     divider?: string;
     isUseChunks?: boolean;

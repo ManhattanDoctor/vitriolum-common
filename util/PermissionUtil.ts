@@ -181,15 +181,13 @@ export class PermissionUtil {
         return _.isNil(item.userId) || item.userId === user.id;
     }
 
+    // серверами управляют только администраторы, их серверы общие для всех
+    public static mcpServerIsCanAdd(user: User): boolean {
+        return PermissionUtil.userIsAdministrator(user);
+    }
+
     public static mcpServerIsCanEdit(item: McpServer, user: User): boolean {
-        if (_.isNil(user)) {
-            return false;
-        }
-        if (PermissionUtil.userIsAdministrator(user)) {
-            return true;
-        }
-        // the built in servers are managed by the administrators only
-        return !_.isNil(item.userId) && item.userId === user.id;
+        return PermissionUtil.userIsAdministrator(user);
     }
 
     public static mcpServerIsCanRemove(item: McpServer, user: User): boolean {

@@ -86,6 +86,7 @@ export enum FileAudioExtension {
     OPUS = 'opus',
     FLAC = 'flac',
     MPGA = 'mpga',
+    M4A = 'm4a',
 }
 export enum FileVideoExtension {
     MP4 = 'mp4',
@@ -123,6 +124,7 @@ export enum FileAudioMime {
     FLAC = 'audio/x-flac',
     MPEG = 'audio/mpeg',
     WAV = 'audio/wav',
+    M4A = 'audio/mp4',
 }
 export enum FileVideoMime {
     MP4 = 'video/mp4',
@@ -150,6 +152,22 @@ export const FileSystemMimes: Array<string> = Object.values(FileSystemMime);
 export const FileDocumentMimes: Array<string> = Object.values(FileDocumentMime);
 export const FileMimes = [...FileImageMimes, ...FileDocumentMimes, ...FileAudioMimes, ...FileVideoMimes, ...FileSystemMimes];
 export type FileMime = FileImageMime | FileDocumentMime | FileAudioMime | FileVideoMime | FileSystemMime;
+
+/**
+ * Другие названия тех же форматов, которые присылают браузеры и системы: mime берётся у браузера как есть,
+ * и m4a с Mac приходит как audio/x-m4a, а FLAC из Chrome — как audio/flac. При сохранении название
+ * приводится к основному (FileUtil.normalizeMime), поэтому в базе и дальше по коду живут только основные
+ */
+export const FileMimeAliases: Record<string, FileMime> = {
+    'image/jpg': FileImageMime.JPEG,
+    'audio/mp3': FileAudioMime.MPEG,
+    'audio/x-wav': FileAudioMime.WAV,
+    'audio/wave': FileAudioMime.WAV,
+    'audio/flac': FileAudioMime.FLAC,
+    'audio/x-m4a': FileAudioMime.M4A,
+    'audio/m4a': FileAudioMime.M4A,
+    'video/x-msvideo': FileVideoMime.AVI,
+};
 
 export const FILE_SIZE_MAX = 1073741824; // 1000 Mb
 export const FILE_AMOUNT_MAX = 500;

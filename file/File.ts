@@ -96,6 +96,7 @@ export enum FileVideoExtension {
 }
 export enum FileDocumentExtension {
     TXT = 'txt',
+    MD = 'md',
     PDF = 'pdf',
     DOC = 'doc',
     DOCX = 'docx',
@@ -135,6 +136,7 @@ export enum FileVideoMime {
 
 export enum FileDocumentMime {
     TXT = 'text/plain',
+    MD = 'text/markdown',
     PDF = 'application/pdf',
     DOC = 'application/msword',
     JSON = 'application/json',
@@ -167,6 +169,7 @@ export const FileMimeAliases: Record<string, FileMime> = {
     'audio/x-m4a': FileAudioMime.M4A,
     'audio/m4a': FileAudioMime.M4A,
     'video/x-msvideo': FileVideoMime.AVI,
+    'text/x-markdown': FileDocumentMime.MD,
 };
 
 export const FILE_SIZE_MAX = 1073741824; // 1000 Mb

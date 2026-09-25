@@ -169,6 +169,7 @@ export class FileUtil {
             case FileImageMime.JPEG:
             case FileDocumentMime.PDF:
             case FileDocumentMime.TXT:
+            case FileDocumentMime.MD:
             case FileDocumentMime.DOCX:
                 return true;
             default:

@@ -2,37 +2,16 @@ import { Type } from 'class-transformer';
 import { User } from '../user';
 import { AgentGraph } from './AgentGraph';
 import { IAiTextConsumption } from '../ai/model';
+import { ApiProperty, ApiPropertyOptional } from '@ts-core/swagger';
 
-export class AgentGraphRun {
-    // --------------------------------------------------------------------------
-    //
-    //  Properties
-    //
-    // --------------------------------------------------------------------------
+// Статус и шаг объявлены раньше AgentGraphRun: декораторы Swagger читают их при загрузке модуля
 
-    public id: number;
-    public session: string;
-    public status: AgentGraphRunStatus;
-    public graphId: number;
-    public userId: number;
-
-    public input?: string;
-    public output?: string;
-    public error?: string;
-    public files?: Array<number>;
-    /** Файлы, приложенные человеком при запуске: остальные создали узлы прогона */
-    public inputFiles?: Array<number>;
-    public steps?: Array<AgentGraphRunStep>;
-    public consumption?: IAiTextConsumption;
-
-    public graph?: AgentGraph;
-    public user?: User;
-
-    @Type(() => Date)
-    public createdDate: Date;
-
-    @Type(() => Date)
-    public finishedDate?: Date;
+export enum AgentGraphRunStatus {
+    IN_PROGRESS = 'IN_PROGRESS',
+    AWAITING = 'AWAITING',
+    COMPLETED = 'COMPLETED',
+    CANCELED = 'CANCELED',
+    ERROR = 'ERROR'
 }
 
 export class AgentGraphRunStep {
@@ -42,19 +21,62 @@ export class AgentGraphRunStep {
     //
     // --------------------------------------------------------------------------
 
+    @ApiProperty({ description: 'UID of the node that made the step' })
     public uid: string;
+    @ApiProperty({ description: 'Answer of the node' })
     public value: string;
     /** Файлы, созданные этим узлом: иначе видна лишь общая куча прогона, без того, кто её сделал */
+    @ApiPropertyOptional({ description: 'Files created by the node', type: [Number] })
     public files?: Array<number>;
 
+    @ApiProperty({ description: 'Step date', type: Date })
     @Type(() => Date)
     public date: Date;
 }
 
-export enum AgentGraphRunStatus {
-    IN_PROGRESS = 'IN_PROGRESS',
-    AWAITING = 'AWAITING',
-    COMPLETED = 'COMPLETED',
-    CANCELED = 'CANCELED',
-    ERROR = 'ERROR'
+export class AgentGraphRun {
+    // --------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    // --------------------------------------------------------------------------
+
+    @ApiProperty({ description: 'Run ID' })
+    public id: number;
+    @ApiProperty({ description: 'Run session UUID' })
+    public session: string;
+    @ApiProperty({ description: 'Run status', enum: AgentGraphRunStatus })
+    public status: AgentGraphRunStatus;
+    @ApiProperty({ description: 'Graph ID' })
+    public graphId: number;
+    @ApiProperty({ description: 'Owner user ID' })
+    public userId: number;
+
+    @ApiPropertyOptional({ description: 'Input text of the run' })
+    public input?: string;
+    @ApiPropertyOptional({ description: 'Result of the run' })
+    public output?: string;
+    @ApiPropertyOptional({ description: 'Error message when the run failed' })
+    public error?: string;
+    @ApiPropertyOptional({ description: 'All files of the run', type: [Number] })
+    public files?: Array<number>;
+    /** Файлы, приложенные человеком при запуске: остальные создали узлы прогона */
+    @ApiPropertyOptional({ description: 'Files attached at start', type: [Number] })
+    public inputFiles?: Array<number>;
+    @ApiPropertyOptional({ description: 'Steps of the run', type: [AgentGraphRunStep] })
+    public steps?: Array<AgentGraphRunStep>;
+    @ApiPropertyOptional({ description: 'Tokens and cost spent by the run', type: Object })
+    public consumption?: IAiTextConsumption;
+
+    @ApiPropertyOptional({ description: 'Graph of the run' })
+    public graph?: AgentGraph;
+    public user?: User;
+
+    @ApiProperty({ description: 'Creation date', type: Date })
+    @Type(() => Date)
+    public createdDate: Date;
+
+    @ApiPropertyOptional({ description: 'Finish date', type: Date })
+    @Type(() => Date)
+    public finishedDate?: Date;
 }

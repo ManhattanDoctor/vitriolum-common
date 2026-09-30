@@ -1,32 +1,8 @@
 import { Type } from 'class-transformer';
 import { User } from '../user';
+import { ApiProperty, ApiPropertyOptional } from '@ts-core/swagger';
 
-export class McpServer {
-    // --------------------------------------------------------------------------
-    //
-    //  Properties
-    //
-    // --------------------------------------------------------------------------
-
-    public id: number;
-    public uid: string;
-    public name: string;
-    public url: string;
-    public status: McpServerStatus;
-
-    public userId?: number;
-    public headers?: Record<string, string>;
-    public transport?: McpServerTransport;
-    public description?: string;
-
-    public user?: User;
-
-    @Type(() => Date)
-    public createdDate: Date;
-
-    @Type(() => Date)
-    public updatedDate?: Date;
-}
+// Перечисления объявлены раньше McpServer: декораторы Swagger читают их при загрузке модуля
 
 export enum McpServerStatus {
     ACTIVE = 'ACTIVE',
@@ -36,6 +12,44 @@ export enum McpServerStatus {
 export enum McpServerTransport {
     HTTP = 'http',
     SSE = 'sse'
+}
+
+export class McpServer {
+    // --------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    // --------------------------------------------------------------------------
+
+    @ApiProperty({ description: 'MCP server ID' })
+    public id: number;
+    @ApiProperty({ description: 'Unique identifier used as a tool reference in agents' })
+    public uid: string;
+    @ApiProperty({ description: 'MCP server name' })
+    public name: string;
+    @ApiProperty({ description: 'Server URL, returned to administrators only' })
+    public url: string;
+    @ApiProperty({ description: 'MCP server status', enum: McpServerStatus })
+    public status: McpServerStatus;
+
+    @ApiPropertyOptional({ description: 'Owner user ID' })
+    public userId?: number;
+    @ApiPropertyOptional({ description: 'Request headers, returned to administrators only', type: Object })
+    public headers?: Record<string, string>;
+    @ApiPropertyOptional({ description: 'Transport', enum: McpServerTransport })
+    public transport?: McpServerTransport;
+    @ApiPropertyOptional({ description: 'MCP server description' })
+    public description?: string;
+
+    public user?: User;
+
+    @ApiProperty({ description: 'Creation date', type: Date })
+    @Type(() => Date)
+    public createdDate: Date;
+
+    @ApiPropertyOptional({ description: 'Last update date', type: Date })
+    @Type(() => Date)
+    public updatedDate?: Date;
 }
 
 export const MCP_SERVER_UID_MIN_LENGTH = 3;

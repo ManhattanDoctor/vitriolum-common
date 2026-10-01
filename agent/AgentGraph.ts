@@ -2,6 +2,7 @@ import { Type } from 'class-transformer';
 import { User } from '../user';
 import { Agent } from './Agent';
 import { FileMime } from '../file';
+import { AiToolType } from '../ai/AiTool';
 import { ApiProperty, ApiPropertyOptional } from '@ts-core/swagger';
 
 // Перечисления и вложенные классы объявлены раньше AgentGraph: декораторы Swagger читают их
@@ -31,8 +32,26 @@ export enum AgentGraphNodeType {
     /** Читает файл пользователя и кладёт его содержимое в состояние графа */
     FILE_READ = 'FILE_READ',
     /** Удаляет файл прогона: чужие файлы и каталоги узлу недоступны */
-    FILE_REMOVE = 'FILE_REMOVE'
+    FILE_REMOVE = 'FILE_REMOVE',
+    /** Заменяет персональные данные метками: модели после него видят «[PERSON_1]» вместо имени */
+    ANONYMIZE = 'ANONYMIZE',
+    /** Возвращает на место персональные данные, спрятанные узлом ANONYMIZE */
+    DEANONYMIZE = 'DEANONYMIZE'
 }
+
+/**
+ * Тулы, которые агенту можно дать между ANONYMIZE и DEANONYMIZE: они получают от модели только
+ * метки и сами данных пользователя не читают. Список разрешающий: новый тул в зону не попадёт,
+ * пока его не проверят, а тул чтения документа отдал бы модели текст мимо анонимизации
+ */
+export const AGENT_GRAPH_ANONYMIZED_TOOLS: Array<string> = [
+    AiToolType.YANDEX,
+    AiToolType.WIKIPEDIA,
+    AiToolType.WOLFRAM_ALPHA,
+    AiToolType.IMAGE_OPEN_AI,
+    AiToolType.IMAGE_RESIZE,
+    AiToolType.MEDIA_CONVERT
+];
 
 export class AgentGraphNodePosition {
     // --------------------------------------------------------------------------

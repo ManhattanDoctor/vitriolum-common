@@ -1,4 +1,4 @@
-import { AgentGraph, AgentGraphEdge, AgentGraphNode, AgentGraphNodeType, AGENT_GRAPH_NODE_END, AGENT_GRAPH_NODE_START } from './AgentGraph';
+import { AgentGraph, AgentGraphEdge, AgentGraphNode, AgentGraphNodeType, AGENT_GRAPH_NODE_END, AGENT_GRAPH_NODE_START, AGENT_GRAPH_ANONYMIZED_TOOLS } from './AgentGraph';
 import * as _ from 'lodash';
 
 export class AgentGraphUtil {
@@ -13,6 +13,12 @@ export class AgentGraphUtil {
 
     /** Та же подстановка, что разбирает AgentGraphSubstitution: проверка ищет ссылки на несуществующие узлы */
     private static SCRATCHPAD = /\{scratchpad\.([A-Za-z][A-Za-z0-9_]*)\}/;
+
+    /** Список файлов прогона: "{files}" и "{files.last}" */
+    private static FILES = /\{files(\.last)?\}/;
+
+    /** Узлы, которые приносят в зону анонимизации новый текст или выносят из неё метки */
+    private static ANONYMIZED_FORBIDDEN = [AgentGraphNodeType.HUMAN, AgentGraphNodeType.FILE, AgentGraphNodeType.FILE_READ, AgentGraphNodeType.ANONYMIZE];
 
     // --------------------------------------------------------------------------
     //
@@ -50,6 +56,44 @@ export class AgentGraphUtil {
 
     public static isFile(item: AgentGraphNode): boolean {
         return !_.isNil(item) && (item.type === AgentGraphNodeType.FILE || item.type === AgentGraphNodeType.FILE_READ || item.type === AgentGraphNodeType.FILE_REMOVE);
+    }
+
+    public static isAnonymize(item: AgentGraphNode): boolean {
+        return !_.isNil(item) && (item.type === AgentGraphNodeType.ANONYMIZE || item.type === AgentGraphNodeType.DEANONYMIZE);
+    }
+
+    /**
+     * Узлы, до которых прогон доходит от ANONYMIZE, не пройдя DEANONYMIZE: в них модель видит метки.
+     * Выход в конец графа отмечается отдельно — через него метки попали бы в результат прогона
+     */
+    public static getAnonymizedZone(item: AgentGraph): IAgentGraphAnonymizedZone {
+        let value: IAgentGraphAnonymizedZone = { uids: new Array(), exits: new Array() };
+        if (_.isNil(item) || _.isEmpty(item.nodes)) {
+            return value;
+        }
+        let queue = item.nodes.filter(node => node.type === AgentGraphNodeType.ANONYMIZE).map(node => node.uid);
+        let visited = new Set<string>(queue);
+        while (!_.isEmpty(queue)) {
+            let uid = queue.shift();
+            for (let edge of AgentGraphUtil.getEdges(item, uid)) {
+                if (edge.target === AGENT_GRAPH_NODE_END) {
+                    value.exits = _.uniq(value.exits.concat([uid]));
+                    continue;
+                }
+                let node = AgentGraphUtil.getNode(item, edge.target);
+                if (_.isNil(node) || node.type === AgentGraphNodeType.DEANONYMIZE) {
+                    continue;
+                }
+                if (!value.uids.includes(node.uid)) {
+                    value.uids.push(node.uid);
+                }
+                if (!visited.has(node.uid)) {
+                    visited.add(node.uid);
+                    queue.push(node.uid);
+                }
+            }
+        }
+        return value;
     }
 
     // --------------------------------------------------------------------------
@@ -109,7 +153,41 @@ export class AgentGraphUtil {
                 items.push({ code: AgentGraphProblem.NODE_UNREACHABLE, uid: node.uid });
             }
         }
+        AgentGraphUtil.validateAnonymizedZone(item, items);
         return items;
+    }
+
+    /**
+     * Зона анонимизации не обрабатывает данные, пришедшие в неё мимо ANONYMIZE, а запрещает их источники:
+     * чтение файла, ответ человека и тул чтения документа отдали бы модели исходный текст.
+     * Тулы агента проверяются, только когда агент загружен: при сохранении графа его ещё нет,
+     * а перед прогоном есть, и агент к этому времени мог получить новые тулы
+     */
+    private static validateAnonymizedZone(item: AgentGraph, items: Array<IAgentGraphProblem>): void {
+        let zone = AgentGraphUtil.getAnonymizedZone(item);
+        for (let uid of zone.exits) {
+            items.push({ code: AgentGraphProblem.ANONYMIZED_END, uid });
+        }
+        for (let uid of zone.uids) {
+            let node = AgentGraphUtil.getNode(item, uid);
+            if (AgentGraphUtil.ANONYMIZED_FORBIDDEN.includes(node.type)) {
+                items.push({ code: AgentGraphProblem.ANONYMIZED_NODE_FORBIDDEN, uid, value: node.type });
+            }
+            let options = node.options;
+            if (!_.isNil(options) && options.isOutput === true) {
+                items.push({ code: AgentGraphProblem.ANONYMIZED_OUTPUT, uid });
+            }
+            if (node.type !== AgentGraphNodeType.AGENT) {
+                continue;
+            }
+            if (!_.isNil(options) && !_.isEmpty(options.prompt) && AgentGraphUtil.FILES.test(options.prompt)) {
+                items.push({ code: AgentGraphProblem.ANONYMIZED_FILES, uid });
+            }
+            let tools = !_.isNil(node.agent) && !_.isEmpty(node.agent.tools) ? node.agent.tools : new Array<string>();
+            for (let tool of tools.filter(value => !AGENT_GRAPH_ANONYMIZED_TOOLS.includes(value))) {
+                items.push({ code: AgentGraphProblem.ANONYMIZED_TOOL_FORBIDDEN, uid, value: tool });
+            }
+        }
     }
 
     /** Беды, мешающие сохранению: незаполненные поля сюда не попадают, их доводят позже */
@@ -186,7 +264,19 @@ export enum AgentGraphProblem {
     EDGE_TARGET_UNKNOWN = 'EDGE_TARGET_UNKNOWN',
     START_MISSING = 'START_MISSING',
     END_MISSING = 'END_MISSING',
-    NODE_UNREACHABLE = 'NODE_UNREACHABLE'
+    NODE_UNREACHABLE = 'NODE_UNREACHABLE',
+    ANONYMIZED_END = 'ANONYMIZED_END',
+    ANONYMIZED_NODE_FORBIDDEN = 'ANONYMIZED_NODE_FORBIDDEN',
+    ANONYMIZED_OUTPUT = 'ANONYMIZED_OUTPUT',
+    ANONYMIZED_FILES = 'ANONYMIZED_FILES',
+    ANONYMIZED_TOOL_FORBIDDEN = 'ANONYMIZED_TOOL_FORBIDDEN'
+}
+
+export interface IAgentGraphAnonymizedZone {
+    /** Узлы, работающие с метками вместо персональных данных */
+    uids: Array<string>;
+    /** Узлы зоны, из которых есть ребро в конец графа */
+    exits: Array<string>;
 }
 
 export interface IAgentGraphProblem {

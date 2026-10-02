@@ -8,7 +8,7 @@ import { IAiModelGetDtoResponse, IAiModelGetDto } from './ai'
 import { IConversationAddDto, IConversationAddDtoResponse, IConversationEditDto, IConversationEditDtoResponse, IConversationGetDtoResponse, IConversationListDto, IConversationListDtoResponse, IConversationMessageAddDto, IConversationMessageAddDtoResponse, IConversationMessageListDto, IConversationMessageListDtoResponse } from './conversation';
 import { IPaymentListDto, IPaymentListDtoResponse, IPaymentTransactionListDto, IPaymentTransactionListDtoResponse } from './payment';
 import { CoinStatusGetDtoResponse, ICoinAccountsGetDtoResponse, ICoinBalanceEditDto, ICoinStatusGetDto } from './coin';
-import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileGetDtoResponse, IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto, IFileContentVectorSplitDtoResponse, IFileContentVectorGetDtoResponse, IFileEditDto, IFileEditDtoResponse, IFileLinkAddDto, IFileDirectoryAddDto } from './file';
+import { IFileBufferAddDto, IFileAddDtoResponse, IFileListDto, IFileListDtoResponse, IFileGetDtoResponse, IFileContentVectorSearchDtoResponse, IFileContentVectorSearchDto, IFileContentVectorSplitDtoResponse, IFileContentAnonymizeDto, IFileContentAnonymizeDtoResponse, IFileContentDeanonymizeDto, IFileContentDeanonymizeDtoResponse, IFileContentVectorGetDtoResponse, IFileEditDto, IFileEditDtoResponse, IFileLinkAddDto, IFileDirectoryAddDto } from './file';
 import { IFileContentVectorAddDto, IFileContentVectorSplitDto } from './file';
 import { Conversation, ConversationMessage } from '../conversation';
 import { Payment, PaymentTransaction } from '../payment';
@@ -403,6 +403,14 @@ export class Client extends TransportHttp {
         return this.call<void, number>(`${FILE_CONTENT_VECTOR_URL}/${id}`, { method: 'delete' }, { timeout: AI_MODEL_TIMEOUT });
     }
 
+    public async fileContentAnonymize(data: IFileContentAnonymizeDto): Promise<IFileContentAnonymizeDtoResponse> {
+        return this.call<IFileContentAnonymizeDtoResponse, IFileContentAnonymizeDto>(`${FILE_CONTENT_ANONYMIZE_URL}`, { method: 'post', data: TraceUtil.addIfNeed(data) }, { timeout: AI_MODEL_TIMEOUT });
+    }
+
+    public async fileContentDeanonymize(data: IFileContentDeanonymizeDto): Promise<IFileContentDeanonymizeDtoResponse> {
+        return this.call<IFileContentDeanonymizeDtoResponse, IFileContentDeanonymizeDto>(`${FILE_CONTENT_ANONYMIZE_URL}/deanonymize`, { method: 'post', data: TraceUtil.addIfNeed(data) }, { timeout: AI_MODEL_TIMEOUT });
+    }
+
     // --------------------------------------------------------------------------
     //
     //  Task Methods
@@ -530,6 +538,7 @@ export const FILE_LINK_URL = PREFIX + 'fileLink';
 export const FILE_BUFFER_URL = PREFIX + 'fileBuffer';
 export const FILE_DIRECTORY_URL = PREFIX + 'fileDirectory';
 export const FILE_CONTENT_VECTOR_URL = PREFIX + 'fileContentVector';
+export const FILE_CONTENT_ANONYMIZE_URL = PREFIX + 'fileContentAnonymize';
 
 export const OPEN_AI_FILE_URL = PREFIX + 'openAi/file';
 export const OPEN_AI_AGENT_URL = PREFIX + 'openAi/agent';

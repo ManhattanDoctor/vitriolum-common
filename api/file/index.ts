@@ -6,3 +6,4 @@ export * from './IFileContentVectorAddDto';
 export * from './IFileContentVectorGetDto';
 export * from './IFileContentVectorSplitDto';
 export * from './IFileContentVectorSearchDto';
+export * from './IFileContentAnonymizeDto';

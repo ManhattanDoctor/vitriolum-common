@@ -3,6 +3,7 @@ import { User } from '../user';
 import { Agent } from './Agent';
 import { FileMime } from '../file';
 import { AiToolType } from '../ai/AiTool';
+import { AnonymizePeople, AnonymizeType } from '../anonymize';
 import { ApiProperty, ApiPropertyOptional } from '@ts-core/swagger';
 
 // Перечисления и вложенные классы объявлены раньше AgentGraph: декораторы Swagger читают их
@@ -147,6 +148,27 @@ export class AgentGraphNodeOptions {
      */
     @ApiPropertyOptional({ description: 'FILE node: add a time mark to the name, true by default' })
     public isFileNameUnique?: boolean;
+
+    // --------------------------------------------------------------------------
+    //
+    //  Anonymize Node Properties
+    //
+    // --------------------------------------------------------------------------
+
+    @ApiPropertyOptional({ description: 'ANONYMIZE node: ALL hides every name, PRIVATE only private persons — with a patronymic or in fields of a document. ALL by default', enum: AnonymizePeople })
+    public anonymizePeople?: AnonymizePeople;
+    /** Не задано — как настроен сервис анонимизации */
+    @ApiPropertyOptional({ description: 'ANONYMIZE node: made-up people instead of labels for Russian names. Not set — as configured in the service' })
+    public anonymizeSurrogates?: boolean;
+    /** Не задано — все виды. Пустой список не прятал бы ничего и при сохранении отклоняется */
+    @ApiPropertyOptional({ description: 'ANONYMIZE node: kinds of data to hide. Not set — all of them', enum: AnonymizeType, isArray: true })
+    public anonymizeTypes?: Array<AnonymizeType>;
+    /** Что прятать всегда, даже если сервис этого не находит: фамилия, название проекта. В любом падеже */
+    @ApiPropertyOptional({ description: 'ANONYMIZE node: strings to hide always, as whole words in any case', type: [String] })
+    public anonymizeHide?: Array<string>;
+    /** Что не прятать никогда, например название банка-партнёра */
+    @ApiPropertyOptional({ description: 'ANONYMIZE node: strings never to hide, in any case', type: [String] })
+    public anonymizeKeep?: Array<string>;
 }
 
 export class AgentGraphEdge {

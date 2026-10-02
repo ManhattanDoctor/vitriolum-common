@@ -1,4 +1,5 @@
 import { AgentGraph, AgentGraphEdge, AgentGraphNode, AgentGraphNodeType, AGENT_GRAPH_NODE_END, AGENT_GRAPH_NODE_START, AGENT_GRAPH_ANONYMIZED_TOOLS } from './AgentGraph';
+import { AnonymizePeople, AnonymizeType } from '../anonymize';
 import * as _ from 'lodash';
 
 export class AgentGraphUtil {
@@ -195,6 +196,26 @@ export class AgentGraphUtil {
         return AgentGraphUtil.validate(item).filter(value => value.isRunOnly !== true);
     }
 
+    /**
+     * Опечатка в настройках прятала бы меньше, чем думает автор, и узнал бы он об этом только по утечке.
+     * Поэтому неизвестный вид данных и пустой список видов — ошибка сохранения, а не тихое «ничего не скрыто»
+     */
+    private static validateAnonymize(node: AgentGraphNode, items: Array<IAgentGraphProblem>): void {
+        let { uid, options } = node;
+        if (!_.isNil(options.anonymizePeople) && !Object.values(AnonymizePeople).includes(options.anonymizePeople)) {
+            items.push({ code: AgentGraphProblem.ANONYMIZE_PEOPLE_UNKNOWN, uid, value: options.anonymizePeople });
+        }
+        if (_.isNil(options.anonymizeTypes)) {
+            return;
+        }
+        if (_.isEmpty(options.anonymizeTypes)) {
+            items.push({ code: AgentGraphProblem.ANONYMIZE_TYPES_EMPTY, uid });
+        }
+        for (let value of options.anonymizeTypes.filter(item => !Object.values(AnonymizeType).includes(item))) {
+            items.push({ code: AgentGraphProblem.ANONYMIZE_TYPE_UNKNOWN, uid, value });
+        }
+    }
+
     private static validateNode(node: AgentGraphNode, uids: Array<string>, items: Array<IAgentGraphProblem>): void {
         let { uid, type, options } = node;
 
@@ -223,6 +244,9 @@ export class AgentGraphUtil {
         }
         if (type === AgentGraphNodeType.FILE && (_.isNil(options) || _.isEmpty(options.fileContent))) {
             items.push({ code: AgentGraphProblem.FILE_CONTENT_MISSING, uid, isRunOnly: true });
+        }
+        if (type === AgentGraphNodeType.ANONYMIZE && !_.isNil(options)) {
+            AgentGraphUtil.validateAnonymize(node, items);
         }
         // ссылка на узел, которого нет: опечатка в uid оставляет пустое место вместо ответа.
         // проверяются все поля с подстановками, а не только задание: файловый узел ссылается из содержимого
@@ -269,7 +293,10 @@ export enum AgentGraphProblem {
     ANONYMIZED_NODE_FORBIDDEN = 'ANONYMIZED_NODE_FORBIDDEN',
     ANONYMIZED_OUTPUT = 'ANONYMIZED_OUTPUT',
     ANONYMIZED_FILES = 'ANONYMIZED_FILES',
-    ANONYMIZED_TOOL_FORBIDDEN = 'ANONYMIZED_TOOL_FORBIDDEN'
+    ANONYMIZED_TOOL_FORBIDDEN = 'ANONYMIZED_TOOL_FORBIDDEN',
+    ANONYMIZE_PEOPLE_UNKNOWN = 'ANONYMIZE_PEOPLE_UNKNOWN',
+    ANONYMIZE_TYPES_EMPTY = 'ANONYMIZE_TYPES_EMPTY',
+    ANONYMIZE_TYPE_UNKNOWN = 'ANONYMIZE_TYPE_UNKNOWN'
 }
 
 export interface IAgentGraphAnonymizedZone {

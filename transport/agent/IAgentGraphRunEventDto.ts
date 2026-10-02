@@ -1,4 +1,5 @@
 import { AgentGraphRunStatus } from "../../agent";
+import { AnonymizeWarning } from "../../anonymize";
 
 export interface IAgentGraphRunEventDto {
     session: string;
@@ -9,6 +10,8 @@ export interface IAgentGraphRunProgressEventDto extends IAgentGraphRunEventDto {
     value: string;
     /** Файлы, созданные узлом: без них они появлялись бы только после перечитывания прогона */
     files?: Array<number>;
+    /** Предупреждения анонимизации: автор графа видит их сразу, а не после перечитывания прогона */
+    warnings?: Array<AnonymizeWarning>;
 }
 
 export interface IAgentGraphRunAwaitingEventDto extends IAgentGraphRunEventDto {

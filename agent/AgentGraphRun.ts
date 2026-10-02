@@ -2,6 +2,7 @@ import { Type } from 'class-transformer';
 import { User } from '../user';
 import { AgentGraph } from './AgentGraph';
 import { IAiTextConsumption } from '../ai/model';
+import { AnonymizeWarning } from '../anonymize';
 import { ApiProperty, ApiPropertyOptional } from '@ts-core/swagger';
 
 // Статус и шаг объявлены раньше AgentGraphRun: декораторы Swagger читают их при загрузке модуля
@@ -28,6 +29,8 @@ export class AgentGraphRunStep {
     /** Файлы, созданные этим узлом: иначе видна лишь общая куча прогона, без того, кто её сделал */
     @ApiPropertyOptional({ description: 'Files created by the node', type: [Number] })
     public files?: Array<number>;
+    @ApiPropertyOptional({ description: 'Warnings of the anonymize service about the step', type: [AnonymizeWarning] })
+    public warnings?: Array<AnonymizeWarning>;
 
     @ApiProperty({ description: 'Step date', type: Date })
     @Type(() => Date)

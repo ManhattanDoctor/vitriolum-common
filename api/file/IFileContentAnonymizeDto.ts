@@ -1,5 +1,5 @@
 import { ITraceable } from '@ts-core/common';
-import { AnonymizeWarning, IAnonymizeOptions, IAnonymizeVault } from '../../anonymize';
+import { AnonymizeMark, AnonymizeWarning, IAnonymizeOptions, IAnonymizeVault } from '../../anonymize';
 
 export interface IFileContentAnonymizeDto extends ITraceable {
     id: number;
@@ -14,6 +14,8 @@ export interface IFileContentAnonymizeDtoResponse extends ITraceable {
     content: string;
     vault: IAnonymizeVault;
     warnings: Array<AnonymizeWarning>;
+    /** Где в тексте стоят замены: показ их подсвечивает */
+    marks: Array<AnonymizeMark>;
     symbols: number;
 }
 

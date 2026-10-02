@@ -39,6 +39,27 @@ export interface IAnonymizeOptions {
     keep?: Array<string>;
 }
 
+/**
+ * Где в анонимном тексте стоит замена: по ним подсвечивается спрятанное. Вымышленный человек стоит
+ * в тексте в своём падеже, а ключ — его начальная форма в таблице меток
+ */
+export class AnonymizeMark {
+    // --------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    // --------------------------------------------------------------------------
+
+    @ApiProperty({ description: 'Start of the replacement in the anonymized text, in UTF-16 code units' })
+    public start: number;
+    @ApiProperty({ description: 'End of the replacement, not included' })
+    public end: number;
+    @ApiProperty({ description: 'Kind of the hidden data' })
+    public type: string;
+    @ApiProperty({ description: 'Key of the vault: a label or a made-up person in the nominative' })
+    public key: string;
+}
+
 /** Метка → исходное значение. Это сами персональные данные: в модель таблица не отправляется */
 export type IAnonymizeVault = Record<string, string>;
 

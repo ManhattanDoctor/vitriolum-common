@@ -37,7 +37,18 @@ export enum AgentGraphNodeType {
     /** Заменяет персональные данные метками: модели после него видят «[PERSON_1]» вместо имени */
     ANONYMIZE = 'ANONYMIZE',
     /** Возвращает на место персональные данные, спрятанные узлом ANONYMIZE */
-    DEANONYMIZE = 'DEANONYMIZE'
+    DEANONYMIZE = 'DEANONYMIZE',
+    /** Другой граф пользователя целиком: получает задание узла и отдаёт свой результат */
+    GRAPH = 'GRAPH'
+}
+
+/**
+ * Перед прогоном вложенный граф разворачивается в родительский: узел GRAPH становится входом,
+ * узлами вложенного графа и выходом. Роль развёрнутого узла хранится здесь и в графе пользователя не бывает
+ */
+export enum AgentGraphNodeGraphPart {
+    ENTER = 'ENTER',
+    EXIT = 'EXIT'
 }
 
 /**
@@ -204,6 +215,15 @@ export class AgentGraphNode {
     @ApiPropertyOptional({ description: 'Agent of the AGENT node' })
     public agent?: Agent;
 
+    @ApiPropertyOptional({ description: 'ID of the nested graph for the GRAPH node: a graph of the same user' })
+    public graphId?: number;
+    /** Вложенный граф, загруженный перед прогоном или проверкой */
+    public graph?: AgentGraph;
+    /** Роль узла в развёрнутом графе: вход или выход вложенного */
+    public graphPart?: AgentGraphNodeGraphPart;
+    /** Узлы вложенного графа, помеченные результатом: их ответ выход отдаёт родителю */
+    public graphOutputs?: Array<string>;
+
     @ApiPropertyOptional({ description: 'Node name' })
     public name?: string;
     @ApiPropertyOptional({ description: 'Node options' })
@@ -251,6 +271,10 @@ export const AGENT_GRAPH_DESCRIPTION_MAX_LENGTH = 1024;
 
 export const AGENT_GRAPH_NODES_MAX = 64;
 export const AGENT_GRAPH_ITERATIONS_MAX = 32;
+/** Сколько графов можно вложить друг в друга: глубже такой граф уже не прочесть ни автору, ни в шагах прогона */
+export const AGENT_GRAPH_DEPTH_MAX = 3;
+/** Разделитель идентификаторов в развёрнутом графе: «review__author» — узел author вложенного графа review */
+export const AGENT_GRAPH_NODE_SEPARATOR = '__';
 
 export const AGENT_GRAPH_NODE_START = '__start__';
 export const AGENT_GRAPH_NODE_END = '__end__';

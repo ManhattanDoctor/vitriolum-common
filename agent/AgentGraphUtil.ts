@@ -1,4 +1,4 @@
-import { AgentGraph, AgentGraphEdge, AgentGraphNode, AgentGraphNodeType, AGENT_GRAPH_NODE_END, AGENT_GRAPH_NODE_START, AGENT_GRAPH_ANONYMIZED_TOOLS } from './AgentGraph';
+import { AgentGraph, AgentGraphEdge, AgentGraphNode, AgentGraphNodeType, AgentGraphNodeGraphPart, AgentGraphNodeOptions, AGENT_GRAPH_NODE_END, AGENT_GRAPH_NODE_START, AGENT_GRAPH_NODE_SEPARATOR, AGENT_GRAPH_ANONYMIZED_TOOLS } from './AgentGraph';
 import { AnonymizePeople, AnonymizeType } from '../anonymize';
 import * as _ from 'lodash';
 
@@ -61,6 +61,103 @@ export class AgentGraphUtil {
 
     public static isAnonymize(item: AgentGraphNode): boolean {
         return !_.isNil(item) && (item.type === AgentGraphNodeType.ANONYMIZE || item.type === AgentGraphNodeType.DEANONYMIZE);
+    }
+
+    public static isGraph(item: AgentGraphNode): boolean {
+        return !_.isNil(item) && item.type === AgentGraphNodeType.GRAPH;
+    }
+
+    /** Вход вложенного графа в развёрнутом: «review____start__» — вход графа узла review */
+    public static getGraphEnterUid(uid: string): string {
+        return `${uid}${AGENT_GRAPH_NODE_SEPARATOR}${AGENT_GRAPH_NODE_START}`;
+    }
+
+    /**
+     * Узел родителя, к которому относится узел развёрнутого графа: беду внутри вложенного графа
+     * редактор подсвечивает на узле GRAPH, ведь других узлов вложенного графа на холсте нет
+     */
+    public static getGraphRootUid(item: AgentGraph, uid: string): string {
+        let index = !_.isEmpty(uid) ? uid.indexOf(AGENT_GRAPH_NODE_SEPARATOR) : -1;
+        if (index <= 0) {
+            return uid;
+        }
+        let root = uid.substring(0, index);
+        return AgentGraphUtil.isGraph(AgentGraphUtil.getNode(item, root)) ? root : uid;
+    }
+
+    /**
+     * Вложенные графы встраиваются в родительский: узел GRAPH становится входом, узлами вложенного
+     * графа с приставкой «uid__» и выходом под своим uid. Так пауза человека, зона анонимизации,
+     * потолки и файлы работают внутри вложенного графа так же, как в родительском, без особых случаев.
+     * Ссылки «{scratchpad.x}» вложенного графа переписываются на его узлы, а пометка результата
+     * переходит к выходу: результат прогона выбирает родитель, вложенный граф отдаёт свой ему.
+     * Незагруженный вложенный граф остаётся узлом GRAPH: прогнать его компилятор откажется
+     */
+    public static expand(item: AgentGraph): AgentGraph {
+        if (_.isNil(item) || _.isEmpty(item.nodes) || !item.nodes.some(node => AgentGraphUtil.isGraph(node) && !_.isNil(node.graph) && _.isNil(node.graphPart))) {
+            return item;
+        }
+        let nodes = new Array<AgentGraphNode>();
+        let edges = !_.isEmpty(item.edges) ? item.edges.map(edge => ({ ...edge })) : new Array<AgentGraphEdge>();
+        for (let node of item.nodes) {
+            if (!AgentGraphUtil.isGraph(node) || _.isNil(node.graph) || !_.isNil(node.graphPart)) {
+                nodes.push(node);
+                continue;
+            }
+            let child = AgentGraphUtil.expand(node.graph);
+            let prefix = `${node.uid}${AGENT_GRAPH_NODE_SEPARATOR}`;
+            let enter = AgentGraphUtil.getGraphEnterUid(node.uid);
+            let uids = child.nodes.map(value => value.uid);
+            let rename = (uid: string): string => uid === AGENT_GRAPH_NODE_START ? enter : uid === AGENT_GRAPH_NODE_END ? node.uid : prefix + uid;
+
+            let options = !_.isNil(node.options) ? node.options : {};
+            nodes.push({ uid: enter, type: AgentGraphNodeType.GRAPH, name: node.name, graphPart: AgentGraphNodeGraphPart.ENTER, options: _.omitBy({ prompt: options.prompt, maxIterations: options.maxIterations }, _.isNil) });
+            for (let value of child.nodes) {
+                let copy = { ...value, uid: prefix + value.uid, options: AgentGraphUtil.renameOptions(value.options, uids, prefix) };
+                if (!_.isNil(copy.graphOutputs)) {
+                    copy.graphOutputs = copy.graphOutputs.map(uid => prefix + uid);
+                }
+                nodes.push(copy);
+            }
+            let outputs = child.nodes.filter(value => value.options?.isOutput === true).map(value => prefix + value.uid);
+            nodes.push({ uid: node.uid, type: AgentGraphNodeType.GRAPH, name: node.name, graphPart: AgentGraphNodeGraphPart.EXIT, graphOutputs: outputs, options: options.isOutput === true ? { isOutput: true } : undefined });
+
+            for (let edge of edges) {
+                if (edge.target === node.uid) {
+                    edge.target = enter;
+                }
+            }
+            edges.push(...child.edges.map(edge => ({ ...edge, source: rename(edge.source), target: rename(edge.target) })));
+        }
+        // результат прогона выбирает родитель: пометки узлов вложенного графа живут только в его выходе
+        for (let node of nodes) {
+            if (node.uid.includes(AGENT_GRAPH_NODE_SEPARATOR) && node.graphPart !== AgentGraphNodeGraphPart.EXIT && node.options?.isOutput === true) {
+                node.options = _.omit(node.options, 'isOutput');
+            }
+        }
+        return { ...item, nodes, edges };
+    }
+
+    private static renameOptions(item: AgentGraphNodeOptions, uids: Array<string>, prefix: string): AgentGraphNodeOptions {
+        if (_.isNil(item)) {
+            return item;
+        }
+        let rename = (value: string): string => {
+            if (_.isEmpty(value)) {
+                return value;
+            }
+            return value.replace(new RegExp(AgentGraphUtil.SCRATCHPAD.source, 'g'), (match, uid) => uids.includes(uid) ? `{scratchpad.${prefix}${uid}}` : match);
+        };
+        let value = { ...item };
+        for (let key of ['prompt', 'fileContent', 'fileName', 'fileDirectory', 'fileReadId', 'fileReadName', 'fileRemoveId']) {
+            if (_.isString(value[key])) {
+                value[key] = rename(value[key]);
+            }
+        }
+        if (!_.isEmpty(value.fileTags)) {
+            value.fileTags = value.fileTags.map(rename);
+        }
+        return value;
     }
 
     /**
@@ -159,12 +256,24 @@ export class AgentGraphUtil {
     }
 
     /**
+     * Зона анонимизации проверяется по развёрнутому графу: вложенный граф внутри зоны со своим
+     * чтением файла или человеком отдал бы модели исходный текст. Беда внутри вложенного графа
+     * приписывается узлу GRAPH, который автор видит на холсте
+     */
+    private static validateAnonymizedZone(item: AgentGraph, items: Array<IAgentGraphProblem>): void {
+        let values = new Array<IAgentGraphProblem>();
+        AgentGraphUtil.validateAnonymizedZoneExpanded(AgentGraphUtil.expand(item), values);
+        values = values.map(value => ({ ...value, uid: AgentGraphUtil.getGraphRootUid(item, value.uid) }));
+        items.push(..._.uniqBy(values, value => `${value.code}:${value.uid}:${value.value}`));
+    }
+
+    /**
      * Зона анонимизации не обрабатывает данные, пришедшие в неё мимо ANONYMIZE, а запрещает их источники:
      * чтение файла, ответ человека и тул чтения документа отдали бы модели исходный текст.
      * Тулы агента проверяются, только когда агент загружен: при сохранении графа его ещё нет,
      * а перед прогоном есть, и агент к этому времени мог получить новые тулы
      */
-    private static validateAnonymizedZone(item: AgentGraph, items: Array<IAgentGraphProblem>): void {
+    private static validateAnonymizedZoneExpanded(item: AgentGraph, items: Array<IAgentGraphProblem>): void {
         let zone = AgentGraphUtil.getAnonymizedZone(item);
         for (let uid of zone.exits) {
             items.push({ code: AgentGraphProblem.ANONYMIZED_END, uid });
@@ -178,11 +287,15 @@ export class AgentGraphUtil {
             if (!_.isNil(options) && options.isOutput === true) {
                 items.push({ code: AgentGraphProblem.ANONYMIZED_OUTPUT, uid });
             }
-            if (node.type !== AgentGraphNodeType.AGENT) {
+            // задание узла GRAPH уходит агентам вложенного графа, как задание агента — модели
+            if (node.type !== AgentGraphNodeType.AGENT && node.type !== AgentGraphNodeType.GRAPH) {
                 continue;
             }
             if (!_.isNil(options) && !_.isEmpty(options.prompt) && AgentGraphUtil.FILES.test(options.prompt)) {
                 items.push({ code: AgentGraphProblem.ANONYMIZED_FILES, uid });
+            }
+            if (node.type !== AgentGraphNodeType.AGENT) {
+                continue;
             }
             let tools = !_.isNil(node.agent) && !_.isEmpty(node.agent.tools) ? node.agent.tools : new Array<string>();
             for (let tool of tools.filter(value => !AGENT_GRAPH_ANONYMIZED_TOOLS.includes(value))) {
@@ -238,6 +351,9 @@ export class AgentGraphUtil {
         // и новый начинается с пустого узла, которому агента ещё не выбрали
         if (type === AgentGraphNodeType.AGENT && _.isNil(node.agentId)) {
             items.push({ code: AgentGraphProblem.AGENT_MISSING, uid, isRunOnly: true });
+        }
+        if (type === AgentGraphNodeType.GRAPH && _.isNil(node.graphId)) {
+            items.push({ code: AgentGraphProblem.GRAPH_MISSING, uid, isRunOnly: true });
         }
         if (type === AgentGraphNodeType.FILE && (_.isNil(options) || _.isEmpty(options.fileMime))) {
             items.push({ code: AgentGraphProblem.FILE_MIME_MISSING, uid, isRunOnly: true });
@@ -296,7 +412,11 @@ export enum AgentGraphProblem {
     ANONYMIZED_TOOL_FORBIDDEN = 'ANONYMIZED_TOOL_FORBIDDEN',
     ANONYMIZE_PEOPLE_UNKNOWN = 'ANONYMIZE_PEOPLE_UNKNOWN',
     ANONYMIZE_TYPES_EMPTY = 'ANONYMIZE_TYPES_EMPTY',
-    ANONYMIZE_TYPE_UNKNOWN = 'ANONYMIZE_TYPE_UNKNOWN'
+    ANONYMIZE_TYPE_UNKNOWN = 'ANONYMIZE_TYPE_UNKNOWN',
+    GRAPH_MISSING = 'GRAPH_MISSING',
+    GRAPH_UNKNOWN = 'GRAPH_UNKNOWN',
+    GRAPH_CYCLE = 'GRAPH_CYCLE',
+    GRAPH_DEPTH_EXCEED = 'GRAPH_DEPTH_EXCEED'
 }
 
 export interface IAgentGraphAnonymizedZone {

@@ -177,6 +177,22 @@ export class FileUtil {
         }
     }
 
+    /**
+     * Анонимизируется только документ с текстом. Картинку векторизация распознаёт моделью, но это платно,
+     * а скан без текстового слоя анонимизации всё равно нечего показать
+     */
+    public static isCanContentAnonymize(item: string): boolean {
+        switch (item) {
+            case FileDocumentMime.PDF:
+            case FileDocumentMime.TXT:
+            case FileDocumentMime.MD:
+            case FileDocumentMime.DOCX:
+                return true;
+            default:
+                return false;
+        }
+    }
+
     public static getVectorId(item: File, chunk?: number): string {
         let prefix = `user${item.userId}#file${item.id}`;
         return !_.isNil(chunk) ? `${prefix}#chunk${chunk}` : prefix;

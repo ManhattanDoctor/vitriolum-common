@@ -156,9 +156,8 @@ export class PermissionUtil {
         return FileUtil.isContentVectorized(item) && PermissionUtil.fileIsCanOpen(item, user);
     }
 
-    /** Тексты, которые умеет читать векторизация: из них же берётся текст для анонимизации */
     public static fileIsCanContentAnonymize(item: File, user: User): boolean {
-        return PermissionUtil.fileIsCanOpen(item, user) && FileUtil.isCanContentVectorize(item.mime);
+        return PermissionUtil.fileIsCanOpen(item, user) && FileUtil.isCanContentAnonymize(item.mime);
     }
 
     public static fileIsCanConvertSoundExtract(item: File, user: User): boolean {

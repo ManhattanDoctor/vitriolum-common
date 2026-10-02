@@ -148,6 +148,11 @@ export class PermissionUtil {
         return _.isNil(item.vectorId) && PermissionUtil.fileIsCanOpen(item, user) && FileUtil.isCanContentVectorize(item.mime);
     }
 
+    /** Просмотр нарезки показывает текст файла, поэтому только тому, кто может файл открыть */
+    public static fileIsCanContentVectorSplit(item: File, user: User): boolean {
+        return PermissionUtil.fileIsCanOpen(item, user) && FileUtil.isTextDocument(item.mime);
+    }
+
     public static fileIsCanContentVectorGet(item: File, user: User): boolean {
         return FileUtil.isContentVectorized(item) && PermissionUtil.fileIsCanOpen(item, user);
     }

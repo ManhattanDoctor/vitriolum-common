@@ -178,10 +178,10 @@ export class FileUtil {
     }
 
     /**
-     * Анонимизируется только документ с текстом. Картинку векторизация распознаёт моделью, но это платно,
-     * а скан без текстового слоя анонимизации всё равно нечего показать
+     * Документ, текст которого читается даром. Картинку и скан без текстового слоя читает модель, и это платно:
+     * просмотр нарезки и анонимизация её не зовут, поэтому картинки им не годятся
      */
-    public static isCanContentAnonymize(item: string): boolean {
+    public static isTextDocument(item: string): boolean {
         switch (item) {
             case FileDocumentMime.PDF:
             case FileDocumentMime.TXT:
@@ -191,6 +191,10 @@ export class FileUtil {
             default:
                 return false;
         }
+    }
+
+    public static isCanContentAnonymize(item: string): boolean {
+        return FileUtil.isTextDocument(item);
     }
 
     public static getVectorId(item: File, chunk?: number): string {

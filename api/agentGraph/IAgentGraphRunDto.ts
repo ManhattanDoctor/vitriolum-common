@@ -6,6 +6,11 @@ export interface IAgentGraphRunDto extends ITraceable {
     session?: string;
     /** Файлы, с которыми начинается прогон: макет, бриф, образец — их увидят узлы с самого начала */
     fileIds?: Array<number>;
+    /**
+     * Сколько прогон может потратить, в рублях. Необязателен: прогон и так не выйдет за общий потолок
+     * и за баланс на момент запуска, а это поле только опускает предел ниже них
+     */
+    maxCost?: string;
 }
 
 export type IAgentGraphRunDtoResponse = AgentGraphRun;

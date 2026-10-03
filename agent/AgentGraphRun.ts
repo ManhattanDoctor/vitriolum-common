@@ -66,6 +66,8 @@ export class AgentGraphRun {
     /** Файлы, приложенные человеком при запуске: остальные создали узлы прогона */
     @ApiPropertyOptional({ description: 'Files attached at start', type: [Number] })
     public inputFiles?: Array<number>;
+    /** Предел расхода, заданный при запуске, в рублях */
+    public maxCost?: string;
     @ApiPropertyOptional({ description: 'Steps of the run', type: [AgentGraphRunStep] })
     public steps?: Array<AgentGraphRunStep>;
     @ApiPropertyOptional({ description: 'Tokens and cost spent by the run', type: Object })

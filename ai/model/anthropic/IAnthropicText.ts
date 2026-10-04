@@ -16,6 +16,9 @@ export interface IAnthropicTextOptions extends IAiTextOptions {
 }
 
 export enum AnthropicTextModel {
+    CLAUDE_55_SONNET = 'claude-sonnet-5-5',
+    CLAUDE_55_OPUS = 'claude-opus-5-5',
+
     CLAUDE_5_SONNET = 'claude-sonnet-5',
     CLAUDE_5_OPUS = 'claude-opus-5',
 
@@ -39,6 +42,8 @@ export enum AnthropicTextModel {
 
 /** Models offered for a new selection, the first one is used as the default */
 export const ANTHROPIC_TEXT_MODELS_ACTUAL: Array<AnthropicTextModel> = [
+    AnthropicTextModel.CLAUDE_55_SONNET,
+    AnthropicTextModel.CLAUDE_55_OPUS,
     AnthropicTextModel.CLAUDE_5_SONNET,
     AnthropicTextModel.CLAUDE_5_OPUS,
     AnthropicTextModel.CLAUDE_51_FABLE,
@@ -75,6 +80,8 @@ export const ANTHROPIC_TEXT_OPTIONS_TOP_K_MAX = 1;
 export function getMaxTokens(model: AnthropicTextModel): number {
     switch (model) {
         // Claude 5 family and Claude 4.6+ support a 1M context window
+        case AnthropicTextModel.CLAUDE_55_SONNET:
+        case AnthropicTextModel.CLAUDE_55_OPUS:
         case AnthropicTextModel.CLAUDE_51_FABLE:
         case AnthropicTextModel.CLAUDE_5_FABLE:
         case AnthropicTextModel.CLAUDE_5_OPUS:
@@ -100,6 +107,8 @@ export function getMaxTokens(model: AnthropicTextModel): number {
  */
 export function isSupportSampling(model: AnthropicTextModel): boolean {
     switch (model) {
+        case AnthropicTextModel.CLAUDE_55_SONNET:
+        case AnthropicTextModel.CLAUDE_55_OPUS:
         case AnthropicTextModel.CLAUDE_51_FABLE:
         case AnthropicTextModel.CLAUDE_5_FABLE:
         case AnthropicTextModel.CLAUDE_5_OPUS:
@@ -119,6 +128,8 @@ export function isSupportSampling(model: AnthropicTextModel): boolean {
  */
 export function isSupportAdaptiveThinking(model: AnthropicTextModel): boolean {
     switch (model) {
+        case AnthropicTextModel.CLAUDE_55_SONNET:
+        case AnthropicTextModel.CLAUDE_55_OPUS:
         case AnthropicTextModel.CLAUDE_51_FABLE:
         case AnthropicTextModel.CLAUDE_5_FABLE:
         case AnthropicTextModel.CLAUDE_5_OPUS:

@@ -63,8 +63,20 @@ export class PaymentTransaction implements ICoinAmount {
     activatedDate?: Date;
 }
 
+export enum PaymentTransactionSourceType {
+    FILE = 'FILE',
+    CONVERSATION = 'CONVERSATION',
+    AGENT_GRAPH_RUN = 'AGENT_GRAPH_RUN'
+}
+
+export interface IPaymentTransactionSource {
+    type: PaymentTransactionSourceType;
+    id: number | string;
+}
+
 export interface IPaymentTransactionDetails {
     model: AiModel;
     options: AiModelOptions;
     consumption: AiModelConsumption;
+    source?: IPaymentTransactionSource;
 }

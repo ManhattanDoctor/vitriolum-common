@@ -31,6 +31,10 @@ export class AgentGraphRunStep {
     public files?: Array<number>;
     @ApiPropertyOptional({ description: 'Warnings of the anonymize service about the step', type: [AnonymizeWarning] })
     public warnings?: Array<AnonymizeWarning>;
+    @ApiPropertyOptional({ description: 'Tokens and tools spent by the node', type: Object })
+    public consumption?: IAiTextConsumption;
+    @ApiPropertyOptional({ description: 'Cost of the step in rubles' })
+    public cost?: string;
 
     @ApiProperty({ description: 'Step date', type: Date })
     @Type(() => Date)

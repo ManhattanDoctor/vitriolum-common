@@ -2,6 +2,7 @@ import { Type } from 'class-transformer';
 import { User } from '../user';
 import { AgentGraph } from './AgentGraph';
 import { IAiTextConsumption } from '../ai/model';
+import { AiTextModel, AiModelTextOptions } from '../ai';
 import { AnonymizeWarning } from '../anonymize';
 import { ApiProperty, ApiPropertyOptional } from '@ts-core/swagger';
 
@@ -31,6 +32,10 @@ export class AgentGraphRunStep {
     public files?: Array<number>;
     @ApiPropertyOptional({ description: 'Warnings of the anonymize service about the step', type: [AnonymizeWarning] })
     public warnings?: Array<AnonymizeWarning>;
+    @ApiPropertyOptional({ description: 'Model of the agent that made the step', enum: AiTextModel })
+    public model?: AiTextModel;
+    @ApiPropertyOptional({ description: 'Options of the model', type: Object })
+    public options?: AiModelTextOptions;
     @ApiPropertyOptional({ description: 'Tokens and tools spent by the node', type: Object })
     public consumption?: IAiTextConsumption;
     @ApiPropertyOptional({ description: 'Cost of the step in rubles' })

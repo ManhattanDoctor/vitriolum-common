@@ -86,6 +86,33 @@ export class AgentGraphUtil {
     }
 
     /**
+     * Имя шага прогона, как на холсте. Шаг вложенного графа приходит с uid развёрнутого графа: «review__author»,
+     * «review____start__». Название берётся у узла GRAPH родителя, дальше путь внутри, а вход подписывается «enter»
+     */
+    public static getStepName(item: AgentGraph, uid: string, enter: string): string {
+        let node = AgentGraphUtil.getNode(item, uid);
+        if (!_.isNil(node)) {
+            return !_.isEmpty(node.name) ? node.name : uid;
+        }
+        let root = AgentGraphUtil.getGraphRootUid(item, uid);
+        if (root === uid) {
+            return uid;
+        }
+        // вход кончается на «____start__»: при разбиении по «__» он рассыпался бы в «start»
+        let path = uid.substring(root.length + AGENT_GRAPH_NODE_SEPARATOR.length);
+        let suffix = `${AGENT_GRAPH_NODE_SEPARATOR}${AGENT_GRAPH_NODE_START}`;
+        let isEnter = path === AGENT_GRAPH_NODE_START || path.endsWith(suffix);
+        if (isEnter && path !== AGENT_GRAPH_NODE_START) {
+            path = path.substring(0, path.length - suffix.length);
+        }
+        let items = path === AGENT_GRAPH_NODE_START ? [] : path.split(AGENT_GRAPH_NODE_SEPARATOR).filter(value => !_.isEmpty(value));
+        if (isEnter) {
+            items.push(enter);
+        }
+        return [AgentGraphUtil.getStepName(item, root, enter)].concat(items).join(' › ');
+    }
+
+    /**
      * Вложенные графы встраиваются в родительский: узел GRAPH становится входом, узлами вложенного
      * графа с приставкой «uid__» и выходом под своим uid. Так пауза человека, зона анонимизации,
      * потолки и файлы работают внутри вложенного графа так же, как в родительском, без особых случаев.
